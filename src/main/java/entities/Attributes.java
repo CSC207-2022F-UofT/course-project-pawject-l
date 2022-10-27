@@ -4,8 +4,8 @@ import java.time.DayOfWeek;
 import java.util.List;
 
 public class Attributes {
-    private String breed;
-    private int age;
+    private List<String> breed; // allow for multiple preferred breeds
+    private List<Integer> age; // allow for a range of preferred ages
     private String gender;
     private int preferredProximity; // distance in KM
     private boolean vaccineStatus;
@@ -14,10 +14,10 @@ public class Attributes {
 
     private List<DayOfWeek> availableDay; // list of the available days of the week
 
-    public Attributes(String breed, int age, String gender, int preferredProximity,
+    public Attributes(String breed, Integer age, String gender, int preferredProximity,
                       boolean vaccineStatus, int longitude, int latitude, DayOfWeek day){
-        this.breed = breed;
-        this.age = age;
+        this.breed.add(breed);
+        this.age.add(age);
         this.gender = gender;
         this.vaccineStatus = vaccineStatus;
         this.longitude = longitude;
@@ -26,11 +26,11 @@ public class Attributes {
         this.availableDay.add(day);
     }
 
-    public void setBreed(String breed) {
+    public void setBreed(List<String> breed) {
         this.breed = breed;
     }
 
-    public void setAge(int age) {
+    public void setAge(List<Integer> age) {
         this.age = age;
     }
 
@@ -57,11 +57,11 @@ public class Attributes {
         this.availableDay = availableDay;
     }
 
-    public String getBreed() {
+    public List<String> getBreed() {
         return breed;
     }
 
-    public int getAge() {
+    public List<Integer> getAge() {
         return age;
     }
 
@@ -77,11 +77,11 @@ public class Attributes {
         return preferredProximity;
     }
 
-    public double getLongitude() {
+    public int getLongitude() {
         return longitude;
     }
 
-    public double getLatitude() {
+    public int getLatitude() {
         return latitude;
     }
 

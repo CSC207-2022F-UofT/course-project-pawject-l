@@ -1,4 +1,4 @@
-package userCase;
+package useCase;
 
 public class ProfileRequestModel {
 }
