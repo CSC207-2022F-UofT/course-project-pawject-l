@@ -5,15 +5,25 @@ import java.util.Objects;
 
 public class Report {
 
-    private void punish(User a){return;}
+    private String type;
+    private User user;
+    public Report(User a, String b){
+        this.type = b;
+        this.user = a;
+    }
 
-    public void check_counts(User a, String b) {
+    private void punish(){return;}
+
+    private void check_counts() {
+        if (user.getReport_count(type) == 3){
+            punish();
+        };
         return;
         }
-    private void add_count (User a, String b){
-            if (Objects.equals(b, "Type_A")) {
-                a.setReport_count(b);
-                check_counts(a, b);
+    public void report (){
+            if (Objects.equals(type, "Type_A")) {
+                user.setReport_count(type);
+                check_counts();
             }
             return;
     }

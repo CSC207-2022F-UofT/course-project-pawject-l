@@ -32,8 +32,8 @@ public class User {
         return name;
     }
 
-    public HashMap getReport_count() {
-        return report_count;
+    public int getReport_count(String key) {
+        return report_count.get(key);
     }
 
     public List<Pet> getPets() {
