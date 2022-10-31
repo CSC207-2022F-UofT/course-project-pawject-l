@@ -9,15 +9,15 @@ public class Attributes {
     private List<String> breed; // allow for multiple preferred breeds
     private List<Integer> age; // allow for a range of preferred ages
     private String gender;
-    private int preferredProximity; // distance in KM
+    private float preferredProximity; // distance in KM
     private boolean vaccineStatus;
-    private int longitude;
-    private int latitude;
+    private float  longitude;
+    private float latitude;
 
     private List<DayOfWeek> availableDay; // list of the available days of the week
 
-    public Attributes(List<String> breed, List<Integer> age, String gender, int preferredProximity,
-                      boolean vaccineStatus, int longitude, int latitude, List<DayOfWeek> availableDay){
+    public Attributes(List<String> breed, List<Integer> age, String gender, float preferredProximity,
+                      boolean vaccineStatus, float longitude, float latitude, List<DayOfWeek> availableDay){
         this.breed = breed;
         this.age = age;
         this.gender = gender;
@@ -44,14 +44,14 @@ public class Attributes {
         this.vaccineStatus = vaccine_status;
     }
 
-    public void setLatitude(int latitude) {
+    public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
-    public void setPreferredProximity(int preferredProximity) {
+    public void setPreferredProximity(float preferredProximity) {
         this.preferredProximity = preferredProximity;
     }
 
@@ -75,15 +75,15 @@ public class Attributes {
         return vaccineStatus;
     }
 
-    public int getPreferred_proximity() {
+    public float getPreferred_proximity() {
         return preferredProximity;
     }
 
-    public int getLongitude() {
+    public float getLongitude() {
         return longitude;
     }
 
-    public int getLatitude() {
+    public float getLatitude() {
         return latitude;
     }
 
