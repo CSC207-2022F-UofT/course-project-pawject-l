@@ -14,16 +14,16 @@ public class Attributes {
 
     private List<DayOfWeek> availableDay; // list of the available days of the week
 
-    public Attributes(String breed, Integer age, String gender, int preferredProximity,
-                      boolean vaccineStatus, int longitude, int latitude, DayOfWeek day){
-        this.breed.add(breed);
-        this.age.add(age);
+    public Attributes(List<String> breed, List<Integer> age, String gender, int preferredProximity,
+                      boolean vaccineStatus, int longitude, int latitude, List<DayOfWeek> availableDay){
+        this.breed = breed;
+        this.age = age;
         this.gender = gender;
         this.vaccineStatus = vaccineStatus;
         this.longitude = longitude;
         this.latitude = latitude;
         this.preferredProximity = preferredProximity;
-        this.availableDay.add(day);
+        this.availableDay = availableDay;
     }
 
     public void setBreed(List<String> breed) {
