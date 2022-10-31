@@ -1,6 +1,5 @@
 package entities;
-
-
+import java.util.HashMap;
 import java.util.List;
 public class User {
 
@@ -8,14 +7,17 @@ public class User {
     private  int password;
     private String name;
     private List<Pet> pets;
-    private int report_count;
+    private HashMap<String, Integer> report_count;
 
     public User(int user_id, int password, String name, Pet pet) {
         this.user_id = user_id;
         this.password = password;
         this.name = name;
         this.pets.add(pet);
-        this.report_count = 0;
+        this.report_count = new HashMap<String, Integer>();
+        this.report_count.put("Type_A", 0);
+        this.report_count.put("Type_B", 0);
+        this.report_count.put("Type_C", 0);
     }
 
     public int getUser_id() {
@@ -30,7 +32,7 @@ public class User {
         return name;
     }
 
-    public int getReport_count() {
+    public HashMap getReport_count() {
         return report_count;
     }
 
@@ -54,8 +56,8 @@ public class User {
         this.pets = pets;
     }
 
-    public void setReport_count(int report_count) {
-        this.report_count = report_count;
+    public void setReport_count(String key) {
+        this.report_count.put(key, report_count.get(key)+1);
     }
 }
 
