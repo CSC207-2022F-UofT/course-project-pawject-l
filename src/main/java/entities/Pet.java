@@ -8,15 +8,15 @@ public class Pet {
     private String name;
     private int pet_id;
     private String description;
-    private List<Attributes> attributes;
-    private List<Attributes> preferred_attributes;
+    private Attributes attributes;
+    private Attributes preferred_attributes;
     private Image image;
     private List<Pet> dislikes;
     private List<Pet> likes;
     private List<Pet> matches;
     private List<Chat> chats;
 
-    public Pet(String name, int pet_id, String description, List<Attributes> attributes, List<Attributes> preferred_attributes,
+    public Pet(String name, int pet_id, String description, Attributes attributes, Attributes preferred_attributes,
                Image image) {
         this.name = name;
         this.pet_id = pet_id;
@@ -50,19 +50,19 @@ public class Pet {
         this.description = description;
     }
 
-    public List<Attributes> getAttributes() {
+    public Attributes getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(List<Attributes> attributes) {
+    public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
     }
 
-    public List<Attributes> getPreferred_attributes() {
+    public Attributes getPreferred_attributes() {
         return preferred_attributes;
     }
 
-    public void setPreferred_attributes(List<Attributes> preferred_attributes) {
+    public void setPreferred_attributes(Attributes preferred_attributes) {
         this.preferred_attributes = preferred_attributes;
     }
 
