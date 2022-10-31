@@ -1,4 +1,4 @@
-package useCase;
+package userCase;
 
 public class random2 {
 }
