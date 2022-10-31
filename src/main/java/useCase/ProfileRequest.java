@@ -1,6 +1,4 @@
 package useCase;
-import entities.Pet;
-import entities.Attributes;
 import repo.ProfileRequestModel;
 
 import java.util.ArrayList;
