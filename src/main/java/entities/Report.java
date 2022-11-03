@@ -14,25 +14,25 @@ public class Report {
     private Pet pet;
     private Chat chat;
 
-    static int default_pet_id = -1;
-    static int default_chat_id = -1;
+    static int DefaultPetID = -1;
+    static int DefaultChatID = -1;
 
-    public Report(User a, String b, int pet_id, int chat_id){
+    public Report(User a, String b, int petID, int chatID){
         this.type = b;
         this.user = a;
-        this.pet = user.getPet(pet_id);
-        /*this.chat = pet.getChats().get(chat_id);*/
+        this.pet = user.getPet(petID);
+        /*this.chat = pet.getChats().get(chatID);*/
     }
-    public Report(User a, String b, int pet_id){
+    public Report(User a, String b, int petID){
         this.type = b;
         this.user = a;
-        this.pet = user.getPet(pet_id);
-        /*this.chat = pet.getChats().get(default_chat_id);*/
+        this.pet = user.getPet(petID);
+        /*this.chat = pet.getChats().get(DefaultChatIDd);*/
     }
     public Report(User a, String b){
         this.type = b;
         this.user = a;
-        this.pet = user.getPet(default_pet_id);
+        this.pet = user.getPet(DefaultPetID);
     }
     public Report(Pet c, String b){
         this.type = b;
@@ -41,28 +41,26 @@ public class Report {
 
     private void punish(){
         /** Need to work with UI to fully implement this method*/
-        if (Objects.equals(type, "Type_A")) {
+        if (Objects.equals(type, "TypeA")) {
             user.setPassword("NoNoNo");}
-        else if (Objects.equals(type, "Type_B")) {
+        else if (Objects.equals(type, "TypeB")) {
             pet.setName("NoNoNo");
            /* pet.setImage(Image);*/}
-        else if (Objects.equals(type, "Type_C")){
-            /*chat.set_flag(false)*/
+        else if (Objects.equals(type, "TypeC")){
+            /*chat.setFlag(false)*/
         }
         return;
     }
 
-    private void check_counts() {
-        if (user.getReport_count(type) == 3){
+    private void checkCounts() {
+        if (user.getReportCount(type) == 3){
             punish();
         };
         return;
         }
     public void report(){
-            if (Objects.equals(type, "Type_A")) {
-                user.setReport_count(type);
-                check_counts();
-            }
-            return;
+        user.setReportCount(type);
+        checkCounts();
+        return;
     }
 };
