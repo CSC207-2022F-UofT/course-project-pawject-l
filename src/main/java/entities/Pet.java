@@ -6,22 +6,22 @@ import java.util.List;
 public class Pet {
 
     private String name;
-    private String pet_id;
+    private String petId;
     private String description;
     private Attributes attributes;
-    private Attributes preferred_attributes;
+    private Attributes preferredAttributes;
     private Image image;
     private List<Pet> dislikes;
     private List<Pet> likes;
     private List<Pet> matches;
 
-    public Pet(String name, String pet_id, String description, Attributes attributes, Attributes preferred_attributes,
+    public Pet(String name, String petId, String description, Attributes attributes, Attributes preferredAttributes,
                Image image) {
         this.name = name;
-        this.pet_id = pet_id;
+        this.petId = petId;
         this.description = description;
         this.attributes = attributes;
-        this.preferred_attributes = preferred_attributes;
+        this.preferredAttributes = preferredAttributes;
         this.image = image;
     }
 
@@ -33,12 +33,12 @@ public class Pet {
         this.name = name;
     }
 
-    public String getPet_id() {
-        return pet_id;
+    public String getPetId() {
+        return petId;
     }
 
-    public void setPet_id(String pet_id) {
-        this.pet_id = pet_id;
+    public void setPetId(String petId) {
+        this.petId = petId;
     }
 
     public String getDescription() {
@@ -57,12 +57,12 @@ public class Pet {
         this.attributes = attributes;
     }
 
-    public Attributes getPreferred_attributes() {
-        return preferred_attributes;
+    public Attributes getPreferredAttributes() {
+        return preferredAttributes;
     }
 
-    public void setPreferred_attributes(Attributes preferred_attributes) {
-        this.preferred_attributes = preferred_attributes;
+    public void setPreferredAttributes(Attributes preferredAttributes) {
+        this.preferredAttributes = preferredAttributes;
     }
 
     public Image getImage() {
