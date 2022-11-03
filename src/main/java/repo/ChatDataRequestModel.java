@@ -1,35 +1,31 @@
 package repo;
 
-import entities.User;
+import entities.Pet;
 import entities.Chat;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public interface ChatDataRequestModel {
-
-    Chat getChat(String id);
+    /**
+     * Get all chats given a pet.
+     * @param pet pet object
+     * @return Hashmap with keys as the chatID and values as Chat object
+     */
+    ArrayList<Chat> getChats(Pet pet);
 
     /**
-     * Get all chats given a user.
-     * @param user
-     * @return Hashmap with keys as the id and values as Chat object
+     * Method to return chat by ChatID
+     * @param ChatID chatID
+     * @return Chat entity corresponding to the chatID
      */
-    HashMap<String, Chat> getChatsByUser(User user);
-
-    /**
-     * Get a chat given the user and the other user.
-     * @param currUser
-     * @param otherUser
-     * @return Pet
-     */
-    Chat getChatByUsers(User currUser, User otherUser);
+    Chat getChatByID(String ChatID);
 
     /**
      * Saves chat in database. Returns true if saved, false if not.
      * @param chat
      * @return true if saved, false if not
      */
-    boolean saveChat(Chat chat);
+    boolean saveChat(String petID1, String petID2, Chat chat);
 
     // Let me know if you would like other methods (e.g. to get a specific chat).
 
