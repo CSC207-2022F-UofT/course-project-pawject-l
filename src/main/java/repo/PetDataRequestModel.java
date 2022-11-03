@@ -1,9 +1,11 @@
 package repo;
 
+import entities.Attributes;
 import entities.User;
 import entities.Pet;
 
 import java.util.HashMap;
+import java.util.List;
 
 public interface PetDataRequestModel {
 
@@ -33,10 +35,20 @@ public interface PetDataRequestModel {
     Pet getPetByUserAndType(User user, String typeOfPet);
 
     /**
+     * Get a random pet
+     *
+     * @return Pet
+     */
+    static Pet getRandomPet() {
+        return null;
+    }
+
+    /**
      * Saves pet in database. Returns true if saved, false if not.
      * @param pet
      * @return true if saved, false if not
      */
+
     boolean savePet(Pet pet);
 
     // Let me know if you would like other methods (e.g. to get a specific pet given a user and an attribute(s)).
