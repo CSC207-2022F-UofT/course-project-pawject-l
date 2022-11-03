@@ -3,11 +3,11 @@ import java.lang.reflect.Type;
 import java.util.Objects;
 
 public class Report {
-    /** Type_A punishment is that the suspended account get blocked from logging in.
-     *  Type_B contents in the profile get hidden or blocked.
-     *  Type_C muted.
-     *  Type_D
-     *  Type_E
+    /** TypeA punishment is that the suspended account get blocked from logging in.
+     *  TypeB contents in the profile get hidden or blocked.
+     *  TypeC muted.
+     *  TypeD
+     *  TypeE
      */
     private String type;
     private User user;
