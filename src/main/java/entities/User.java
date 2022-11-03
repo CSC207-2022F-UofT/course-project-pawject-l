@@ -4,12 +4,12 @@ import java.util.List;
 public class User {
 
     private int user_id;
-    private  int password;
+    public  String password;
     private String name;
     private List<Pet> pets;
     private HashMap<String, Integer> report_count;
 
-    public User(int user_id, int password, String name, Pet pet) {
+    public User(int user_id, String password, String name, Pet pet) {
         this.user_id = user_id;
         this.password = password;
         this.name = name;
@@ -24,7 +24,7 @@ public class User {
         return user_id;
     }
 
-    public int getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -48,7 +48,7 @@ public class User {
         this.user_id = user_id;
     }
 
-    public void setPassword(int password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
