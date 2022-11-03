@@ -6,7 +6,7 @@ import java.util.List;
 public class Pet {
 
     private String name;
-    private String petId;
+    private String petID;
     private String description;
     private Attributes attributes;
     private Attributes preferredAttributes;
@@ -15,10 +15,10 @@ public class Pet {
     private List<Pet> likes;
     private List<Pet> matches;
 
-    public Pet(String name, String petId, String description, Attributes attributes, Attributes preferredAttributes,
+    public Pet(String name, String petID, String description, Attributes attributes, Attributes preferredAttributes,
                Image image) {
         this.name = name;
-        this.petId = petId;
+        this.petID = petID;
         this.description = description;
         this.attributes = attributes;
         this.preferredAttributes = preferredAttributes;
@@ -33,12 +33,12 @@ public class Pet {
         this.name = name;
     }
 
-    public String getPetId() {
-        return petId;
+    public String getPetID() {
+        return petID;
     }
 
-    public void setPetId(String petId) {
-        this.petId = petId;
+    public void setPetId(String petID) {
+        this.petID = petID;
     }
 
     public String getDescription() {
