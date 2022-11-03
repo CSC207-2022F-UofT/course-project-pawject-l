@@ -14,8 +14,8 @@ public class Report {
     private Pet pet;
     private Chat chat;
 
-    static int DefaultPetID = -1;
-    static int DefaultChatID = -1;
+    static int defaultPetID = -1;
+    static int defaultChatID = -1;
 
     public Report(User a, String b, int petID, int chatID){
         this.type = b;
@@ -32,7 +32,7 @@ public class Report {
     public Report(User a, String b){
         this.type = b;
         this.user = a;
-        this.pet = user.getPet(DefaultPetID);
+        this.pet = user.getPet(defaultPetID);
     }
     public Report(Pet c, String b){
         this.type = b;
