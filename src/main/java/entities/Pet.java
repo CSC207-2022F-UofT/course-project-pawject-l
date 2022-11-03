@@ -14,7 +14,6 @@ public class Pet {
     private List<Pet> dislikes;
     private List<Pet> likes;
     private List<Pet> matches;
-    private List<Chat> chats;
 
     public Pet(String name, int pet_id, String description, Attributes attributes, Attributes preferred_attributes,
                Image image) {
@@ -98,14 +97,6 @@ public class Pet {
         this.matches = matches;
     }
 
-    public List<Chat> getChats() {
-        return chats;
-    }
-
-    public void setChats(List<Chat> chats) {
-        this.chats = chats;
-    }
-
     public void addLikes(Pet pet) {
         this.likes.add(pet);
     }
@@ -116,10 +107,6 @@ public class Pet {
 
     public void addMatches(Pet pet) {
         this.matches.add(pet);
-    }
-
-    public void addChats(Chat chat) {
-        this.chats.add(chat);
     }
 
     public void removeLikes(Pet pet) {
@@ -134,7 +121,4 @@ public class Pet {
         this.matches.remove(pet);
     }
 
-    public void removeChats(Chat chat) {
-        this.chats.remove(chat);
-    }
 }
