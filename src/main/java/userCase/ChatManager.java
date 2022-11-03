@@ -56,7 +56,7 @@ public class ChatManager {
      * @return a hashmap of chatID to Chat entity of the pet
      */
     public HashMap<String, Chat> getChatsByPet(Pet pet){
-        HashMap<String, Chat> chatsByPet = new HashMap<String, Chat>;
+        HashMap<String, Chat> chatsByPet = new HashMap<String, Chat>();
         for(Chat chat: CDRM.getChats(pet)) {
             chatsByPet.put(chat.getChatID(), chat);
         }
