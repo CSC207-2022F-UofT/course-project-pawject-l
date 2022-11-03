@@ -15,9 +15,6 @@ public class User {
         this.name = name;
         this.pets.add(pet);
         this.report_count = new HashMap<String, Integer>();
-        this.report_count.put("Type_A", 0);
-        this.report_count.put("Type_B", 0);
-        this.report_count.put("Type_C", 0);
     }
 
     public int getUser_id() {
@@ -39,7 +36,14 @@ public class User {
     public List<Pet> getPets() {
         return pets;
     }
-
+    public Pet getPet(int id){
+        for(Pet pet: pets){
+            if (pet.getPet_id() == id){
+                return pet;
+            }
+        }
+        return null;
+    }
     public void setName(String name) {
         this.name = name;
     }
@@ -57,7 +61,10 @@ public class User {
     }
 
     public void setReport_count(String key) {
-        this.report_count.put(key, report_count.get(key)+1);
+        if (this.report_count.containsKey(key)) {
+            this.report_count.put(key, report_count.get(key) + 1);
+        }
+        else {this.report_count.put(key, 1);}
     }
 }
 
