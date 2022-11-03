@@ -34,6 +34,10 @@ public class Report {
         this.user = a;
         this.pet = user.getPet(default_pet_id);
     }
+    public Report(Pet c, String b){
+        this.type = b;
+        this.pet = c;
+    }
 
     private void punish(){
         /** Need to work with UI to fully implement this method*/
