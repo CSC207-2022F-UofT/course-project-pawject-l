@@ -120,7 +120,8 @@ public class ProfileRequest {
         pet.getAttributes().setPreferredProximity(newValue);
     }
 
-    public List<Object> getPetAllInfo(Pet userPet) {
+    public List<Object> getPetAllInfo(String petID) {
+        Pet userPet = petDataRequestModel.getPetById(petID);
         List<Object> petInfo = new ArrayList<>();
          /* All pet profile information in order: name, species, breed, age, gender, description, images, proofOfVaccination, vaccineStatus,
           longitude, latitude, availableDay, preferredSpecies, preferredBreed, preferredAge, preferredGender, preferredProximity]*/
@@ -145,18 +146,20 @@ public class ProfileRequest {
         return petInfo;
     }
 
-    public HashMap<Object, List<Object>> getPetFullProfile(Pet userPet) {
+    public HashMap<Object, List<Object>> getPetFullProfile(String petID) {
+        Pet userPet = petDataRequestModel.getPetById(petID);
 
         HashMap<Object, List<Object>> petProfile = new HashMap<>();
-        petProfile.put(userPet, getPetAllInfo(userPet));
+        petProfile.put(userPet, getPetAllInfo(petID));
 
         return petProfile;
     }
 
-    public HashMap<Object, List<Object>> getPetProfilePreview(Pet userPet) {
+    public HashMap<Object, List<Object>> getPetProfilePreview(String petID) {
+        Pet userPet = petDataRequestModel.getPetById(petID);
 
         HashMap<Object, List<Object>> petProfile = new HashMap<>();
-        petProfile.put(userPet, getPetAllInfo(userPet).subList(0, 6));
+        petProfile.put(userPet, getPetAllInfo(petID).subList(0, 6));
 
         return petProfile;
     }
