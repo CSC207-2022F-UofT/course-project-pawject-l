@@ -1,17 +1,22 @@
 package repo;
 
+import entities.Pet;
 import entities.User;
 import entities.Chat;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface ChatDataRequestModel {
 
+
     /**
-     * Get all chats from the database
-     * @return Hashmap with keys as the id and values as Chat object
+     * Get all chats from the database by pet
+     * @param pet the pet entity
+     * @return an arraylist of chat entities
      */
-    HashMap<String, Chat> getChats();
+    ArrayList<Chat> getChatsByPet(Pet pet);
 
     /**
      * Get a chat given the chatID.
