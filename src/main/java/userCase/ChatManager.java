@@ -44,7 +44,7 @@ public class ChatManager {
      */
     public void createChat(Pet p1, Pet p2){
         Chat newChat = new Chat(generateUniqueChatID());
-        CDRM.saveChat(Integer.toString(p1.getPet_id()), Integer.toString(p2.getPet_id()), newChat);
+        CDRM.saveChat(p1.getPetID(), p1.getPetID(), newChat);
     }
 
     /**
