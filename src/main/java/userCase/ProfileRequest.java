@@ -8,7 +8,7 @@ import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-public class ProfileRequest {
+public class ProfileRequest{
     private  HashMap<String, Pet> existingPetIdDict = new HashMap<>();
     private PetDataRequestModel petDataRequestModel;
 
@@ -16,14 +16,33 @@ public class ProfileRequest {
         this.petDataRequestModel = petDataRequestModel;
     }
 
+    /**
+     * Generates unique PetID when the profile is first created.
+     * @param existingPetIdDict
+     * @return unique PetID
+     */
     public String generatePetID(HashMap<String, Pet> existingPetIdDict){
         return "Pet ID:" + (existingPetIdDict.size() + 1);
     }
 
+    /**
+     * Check if profile exists in the database.
+     * @param petId
+     * @return true if profile exist, false if not
+     */
     public Boolean profileExists(String petId){
         return existingPetIdDict.containsKey(petId);
     }
 
+    /**
+     * Create a new pet and save all the information into the Pet database.
+     * @param existingPetIdDict
+     * @param name
+     * @param description
+     * @param attributes
+     * @param preferredAttributes
+     * @param images
+     */
     public void createNewProfile(HashMap<String, Pet> existingPetIdDict, String name, String description,
                                  Attributes attributes, Attributes preferredAttributes, List<Image> images){
         String petId = generatePetID(existingPetIdDict);
@@ -118,6 +137,11 @@ public class ProfileRequest {
         pet.getAttributes().setPreferredProximity(newValue);
     }
 
+    /**
+     *
+     * @param petID
+     * @return all profile information of a pet.
+     */
     public List<Object> getProfileAllInfo(String petID) {
         Pet userPet = petDataRequestModel.getPetById(petID);
         List<Object> petInfo = new ArrayList<>();
