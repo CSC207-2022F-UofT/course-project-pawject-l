@@ -1,6 +1,5 @@
 package entities;
 import java.io.Serializable;
-import java.lang.reflect.Type;
 import java.util.Objects;
 
 public class Report implements Serializable {

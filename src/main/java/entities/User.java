@@ -36,14 +36,7 @@ public class User {
     public List<Pet> getPets() {
         return pets;
     }
-    public Pet getPet(int id){
-        for(Pet pet: pets){
-            if (pet.getPet_id() == id){
-                return pet;
-            }
-        }
-        return null;
-    }
+
     public void setName(String name) {
         this.name = name;
     }
