@@ -84,7 +84,7 @@ public class Attributes {
         return vaccineStatus;
     }
 
-    public int getPreferred_proximity() {
+    public int getPreferredProximity() {
         return preferredProximity;
     }
 
