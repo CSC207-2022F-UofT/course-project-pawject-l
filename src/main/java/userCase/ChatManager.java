@@ -47,6 +47,16 @@ public class ChatManager {
     }
 
     /**
+     * A method that creates a chat between two pets using pet ID
+     * @param petID1 first pet id
+     * @param petID2 second pet id
+     */
+    public void createChat(String petID1, String petID2) {
+        Chat newChat = new Chat(generateUniqueChatID());
+        CDRM.saveChat(petID1, petID2, newChat);
+    }
+
+    /**
      * A method that returns a hashmap of the chats belonging to the pet
      * @param pet the pet entity
      * @return a hashmap with chatID as keys and chat entities as values
