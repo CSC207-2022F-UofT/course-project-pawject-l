@@ -6,23 +6,22 @@ import java.util.List;
 public class Pet {
 
     private String name;
-    private int pet_id;
+    private String petID;
     private String description;
     private Attributes attributes;
-    private Attributes preferred_attributes;
+    private Attributes preferredAttributes;
     private Image image;
     private List<Pet> dislikes;
     private List<Pet> likes;
     private List<Pet> matches;
-    private List<Chat> chats;
 
-    public Pet(String name, int pet_id, String description, Attributes attributes, Attributes preferred_attributes,
+    public Pet(String name, String petID, String description, Attributes attributes, Attributes preferredAttributes,
                Image image) {
         this.name = name;
-        this.pet_id = pet_id;
+        this.petID = petID;
         this.description = description;
         this.attributes = attributes;
-        this.preferred_attributes = preferred_attributes;
+        this.preferredAttributes = preferredAttributes;
         this.image = image;
     }
 
@@ -34,12 +33,12 @@ public class Pet {
         this.name = name;
     }
 
-    public int getPet_id() {
-        return pet_id;
+    public String getPetID() {
+        return petID;
     }
 
-    public void setPet_id(int pet_id) {
-        this.pet_id = pet_id;
+    public void setPetId(String petID) {
+        this.petID = petID;
     }
 
     public String getDescription() {
@@ -58,12 +57,12 @@ public class Pet {
         this.attributes = attributes;
     }
 
-    public Attributes getPreferred_attributes() {
-        return preferred_attributes;
+    public Attributes getPreferredAttributes() {
+        return preferredAttributes;
     }
 
-    public void setPreferred_attributes(Attributes preferred_attributes) {
-        this.preferred_attributes = preferred_attributes;
+    public void setPreferredAttributes(Attributes preferredAttributes) {
+        this.preferredAttributes = preferredAttributes;
     }
 
     public Image getImage() {
@@ -98,14 +97,6 @@ public class Pet {
         this.matches = matches;
     }
 
-    public List<Chat> getChats() {
-        return chats;
-    }
-
-    public void setChats(List<Chat> chats) {
-        this.chats = chats;
-    }
-
     public void addLikes(Pet pet) {
         this.likes.add(pet);
     }
@@ -116,10 +107,6 @@ public class Pet {
 
     public void addMatches(Pet pet) {
         this.matches.add(pet);
-    }
-
-    public void addChats(Chat chat) {
-        this.chats.add(chat);
     }
 
     public void removeLikes(Pet pet) {
@@ -134,7 +121,4 @@ public class Pet {
         this.matches.remove(pet);
     }
 
-    public void removeChats(Chat chat) {
-        this.chats.remove(chat);
-    }
 }

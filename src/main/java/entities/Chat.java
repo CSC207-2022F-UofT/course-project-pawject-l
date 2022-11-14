@@ -1,7 +1,8 @@
 package entities;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-public class Chat {
+public class Chat implements Serializable {
     private String chatID;
     private List<Text> conversation;
 
