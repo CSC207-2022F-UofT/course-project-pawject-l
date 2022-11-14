@@ -1,28 +1,29 @@
 package entities;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.List;
 
-public class Pet {
+public class Pet implements Serializable {
 
     private String name;
     private String petID;
     private String description;
     private Attributes attributes;
     private Attributes preferredAttributes;
-    private Image image;
+    private List<Image> images;
     private List<Pet> dislikes;
     private List<Pet> likes;
     private List<Pet> matches;
 
     public Pet(String name, String petID, String description, Attributes attributes, Attributes preferredAttributes,
-               Image image) {
+               List<Image> images) {
         this.name = name;
         this.petID = petID;
         this.description = description;
         this.attributes = attributes;
         this.preferredAttributes = preferredAttributes;
-        this.image = image;
+        this.images = images;
     }
 
     public String getName() {
@@ -65,12 +66,12 @@ public class Pet {
         this.preferredAttributes = preferredAttributes;
     }
 
-    public Image getImage() {
-        return image;
+    public List<Image> getImages() {
+        return images;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
     public List<Pet> getDislikes() {
