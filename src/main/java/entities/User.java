@@ -1,6 +1,5 @@
 package entities;
-
-
+import java.util.HashMap;
 import java.util.List;
 public class User {
 
@@ -9,6 +8,7 @@ public class User {
     public String password;
     private List<Pet> pets;
     private int reportCount;
+    private HashMap<String, Integer> report_count;
 
     // constructor that doesn't take in pet
     public User(String username, String password) {
@@ -23,6 +23,10 @@ public class User {
     }
     public User(Pet pet){
         this.pets.add(pet);
+        this.report_count = new HashMap<String, Integer>();
+        this.report_count.put("Type_A", 0);
+        this.report_count.put("Type_B", 0);
+        this.report_count.put("Type_C", 0);
     }
 
     public String getUserID() {
@@ -36,9 +40,11 @@ public class User {
     public String getUsername() {
         return username;
     }
-
     public int getReportCount() {
         return reportCount;
+    }
+    public int getReport_count(String key) {
+        return report_count.get(key);
     }
 
     public List<Pet> getPets() {
@@ -63,6 +69,9 @@ public class User {
 
     public void setReportCount(int reportCount) {
         this.reportCount = reportCount;
+    }
+    public void setReport_count(String key) {
+        this.report_count.put(key, report_count.get(key)+1);
     }
 }
 
