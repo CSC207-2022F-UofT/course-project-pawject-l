@@ -17,22 +17,21 @@ public class Report implements Serializable {
     static int defaultPetID = -1;
     static int defaultChatID = -1;
 
-    public Report(User a, String b, int petID, int chatID){
+    public Report(User a, String b, Pet c, int chatID){
         this.type = b;
         this.user = a;
-        this.pet = user.getPet(petID);
+        this.pet = c;
         /*this.chat = pet.getChats().get(chatID);*/
     }
-    public Report(User a, String b, int petID){
+    public Report(User a, String b, Pet c){
         this.type = b;
         this.user = a;
-        this.pet = user.getPet(petID);
+        this.pet = c;
         /*this.chat = pet.getChats().get(DefaultChatIDd);*/
     }
     public Report(User a, String b){
         this.type = b;
         this.user = a;
-        this.pet = user.getPet(defaultPetID);
     }
     public Report(Pet c, String b){
         this.type = b;
