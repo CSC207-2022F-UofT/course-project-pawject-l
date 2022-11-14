@@ -15,15 +15,14 @@ public class ChatManager {
     public ChatManager(ChatDataRequestModel CDRM){
         this.CDRM = CDRM;
     }
-    private static int idCounter;
+    private static long idCounter = 0;
 
     /**
      * A method that generates a unique Chat ID
      * @return unique chatID
      */
     public static String generateUniqueChatID() {
-        idCounter += 1;
-        return "ChatID" + Integer.toString(idCounter);
+        return "ChatID" + Long.toString(idCounter++);
     }
 
     /**
