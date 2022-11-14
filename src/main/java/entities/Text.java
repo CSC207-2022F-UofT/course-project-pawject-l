@@ -1,7 +1,8 @@
 package entities;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Text {
+public class Text implements Serializable {
     private String senderID;
     private LocalDateTime timeSent;
     private String messageText;
