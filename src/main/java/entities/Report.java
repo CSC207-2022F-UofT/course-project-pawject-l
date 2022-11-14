@@ -1,8 +1,9 @@
 package entities;
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.Objects;
 
-public class Report {
+public class Report implements Serializable {
     /** TypeA punishment is that the suspended account get blocked from logging in.
      *  TypeB contents in the profile get hidden or blocked.
      *  TypeC muted.
