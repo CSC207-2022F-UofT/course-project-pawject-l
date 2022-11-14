@@ -4,7 +4,7 @@ package entities;
 import java.util.List;
 public class User {
 
-    public int userID;
+    public String userID;
     public String username;
     public String password;
     private List<Pet> pets;
@@ -15,7 +15,7 @@ public class User {
         this.username = username;
         this.password = password;
     }
-    public User(int user_id, String password, String username, int report_count) {
+    public User(String user_id, String password, String username, int report_count) {
         this.userID = user_id;
         this.password = password;
         this.username = username;
@@ -25,7 +25,7 @@ public class User {
         this.pets.add(pet);
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
 
@@ -49,7 +49,7 @@ public class User {
         this.username = name;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 
