@@ -1,6 +1,6 @@
 package entities;
 import repo.PetDataRequestModel;
-
+import repo.ChatDataRequestModel;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -19,17 +19,11 @@ public class Report implements Serializable {
     static int defaultPetID = -1;
     static int defaultChatID = -1;
 
-    public Report(User a, String b, String c, int chatID, PetDataRequestModel d){
+    public Report(User a, String b, String petId, String chatID, PetDataRequestModel pm){
         this.type = b;
         this.user = a;
-        this.pet = d.getPetById(c);
+        this.pet = pm.getPetById(petId);
         /*this.chat = pet.getChats().get(chatID);*/
-    }
-    public Report(User a, String b, Pet c){
-        this.type = b;
-        this.user = a;
-        this.pet = c;
-        /*this.chat = pet.getChats().get(DefaultChatIDd);*/
     }
     public Report(User a, String b){
         this.type = b;
@@ -38,6 +32,11 @@ public class Report implements Serializable {
     public Report(Pet c, String b){
         this.type = b;
         this.pet = c;
+    }
+    public Report(Pet c, String chatId, String b, ChatDataRequestModel cm){
+        this.pet = c;
+        this.type = b;
+        this.chat = cm.getChatByID(chatId);
     }
 
     private void punish(){
