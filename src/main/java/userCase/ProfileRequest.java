@@ -1,7 +1,6 @@
 package userCase;
 import entities.Pet;
 import entities.Attributes;
-import userCase.ProfileRequestModel;
 import repo.PetDataRequestModel;
 
 import java.awt.*;
@@ -13,8 +12,7 @@ public class ProfileRequest {
     private  HashMap<String, Pet> existingPetIdDict = new HashMap<>();
     private PetDataRequestModel petDataRequestModel;
 
-    public ProfileRequest(HashMap<String, Pet> existingPetIdDict, PetDataRequestModel petDataRequestModel){
-        this.existingPetIdDict = existingPetIdDict;
+    public ProfileRequest(PetDataRequestModel petDataRequestModel){
         this.petDataRequestModel = petDataRequestModel;
     }
 
@@ -120,7 +118,7 @@ public class ProfileRequest {
         pet.getAttributes().setPreferredProximity(newValue);
     }
 
-    public List<Object> getPetAllInfo(String petID) {
+    public List<Object> getProfileAllInfo(String petID) {
         Pet userPet = petDataRequestModel.getPetById(petID);
         List<Object> petInfo = new ArrayList<>();
          /* All pet profile information in order: name, species, breed, age, gender, description, images, proofOfVaccination, vaccineStatus,
@@ -146,20 +144,20 @@ public class ProfileRequest {
         return petInfo;
     }
 
-    public HashMap<Object, List<Object>> getPetFullProfile(String petID) {
+    public HashMap<Object, List<Object>> getPetFullProfileData(String petID) {
         Pet userPet = petDataRequestModel.getPetById(petID);
 
         HashMap<Object, List<Object>> petProfile = new HashMap<>();
-        petProfile.put(userPet, getPetAllInfo(petID));
+        petProfile.put(userPet, getProfileAllInfo(petID));
 
         return petProfile;
     }
 
-    public HashMap<Object, List<Object>> getPetProfilePreview(String petID) {
+    public HashMap<Object, List<Object>> getPetProfilePreviewData(String petID) {
         Pet userPet = petDataRequestModel.getPetById(petID);
 
         HashMap<Object, List<Object>> petProfile = new HashMap<>();
-        petProfile.put(userPet, getPetAllInfo(petID).subList(0, 6));
+        petProfile.put(userPet, getProfileAllInfo(petID).subList(0, 6));
 
         return petProfile;
     }

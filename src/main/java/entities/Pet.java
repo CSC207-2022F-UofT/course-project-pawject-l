@@ -1,9 +1,10 @@
 package entities;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.List;
 
-public class Pet {
+public class Pet implements Serializable {
 
     private String name;
     private String petID;

@@ -2,11 +2,12 @@
 
 package entities;
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.List;
 import java.awt.*;
 
-public class Attributes {
+public class Attributes implements Serializable {
 
     private List<String> species;
     private List<String> breed; // allow for multiple preferred breeds
