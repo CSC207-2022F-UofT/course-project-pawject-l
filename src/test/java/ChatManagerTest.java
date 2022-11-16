@@ -29,16 +29,16 @@ class ChatManagerTest {
         chat1.addText(text1);
         chat2.addText(text2);
         chat3.addText(text3);
-        chat2.addText(text4);
+        chat1.addText(text4);
         ArrayList<Chat> sampleChatList = new ArrayList<>();
         sampleChatList.add(chat1);
         sampleChatList.add(chat2);
         sampleChatList.add(chat3);
         ArrayList<Chat> expected = ChatManager.generateSortedChatList(sampleChatList);
         ArrayList<Chat> actual = new ArrayList<>();
-        actual.add(chat1);
-        actual.add(chat3);
         actual.add(chat2);
+        actual.add(chat3);
+        actual.add(chat1);
         Assertions.assertEquals(actual, expected);
     }
 

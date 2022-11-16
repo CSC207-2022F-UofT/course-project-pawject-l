@@ -22,7 +22,7 @@ public class ChatManager {
      * @return unique chatID
      */
     public static String generateUniqueChatID() {
-        return "ChatID" + Long.toString(idCounter++);
+        return "ChatID" + idCounter++;
     }
 
     /**
