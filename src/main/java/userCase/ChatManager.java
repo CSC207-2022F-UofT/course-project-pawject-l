@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 
 public class ChatManager {
-    ChatDataRequestModel CDRM;
+    static ChatDataRequestModel CDRM;
     public ChatManager(ChatDataRequestModel CDRM){
         this.CDRM = CDRM;
     }
@@ -30,9 +30,8 @@ public class ChatManager {
      * @param chats a list of chat entities
      * @return the list of chat entities sorted by recency of the last text sent
      */
-    public ArrayList<Chat> generateSortedChatList(ArrayList<Chat> chats) {
-        Collections.sort(chats,
-                Comparator.comparing(c-> c.getConversation().get(c.getConversation().size()).getTimeSent()));
+    public static ArrayList<Chat> generateSortedChatList(ArrayList<Chat> chats) {
+        chats.sort(Comparator.comparing(o -> o.getConversation().get(o.getConversation().size() - 1).getTimeSent()));
         return chats;
     }
 
@@ -43,7 +42,7 @@ public class ChatManager {
      */
     public void createChat(Pet p1, Pet p2){
         Chat newChat = new Chat(generateUniqueChatID());
-        CDRM.saveChat(p1.getPetID(), p1.getPetID(), newChat);
+        CDRM.saveChat(p1.getPetID(), p2.getPetID(), newChat);
     }
 
     /**
