@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 public class ProfileRequest{
-    private  HashMap<String, Pet> existingPetIdDict = new HashMap<>();
-    private PetDataRequestModel petDataRequestModel;
+    private static HashMap<String, Pet> existingPetByIdDict = new HashMap<>();
+    private static PetDataRequestModel petDataRequestModel;
 
     public ProfileRequest(PetDataRequestModel petDataRequestModel){
-        this.petDataRequestModel = petDataRequestModel;
+        ProfileRequest.petDataRequestModel = petDataRequestModel;
     }
 
     /**
@@ -21,8 +21,8 @@ public class ProfileRequest{
      * @param existingPetIdDict
      * @return unique PetID
      */
-    public String generatePetID(HashMap<String, Pet> existingPetIdDict){
-        return "Pet ID:" + (existingPetIdDict.size() + 1);
+    public static String generatePetID(HashMap<String, Pet> existingPetIdDict){
+        return "Pet ID: " + (existingPetIdDict.size() + 1);
     }
 
     /**
@@ -30,8 +30,8 @@ public class ProfileRequest{
      * @param petId
      * @return true if profile exist, false if not
      */
-    public Boolean profileExists(String petId){
-        return existingPetIdDict.containsKey(petId);
+    public static Boolean profileExists(String petId){
+        return existingPetByIdDict.containsKey(petId);
     }
 
     /**
@@ -43,7 +43,7 @@ public class ProfileRequest{
      * @param preferredAttributes
      * @param images
      */
-    public void createNewProfile(HashMap<String, Pet> existingPetIdDict, String name, String description,
+    public static void createNewProfile(HashMap<String, Pet> existingPetIdDict, String name, String description,
                                  Attributes attributes, Attributes preferredAttributes, List<Image> images){
         String petId = generatePetID(existingPetIdDict);
         Pet newPet = new Pet(name, petId, description, attributes, preferredAttributes, images);
@@ -51,7 +51,7 @@ public class ProfileRequest{
         existingPetIdDict.put(petId, newPet);
     }
 
-    public void editName(String petID,String newValue){
+    public static void editName(String petID, String newValue){
         Pet pet = petDataRequestModel.getPetById(petID);
         pet.setName(newValue);
     }
