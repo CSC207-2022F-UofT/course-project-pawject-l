@@ -4,23 +4,26 @@ import entities.Report;
 import entities.Pet;
 import repo.ChatDataRequestModel;
 import repo.PetDataRequestModel;
+import repo.UserDataRequestModel;
 public class ReportInteractor {
     private PetDataRequestModel pm;
     private ChatDataRequestModel cm;
-    public ReportInteractor(PetDataRequestModel pm, ChatDataRequestModel cm){
+    private UserDataRequestModel um;
+    public ReportInteractor(PetDataRequestModel pm, ChatDataRequestModel cm, UserDataRequestModel um){
         this.pm = pm;
         this.cm = cm;
+        this.um = um;
     }
-    public void TypeAReport(User a){
-        Report r = new Report(a, "TypeA");
+    public void TypeAReport(String userID){
+        Report r = new Report(userID, "TypeA", um);
         r.report();
     }
-    public void TypeBReport(Pet c){
-        Report r = new Report(c, "TypeB");
+    public void TypeBReport(String petID){
+        Report r = new Report(petID, "TypeB", pm, um);
         r.report();
     }
-    public void TypeCReport(Pet a, String chatId) {
-        Report r = new Report(a, chatId,"TypeA", cm);
+    public void TypeCReport(String petID, String chatId) {
+        Report r = new Report(petID, chatId,"TypeA", pm,cm);
         r.report();
     }
 }

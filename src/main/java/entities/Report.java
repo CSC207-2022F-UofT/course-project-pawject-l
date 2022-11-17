@@ -1,9 +1,9 @@
 package entities;
 import repo.PetDataRequestModel;
 import repo.ChatDataRequestModel;
+import repo.UserDataRequestModel;
 import java.io.Serializable;
 import java.util.Objects;
-
 public class Report implements Serializable {
     /** TypeA punishment is that the suspended account get blocked from logging in.
      *  TypeB contents in the profile get hidden or blocked.
@@ -25,17 +25,18 @@ public class Report implements Serializable {
         this.pet = pm.getPetById(petId);
         /*this.chat = pet.getChats().get(chatID);*/
     }
-    public Report(User a, String b){
-        this.type = b;
-        this.user = a;
+    public Report(String userID, String a, UserDataRequestModel um){
+        this.type = a;
+        this.user = um.getUserById(userID);
     }
-    public Report(Pet c, String b){
+    public Report(String petID, String b, PetDataRequestModel pm, UserDataRequestModel um){
         this.type = b;
-        this.pet = c;
+        this.pet = pm.getPetById(petID);
+        this.user = um.getUserByPet(petID);
     }
-    public Report(Pet c, String chatId, String b, ChatDataRequestModel cm){
-        this.pet = c;
-        this.type = b;
+    public Report(String petID, String chatId, String a, PetDataRequestModel pm, ChatDataRequestModel cm){
+        this.pet = pm.getPetById(petID);
+        this.type = a;
         this.chat = cm.getChatByID(chatId);
     }
 
