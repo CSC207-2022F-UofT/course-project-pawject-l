@@ -2,7 +2,7 @@ package repo;
 
 import entities.User;
 
-public interface UserDataRequestModel {
+public interface UserDataAccessInterface {
 
     User getUserById(String id);
 

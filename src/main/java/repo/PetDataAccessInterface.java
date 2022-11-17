@@ -5,7 +5,7 @@ import entities.Pet;
 
 import java.util.HashMap;
 
-public interface PetDataRequestModel {
+public interface PetDataAccessInterface {
 
     Pet getPetById(String id);
 

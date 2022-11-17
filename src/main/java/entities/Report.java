@@ -1,7 +1,7 @@
 package entities;
-import repo.PetDataRequestModel;
-import repo.ChatDataRequestModel;
-import repo.UserDataRequestModel;
+import repo.PetDataAccessInterface;
+import repo.ChatDataAccessInterface;
+import repo.UserDataAccessInterface;
 import java.io.Serializable;
 import java.util.Objects;
 public class Report implements Serializable {
@@ -19,22 +19,22 @@ public class Report implements Serializable {
     static int defaultPetID = -1;
     static int defaultChatID = -1;
 
-    public Report(User a, String b, String petId, String chatID, PetDataRequestModel pm){
+    public Report(User a, String b, String petId, String chatID, PetDataAccessInterface pm){
         this.type = b;
         this.user = a;
         this.pet = pm.getPetById(petId);
         /*this.chat = pet.getChats().get(chatID);*/
     }
-    public Report(String userID, String a, UserDataRequestModel um){
+    public Report(String userID, String a, UserDataAccessInterface um){
         this.type = a;
         this.user = um.getUserById(userID);
     }
-    public Report(String petID, String b, PetDataRequestModel pm, UserDataRequestModel um){
+    public Report(String petID, String b, PetDataAccessInterface pm, UserDataAccessInterface um){
         this.type = b;
         this.pet = pm.getPetById(petID);
         this.user = um.getUserByPet(petID);
     }
-    public Report(String petID, String chatId, String a, PetDataRequestModel pm, ChatDataRequestModel cm){
+    public Report(String petID, String chatId, String a, PetDataAccessInterface pm, ChatDataAccessInterface cm){
         this.pet = pm.getPetById(petID);
         this.type = a;
         this.chat = cm.getChatByID(chatId);
