@@ -28,7 +28,7 @@ public interface UserDataAccessInterface {
      * @return true if username is already in use, false if not
      */
     boolean existsUsername(String username);
-    User getUserByPet(String petID);
+    User getUserByPetID(String petID);
     /**
      * Get User given a unique petID.
      * @param username

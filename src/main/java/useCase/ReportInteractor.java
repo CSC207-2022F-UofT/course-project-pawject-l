@@ -23,7 +23,7 @@ public class ReportInteractor {
         r.report();
     }
     public void TypeCReport(String petID, String chatId) {
-        Report r = new Report(petID, chatId,"TypeA", pm,cm);
+        Report r = new Report(petID, chatId,"TypeC", pm,cm);
         r.report();
     }
 }
