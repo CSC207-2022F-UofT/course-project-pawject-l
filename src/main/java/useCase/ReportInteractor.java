@@ -1,13 +1,14 @@
-package userCase;
+package useCase;
 import entities.User;
 import entities.Report;
 import entities.Pet;
-import repo.ChatDataRequestModel;
-import repo.PetDataRequestModel;
+import repo.ChatDataAccessInterface;
+import repo.PetDataAccessInterface;
+
 public class ReportInteractor {
-    private PetDataRequestModel pm;
-    private ChatDataRequestModel cm;
-    public ReportInteractor(PetDataRequestModel pm, ChatDataRequestModel cm){
+    private PetDataAccessInterface pm;
+    private ChatDataAccessInterface cm;
+    public ReportInteractor(PetDataAccessInterface pm, ChatDataAccessInterface cm){
         this.pm = pm;
         this.cm = cm;
     }
