@@ -39,9 +39,7 @@ public interface PetDataRequestModel {
      *
      * @return Pet
      */
-    static Pet getRandomPet() {
-        return null;
-    }
+    Pet getRandomPet();
 
     /**
      * Saves pet in database. Returns true if saved, false if not.

@@ -11,10 +11,10 @@ public class Attributes {
     private List<String> breed; // allow for multiple preferred breeds
     private List<Integer> age; // allow for a range of preferred ages
     private String gender;
-    private float preferredProximity; // distance in KM
+    private int preferredProximity; // distance in KM
     private boolean vaccineStatus;
-    private float  longitude;
-    private float latitude;
+    private int longitude;
+    private int latitude;
 
     private List<DayOfWeek> availableDay; // list of the available days of the week
 
@@ -50,14 +50,14 @@ public class Attributes {
         this.vaccineStatus = vaccine_status;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(int latitude) {
         this.latitude = latitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(int longitude) {
         this.longitude = longitude;
     }
-    public void setPreferredProximity(float preferredProximity) {
+    public void setPreferredProximity(int preferredProximity) {
         this.preferredProximity = preferredProximity;
     }
 
@@ -84,7 +84,7 @@ public class Attributes {
         return vaccineStatus;
     }
 
-    public float getPreferred_proximity() {
+    public float getPreferredProximity() {
         return preferredProximity;
     }
 

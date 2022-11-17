@@ -1,28 +1,29 @@
 package entities;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.List;
 
-public class Pet {
+public class Pet implements Serializable {
 
     private String name;
-    private int pet_id;
+    private String petID;
     private String description;
     private Attributes attributes;
-    private Attributes preferred_attributes;
-    private Image image;
+    private Attributes preferredAttributes;
+    private List<Image> images;
     private List<Pet> dislikes;
     private List<Pet> likes;
     private List<Pet> matches;
 
-    public Pet(String name, int pet_id, String description, Attributes attributes, Attributes preferred_attributes,
-               Image image) {
+    public Pet(String name, String petID, String description, Attributes attributes, Attributes preferredAttributes,
+               List<Image> images) {
         this.name = name;
-        this.pet_id = pet_id;
+        this.petID = petID;
         this.description = description;
         this.attributes = attributes;
-        this.preferred_attributes = preferred_attributes;
-        this.image = image;
+        this.preferredAttributes = preferredAttributes;
+        this.images = images;
     }
 
     public String getName() {
@@ -33,12 +34,12 @@ public class Pet {
         this.name = name;
     }
 
-    public int getPet_id() {
-        return pet_id;
+    public String getPetID() {
+        return petID;
     }
 
-    public void setPet_id(int pet_id) {
-        this.pet_id = pet_id;
+    public void setPetId(String petID) {
+        this.petID = petID;
     }
 
     public String getDescription() {
@@ -57,20 +58,20 @@ public class Pet {
         this.attributes = attributes;
     }
 
-    public Attributes getPreferred_attributes() {
-        return preferred_attributes;
+    public Attributes getPreferredAttributes() {
+        return preferredAttributes;
     }
 
-    public void setPreferred_attributes(Attributes preferred_attributes) {
-        this.preferred_attributes = preferred_attributes;
+    public void setPreferredAttributes(Attributes preferredAttributes) {
+        this.preferredAttributes = preferredAttributes;
     }
 
-    public Image getImage() {
-        return image;
+    public List<Image> getImages() {
+        return images;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
     public List<Pet> getDislikes() {

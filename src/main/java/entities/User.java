@@ -3,37 +3,35 @@ import java.util.HashMap;
 import java.util.List;
 public class User {
 
-    private int user_id;
-    public  String password;
-    private String name;
+    public String userID;
+    public String username;
+    public String password;
     private List<Pet> pets;
-    private HashMap<String, Integer> report_count;
+    private HashMap<String, Integer> reportCount;
 
-    public User(int user_id, String password, String name, Pet pet) {
-        this.user_id = user_id;
+    public User(String user_id, String password, String username, int report_count) {
+        this.userID = user_id;
         this.password = password;
-        this.name = name;
-        this.pets.add(pet);
-        this.report_count = new HashMap<String, Integer>();
-        this.report_count.put("Type_A", 0);
-        this.report_count.put("Type_B", 0);
-        this.report_count.put("Type_C", 0);
+        this.username = username;
+        this.reportCount = new HashMap<String, Integer>();
     }
-
-    public int getUser_id() {
-        return user_id;
+    public User(Pet pet){
+        this.pets.add(pet);
+    }
+    public String getUserID() {
+        return userID;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public int getReport_count(String key) {
-        return report_count.get(key);
+    public int getReportCount(String key) {
+        return reportCount.get(key);
     }
 
     public List<Pet> getPets() {
@@ -41,11 +39,11 @@ public class User {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.username = name;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public void setPassword(String password) {
@@ -56,8 +54,11 @@ public class User {
         this.pets = pets;
     }
 
-    public void setReport_count(String key) {
-        this.report_count.put(key, report_count.get(key)+1);
+    public void setReportCount(String key) {
+        if (this.reportCount.containsKey(key)) {
+            this.reportCount.put(key, reportCount.get(key) + 1);
+        }
+        else {this.reportCount.put(key, 1);}
     }
 }
 

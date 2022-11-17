@@ -1,10 +1,15 @@
 package repo;
+import entities.Chat;
 import entities.Pet;
 import userCase.FPMA;
 
-public interface FPMARequestModel {
-    default Pet[] Potential_Candidates(Pet userPet)
-    {
-        return FPMA.PotentialCandidates(userPet);
-    }
+import java.util.ArrayList;
+
+public interface FPMARequestModel{
+    /**
+     * Creates list of potential matching candidates
+     * @param userPet the pet entity resposible for calling the FPMA request
+     * @return a list of pets to be judged by the user
+     */
+    Pet[] PotentialCandidates(Pet userPet);
 }
