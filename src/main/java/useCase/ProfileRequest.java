@@ -1,7 +1,7 @@
-package userCase;
+package useCase;
 import entities.Pet;
 import entities.Attributes;
-import repo.PetDataRequestModel;
+import repo.PetDataAccessInterface;
 
 import java.awt.*;
 import java.time.DayOfWeek;
@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 public class ProfileRequest {
     private  HashMap<String, Pet> existingPetIdDict = new HashMap<>();
-    private PetDataRequestModel petDataRequestModel;
+    private PetDataAccessInterface petDataRequestModel;
 
-    public ProfileRequest(PetDataRequestModel petDataRequestModel){
+    public ProfileRequest(PetDataAccessInterface petDataRequestModel){
         this.petDataRequestModel = petDataRequestModel;
     }
 

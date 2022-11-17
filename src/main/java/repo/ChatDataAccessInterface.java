@@ -1,14 +1,11 @@
 package repo;
 
 import entities.Pet;
-import entities.User;
 import entities.Chat;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public interface ChatDataRequestModel {
+public interface ChatDataAccessInterface {
 
 
     /**
