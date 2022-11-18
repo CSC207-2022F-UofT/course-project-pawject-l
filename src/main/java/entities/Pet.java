@@ -2,6 +2,7 @@ package entities;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.time.DayOfWeek;
 import java.util.List;
 
 public class Pet implements Serializable {
@@ -16,14 +17,27 @@ public class Pet implements Serializable {
     private List<Pet> likes;
     private List<Pet> matches;
 
+    private float preferredProximity; // distance in KM
+    private List<DayOfWeek> availableDay; // list of the available days of the week
+    private Image proofOfVaccination;
+
+    private float longitude;
+
+    private float latitude;
+
     public Pet(String name, String petID, String description, Attributes attributes, Attributes preferredAttributes,
-               List<Image> images) {
+               List<Image> images, Image proofOfVaccination, float longitude, float latitude, float preferredProximity, List<DayOfWeek> availableDay) {
         this.name = name;
         this.petID = petID;
         this.description = description;
         this.attributes = attributes;
         this.preferredAttributes = preferredAttributes;
         this.images = images;
+        this.proofOfVaccination = proofOfVaccination;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.preferredProximity = preferredProximity;
+        this.availableDay = availableDay;
     }
 
     public String getName() {
@@ -72,6 +86,46 @@ public class Pet implements Serializable {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    public void setProofOfVaccination(Image proofOfVaccination){
+        this.proofOfVaccination = proofOfVaccination;
+    }
+
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public void setPreferredProximity(float preferredProximity) {
+        this.preferredProximity = preferredProximity;
+    }
+
+    public void setAvailableDay(List<DayOfWeek> availableDay) {
+        this.availableDay = availableDay;
+    }
+
+    public Image getProofOfVaccination() {
+        return proofOfVaccination;
+    }
+
+    public float getPreferredProximity() {
+        return preferredProximity;
+    }
+
+    public List<DayOfWeek> getAvailableDay() {
+        return availableDay;
     }
 
     public List<Pet> getDislikes() {

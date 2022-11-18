@@ -4,12 +4,14 @@ import entities.Attributes;
 import entities.User;
 import entities.Pet;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
 public interface PetDataAccessInterface {
 
-    Pet getPetById(String id);
+    Pet getPetById(String id) throws IOException;
 
     /**
      * Get all pets given a user.

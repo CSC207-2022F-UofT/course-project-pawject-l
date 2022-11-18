@@ -1,7 +1,7 @@
 package repo;
 import entities.Chat;
 import entities.Pet;
-import userCase.FPMA;
+import useCase.FPMA;
 
 import java.util.ArrayList;
 
