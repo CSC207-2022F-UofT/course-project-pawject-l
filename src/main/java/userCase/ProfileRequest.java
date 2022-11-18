@@ -8,7 +8,7 @@ import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-public class ProfileRequest{
+public class ProfileRequest implements ProfileInputBoundary{
     private static HashMap<String, Pet> existingPetByIdDict = new HashMap<>();
     private static PetDataRequestModel petDataRequestModel;
 
@@ -21,7 +21,7 @@ public class ProfileRequest{
      * @param existingPetIdDict
      * @return unique PetID
      */
-    public static String generatePetID(HashMap<String, Pet> existingPetIdDict){
+    public String generatePetID(HashMap<String, Pet> existingPetIdDict){
         return "Pet ID: " + (existingPetIdDict.size() + 1);
     }
 
@@ -30,7 +30,7 @@ public class ProfileRequest{
      * @param petId
      * @return true if profile exist, false if not
      */
-    public static Boolean profileExists(String petId){
+    public Boolean profileExists(String petId){
         return existingPetByIdDict.containsKey(petId);
     }
 
@@ -43,15 +43,17 @@ public class ProfileRequest{
      * @param preferredAttributes
      * @param images
      */
-    public static void createNewProfile(HashMap<String, Pet> existingPetIdDict, String name, String description,
-                                 Attributes attributes, Attributes preferredAttributes, List<Image> images){
+    public void createNewProfile(HashMap<String, Pet> existingPetIdDict, String name, String description,
+                                        Attributes attributes, Attributes preferredAttributes, List<Image> images,
+                                        Image proofOfVaccination, float longitude, float latitude, float preferredProximity,
+                                        List<DayOfWeek> availableDay){
         String petId = generatePetID(existingPetIdDict);
-        Pet newPet = new Pet(name, petId, description, attributes, preferredAttributes, images);
+        Pet newPet = new Pet(name, petId, description, attributes, preferredAttributes, images, proofOfVaccination, longitude, latitude, preferredProximity, availableDay);
         petDataRequestModel.savePet(newPet);
         existingPetIdDict.put(petId, newPet);
     }
 
-    public static void editName(String petID, String newValue){
+    public void editName(String petID, String newValue){
         Pet pet = petDataRequestModel.getPetById(petID);
         pet.setName(newValue);
     }
@@ -93,23 +95,23 @@ public class ProfileRequest{
 
     public void updateProofOfVaccination (String petID, Image proofOfVaccination){
         Pet pet = petDataRequestModel.getPetById(petID);
-        pet.getAttributes().setProofOfVaccination(proofOfVaccination);
+        pet.setProofOfVaccination(proofOfVaccination);
         pet.getAttributes().setVaccineStatus(true);
     }
 
     public void editLongitude (String petID, int newValue){
         Pet pet = petDataRequestModel.getPetById(petID);
-        pet.getAttributes().setLongitude(newValue);
+        pet.setLongitude(newValue);
     }
 
     public void editLatitude (String petID, int newValue){
         Pet pet = petDataRequestModel.getPetById(petID);
-        pet.getAttributes().setLatitude(newValue);
+        pet.setLatitude(newValue);
     }
 
     public void editAvailableDay (String petID, List<DayOfWeek> availableDay){
         Pet pet = petDataRequestModel.getPetById(petID);
-        pet.getAttributes().setAvailableDay(availableDay);
+        pet.setAvailableDay(availableDay);
     }
 
     public void editPreferredSpecies(String petID,List<String> newValues){
@@ -134,7 +136,7 @@ public class ProfileRequest{
 
     public void editPreferredProximity(String petID, int newValue){
         Pet pet = petDataRequestModel.getPetById(petID);
-        pet.getAttributes().setPreferredProximity(newValue);
+        pet.setPreferredProximity(newValue);
     }
 
     /**
@@ -155,15 +157,15 @@ public class ProfileRequest{
         petInfo.add(userPet.getAttributes().getGender());
         petInfo.add(userPet.getDescription());
         petInfo.add(userPet.getImages());
-        petInfo.add(userPet.getAttributes().getProofOfVaccination());
+        petInfo.add(userPet.getProofOfVaccination());
         petInfo.add(userPet.getAttributes().isVaccinated());
-        petInfo.add(userPet.getAttributes().getLongitude());
-        petInfo.add(userPet.getAttributes().getLatitude());
-        petInfo.add(userPet.getAttributes().getAvailableDay());
+        petInfo.add(userPet.getLongitude());
+        petInfo.add(userPet.getLatitude());
+        petInfo.add(userPet.getAvailableDay());
         petInfo.add(userPet.getPreferredAttributes().getSpecies());
         petInfo.add(userPet.getPreferredAttributes().getBreed());
         petInfo.add(userPet.getPreferredAttributes().getGender());
-        petInfo.add(userPet.getPreferredAttributes().getPreferredProximity());
+        petInfo.add(userPet.getPreferredProximity());
 
         return petInfo;
     }
