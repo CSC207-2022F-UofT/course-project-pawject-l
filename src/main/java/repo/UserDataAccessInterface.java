@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public interface UserDataAccessInterface {
 
-    User getUserById(String id);
+    User getUserById(String id) throws IOException;
 
     /**
      * Get User given a unique username.

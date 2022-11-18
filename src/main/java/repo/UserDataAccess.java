@@ -3,7 +3,6 @@ import repo.*;
 import entities.User;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -12,7 +11,15 @@ public class UserDataAccess implements UserDataAccessInterface{
      * "0001","student","password",["0001","0002"],[0,0,0]
      */
     @Override
-    public User getUserById(String id) {
+    public User getUserById(String id) throws IOException {
+        FileReader fr = new FileReader("123.txt");
+        BufferedReader br = new BufferedReader(fr);
+        String line;
+        while((line = br.readLine()) != null){
+            String[] values = line.split(",");
+        }
+        br.close();
+        fr.close();
         return null;
     }
 
