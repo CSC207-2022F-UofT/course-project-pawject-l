@@ -2,6 +2,8 @@ package entities;
 import repo.PetDataAccessInterface;
 import repo.ChatDataAccessInterface;
 import repo.UserDataAccessInterface;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,10 +23,11 @@ public class Report implements Serializable {
     static int defaultPetID = -1;
     static int defaultChatID = -1;
     static HashMap<String, Integer> types = new HashMap<String, Integer>(){
-        static {
+        {
         types.put("TypeA", 0);
         types.put("TypeB", 1);
-        types.put("TypeC", 2);}
+        types.put("TypeC", 2);
+        }
     };
     public Report(User a, String n, String petId, String chatID, PetDataAccessInterface pm, ChatDataAccessInterface cm){
         this.type = types.get(n);
@@ -32,7 +35,7 @@ public class Report implements Serializable {
         this.pet = pm.getPetById(petId);
         this.chat = cm.getChatByID(chatID);
     }
-    public Report(String userID, String a, UserDataAccessInterface um){
+    public Report(String userID, String a, UserDataAccessInterface um) throws IOException {
         this.type = types.get(a);
         this.user = um.getUserById(userID);
     }

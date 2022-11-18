@@ -2,6 +2,9 @@ package repo;
 
 import entities.User;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public interface UserDataAccessInterface {
 
     User getUserById(String id);
