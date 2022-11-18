@@ -39,7 +39,7 @@ public class Report implements Serializable {
         this.type = types.get(a);
         this.user = um.getUserById(userID);
     }
-    public Report(String petID, String b, PetDataAccessInterface pm, UserDataAccessInterface um){
+    public Report(String petID, String b, PetDataAccessInterface pm, UserDataAccessInterface um) throws IOException {
         this.type = types.get(b);
         this.pet = pm.getPetById(petID);
         this.user = um.getUserByPetID(petID);
