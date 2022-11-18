@@ -1,4 +1,4 @@
-/*package userCase.Account;
+package userCase.Account;
 
 public interface AccountInputBoundary {
     AccountResponseModel createUser(AccountRequestModel requestModel);
@@ -12,4 +12,3 @@ public interface AccountInputBoundary {
     boolean correctPassword(String username, String password);
 
 }
-*/

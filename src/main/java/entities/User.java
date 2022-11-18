@@ -10,7 +10,7 @@ public class User {
     private List<Pet> pets;
     private int[] reportCount;
 
-    public User(String user_id, String password, String username) {
+    public User(String user_id, String username, String password) {
         this.userID = user_id;
         this.password = password;
         this.username = username;
