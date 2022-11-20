@@ -1,59 +1,67 @@
 package entities;
-import repo.PetDataRequestModel;
-import repo.ChatDataRequestModel;
+import repo.PetDataAccessInterface;
+import repo.ChatDataAccessInterface;
+import repo.UserDataAccessInterface;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
-
 public class Report implements Serializable {
-    /** TypeA punishment is that the suspended account get blocked from logging in.
-     *  TypeB contents in the profile get hidden or blocked.
-     *  TypeC muted.
+    /** TypeA (index at 0) punishment is that the suspended account get blocked from logging in.
+     *  TypeB (index at 1) contents in the profile get hidden or blocked.
+     *  TypeC (index at 2) muted.
      *  TypeD
      *  TypeE
      */
-    private String type;
+    private int type;
     private User user;
     private Pet pet;
     private Chat chat;
 
     static int defaultPetID = -1;
     static int defaultChatID = -1;
-
-    public Report(User a, String b, String petId, String chatID, PetDataRequestModel pm){
-        this.type = b;
+    static HashMap<String, Integer> types = new HashMap<String, Integer>(){
+        static {
+        types.put("TypeA", 0);
+        types.put("TypeB", 1);
+        types.put("TypeC", 2);}
+    };
+    public Report(User a, String n, String petId, String chatID, PetDataAccessInterface pm, ChatDataAccessInterface cm){
+        this.type = types.get(n);
         this.user = a;
         this.pet = pm.getPetById(petId);
-        /*this.chat = pet.getChats().get(chatID);*/
+        this.chat = cm.getChatByID(chatID);
     }
-    public Report(User a, String b){
-        this.type = b;
-        this.user = a;
+    public Report(String userID, String a, UserDataAccessInterface um){
+        this.type = types.get(a);
+        this.user = um.getUserById(userID);
     }
-    public Report(Pet c, String b){
-        this.type = b;
-        this.pet = c;
+    public Report(String petID, String b, PetDataAccessInterface pm, UserDataAccessInterface um){
+        this.type = types.get(b);
+        this.pet = pm.getPetById(petID);
+        this.user = um.getUserByPetID(petID);
     }
-    public Report(Pet c, String chatId, String b, ChatDataRequestModel cm){
-        this.pet = c;
-        this.type = b;
+    public Report(String petID, String chatId, String c, PetDataAccessInterface pm, ChatDataAccessInterface cm){
+        this.pet = pm.getPetById(petID);
+        this.type = types.get(c);
         this.chat = cm.getChatByID(chatId);
     }
 
     private void punish(){
-        /** Need to work with UI to fully implement this method*/
-        if (Objects.equals(type, "TypeA")) {
+        /** Need to work with UI to fully implement this method */
+        if (type == 0) {
             user.setPassword("NoNoNo");}
-        else if (Objects.equals(type, "TypeB")) {
-            pet.setName("NoNoNo");
+        else if (type == 1) {
+           /* pet.setName("NoNoNo");*/
            /* pet.setImage(Image);*/}
-        else if (Objects.equals(type, "TypeC")){
+        else if (type == 2){
             /*chat.setFlag(false)*/
         }
         return;
     }
 
     private void checkCounts() {
-        if (user.getReportCount(type) == 3){
+        if (user.getReportCount()[type] == 3){
             punish();
         };
         return;

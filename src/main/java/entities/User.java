@@ -1,4 +1,5 @@
 package entities;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 public class User {
@@ -7,13 +8,13 @@ public class User {
     public String username;
     public String password;
     private List<Pet> pets;
-    private HashMap<String, Integer> reportCount;
+    private int[] reportCount;
 
-    public User(String user_id, String password, String username, int report_count) {
+    public User(String user_id, String password, String username) {
         this.userID = user_id;
         this.password = password;
         this.username = username;
-        this.reportCount = new HashMap<String, Integer>();
+        this.reportCount = new int[]{0, 0, 0};
     }
     public User(Pet pet){
         this.pets.add(pet);
@@ -30,8 +31,8 @@ public class User {
         return username;
     }
 
-    public int getReportCount(String key) {
-        return reportCount.get(key);
+    public int[] getReportCount() {
+        return reportCount;
     }
 
     public List<Pet> getPets() {
@@ -54,11 +55,8 @@ public class User {
         this.pets = pets;
     }
 
-    public void setReportCount(String key) {
-        if (this.reportCount.containsKey(key)) {
-            this.reportCount.put(key, reportCount.get(key) + 1);
-        }
-        else {this.reportCount.put(key, 1);}
+    public void setReportCount(int index) {
+        this.reportCount[index] += 1;
     }
 }
 
