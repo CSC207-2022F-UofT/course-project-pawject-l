@@ -5,12 +5,22 @@ import entities.Attributes;
 import repo.FPMARequestModel;
 import repo.PetDataAccessInterface;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.Map;
 import java.lang.Math;
 
 public class FPMA implements FPMARequestModel {
+    private PetDataAccessInterface PDAI;
+    /**
+     * Initialize PetDataAcessInterface
+     *
+     * @param pdai PetDatAcessInterface
+     */
+    public FPMA(PetDataAccessInterface pdai) {
+        PDAI = pdai;
+    }
 
     /**
      * Get Potential Matching Candidates
@@ -18,7 +28,7 @@ public class FPMA implements FPMARequestModel {
      * @param userPet Pet user has logged in at time of method call
      * @return Pet array of potential match candidates sorted by preference saturation.
      */
-    public Pet[] PotentialCandidates(Pet userPet) {
+    public Pet[] PotentialCandidates(Pet userPet) throws IOException {
         HashMap<Float, Pet> potentialCandidateGrading = new HashMap<Float, Pet>(); // Initializes new HashMap with Floats as keys and Pets as values
         Attributes userPetPreferredAttributes = userPet.getPreferredAttributes(); // Initializes Attributes object containing attributes of userPet
         Pet[] PossibleCandidates = getPossibleCandidates(userPet); // Initializes Pet array and calls getPossibleCandidates method
@@ -35,7 +45,7 @@ public class FPMA implements FPMARequestModel {
      * @param userPet Pet user has logged in at time of method call
      * @return Pet array of potential candidates for grading
      */
-    public Pet[] getPossibleCandidates(Pet userPet) {
+    public Pet[] getPossibleCandidates(Pet userPet) throws IOException {
         Pet[] possibleCandidates = new Pet[20]; //Initializes list as well as limits the maximum number of candidates
         Attributes userPetAttributes = userPet.getAttributes(); //Initializes attributes object containing the attributes of the user
         Attributes userPetPreferredAttributes = userPet.getPreferredAttributes(); //Initializes attributes object containing the preferences of the user
@@ -43,7 +53,7 @@ public class FPMA implements FPMARequestModel {
         float preferredDistance = userPet.getPreferredProximity(); //Initializes float object containing the preferred proximity of the user
         int count = 0; //Initializes arbitrary count integer
         while (count < 19) {
-            Pet candidate = new PetDataRequestModel().getRandomPet(); //Initializes Pet object containing a possible candidate *****TODO NEED ACTUAL METHOD AND NEEDS TO BE NON-STATIC CALL
+            Pet candidate = PDAI.getRandomPet(); //Initializes Pet object containing a possible candidate
             Attributes candidatePetAttributes = candidate.getAttributes();//Initializes Attributes object containing the attributes of candidate
             if (!userPet.getDislikes().contains(candidate)) { //Checks if user has already disliked candidate
                 if (!candidate.getDislikes().contains(userPet)) { //Checks if candidate already disliked user

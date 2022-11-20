@@ -18,7 +18,7 @@ public interface PetDataAccessInterface {
      * @param user
      * @return Hashmap with keys as the id and values as Pet object
      */
-    HashMap<String, Pet> getPetsByUser(User user);
+    HashMap<String, Pet> getPetsByUser(User user) throws IOException;
 
     /**
      * Get a pet given the user and the pet name.
@@ -26,22 +26,22 @@ public interface PetDataAccessInterface {
      * @param name
      * @return Pet
      */
-    Pet getPetByUserAndName(User user, String name);
+    Pet getPetByUserAndName(User user, String name) throws IOException;
 
     /**
-     * Get a pet given the user and the pet type (cat, dog, etc.)
+     * Get pets given the user and the pet type (cat, dog, etc.)
      * @param user
      * @param typeOfPet
      * @return Pet
      */
-    Pet getPetByUserAndType(User user, String typeOfPet);
+    HashMap<String, Pet> getPetsByUserAndType(User user, String typeOfPet) throws IOException;
 
     /**
      * Get a random pet
      *
      * @return Pet
      */
-    Pet getRandomPet();
+    Pet getRandomPet() throws IOException;
 
     /**
      * Saves pet in database. Returns true if saved, false if not.
@@ -49,7 +49,7 @@ public interface PetDataAccessInterface {
      * @return true if saved, false if not
      */
 
-    boolean savePet(Pet pet);
+    boolean savePet(Pet pet) throws IOException;
 
     // Let me know if you would like other methods (e.g. to get a specific pet given a user and an attribute(s)).
 

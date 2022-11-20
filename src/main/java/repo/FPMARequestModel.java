@@ -3,6 +3,7 @@ import entities.Chat;
 import entities.Pet;
 import useCase.FPMA;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public interface FPMARequestModel{
@@ -11,5 +12,5 @@ public interface FPMARequestModel{
      * @param userPet the pet entity resposible for calling the FPMA request
      * @return a list of pets to be judged by the user
      */
-    Pet[] PotentialCandidates(Pet userPet);
+    Pet[] PotentialCandidates(Pet userPet) throws IOException;
 }
