@@ -38,7 +38,7 @@ public class User {
         return reportCount;
     }
 
-    public List<Pet> getPets() {
+    public List<String> getPets() {
         return pets;
     }
 
@@ -54,8 +54,8 @@ public class User {
         this.password = password;
     }
 
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
+    public void setPets(List<String> petIDs) {
+        this.pets = petIDs;
     }
 
     public void setReportCount(int index) {
