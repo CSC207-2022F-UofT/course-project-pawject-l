@@ -1,4 +1,4 @@
-package userCase;
+package useCase;
 
 import java.awt.*;
 import java.time.DayOfWeek;

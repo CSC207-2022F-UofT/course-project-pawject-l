@@ -1,7 +1,7 @@
 package userCase;
 import entities.Pet;
 import entities.Attributes;
-import repo.PetDataRequestModel;
+
 
 
 import java.awt.*;
