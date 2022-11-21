@@ -2,7 +2,6 @@ package entities;
 import repo.PetDataAccessInterface;
 import repo.ChatDataAccessInterface;
 import repo.UserDataAccessInterface;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
