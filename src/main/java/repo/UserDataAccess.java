@@ -14,7 +14,7 @@ public class UserDataAccess implements UserDataAccessInterface{
     static String defaultUserID = "00000001";
     static String defaultPetID = "00000001";
     static String defaultReportCount = "0$0$0";
-    static String filename = "123.txt";
+    static String filename = "userdata";
     @Override
     public User getUserById(String id) throws IOException {
         FileReader fr = new FileReader(filename);
