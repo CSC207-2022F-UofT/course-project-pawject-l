@@ -1,6 +1,6 @@
 package repo;
 
-import entities.User;
+import entities.User.User;
 
 public interface UserDataRequestModel {
 

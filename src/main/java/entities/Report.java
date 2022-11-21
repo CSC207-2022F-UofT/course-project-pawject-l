@@ -1,6 +1,7 @@
 package entities;
 import java.io.Serializable;
 import java.util.Objects;
+import entities.User.User;
 
 public class Report implements Serializable {
     /** TypeA punishment is that the suspended account get blocked from logging in.

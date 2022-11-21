@@ -1,14 +1,9 @@
 package userCase.Account;
 
 public interface AccountInputBoundary {
-    AccountResponseModel createUser(AccountRequestModel requestModel);
-
-    boolean checkPasswordValid(String password);
-
-    void createUser();
-
-    boolean userExists(String username);
-
-    boolean correctPassword(String username, String password);
+    public boolean checkPasswordValid(AccountRequestModel requestModel);
+    public AccountResponseModel createUser(AccountRequestModel requestModel);
+    public boolean userExists(AccountRequestModel requestModel);
+    public boolean correctPassword(AccountRequestModel requestModel, String password);
 
 }
