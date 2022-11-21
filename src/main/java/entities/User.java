@@ -1,23 +1,26 @@
 package entities;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Stream;
+
 public class User {
 
     public String userID;
     public String username;
     public String password;
-    private List<Pet> pets;
+    private List<String> pets;
     private int[] reportCount;
 
-    public User(String user_id, String password, String username) {
+    public User(String user_id, String username, String password, String petID, String reportCount) {
         this.userID = user_id;
         this.password = password;
         this.username = username;
+        this.pets = new ArrayList<String>();
+        this.pets.addAll(Arrays.asList(petID.split("$")));
         this.reportCount = new int[]{0, 0, 0};
-    }
-    public User(Pet pet){
-        this.pets.add(pet);
+        this.reportCount = Stream.of(reportCount.split("$")).mapToInt(Integer::parseInt).toArray();
     }
     public String getUserID() {
         return userID;
@@ -35,7 +38,7 @@ public class User {
         return reportCount;
     }
 
-    public List<Pet> getPets() {
+    public List<String> getPets() {
         return pets;
     }
 
@@ -51,8 +54,8 @@ public class User {
         this.password = password;
     }
 
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
+    public void setPets(List<String> petIDs) {
+        this.pets = petIDs;
     }
 
     public void setReportCount(int index) {

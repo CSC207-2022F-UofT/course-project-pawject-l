@@ -2,9 +2,12 @@ package repo;
 
 import entities.User;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public interface UserDataAccessInterface {
 
-    User getUserById(String id);
+    User getUserById(String id) throws IOException;
 
     /**
      * Get User given a unique username.
@@ -13,28 +16,28 @@ public interface UserDataAccessInterface {
      * @param username
      * @return
      */
-    User getUserByUsername(String username);
+    User getUserByUsername(String username) throws IOException;
 
     /**
      * Saves user in database. Returns true if saved, false if not.
      * @param user
      * @return true if saved, false if not
      */
-    boolean saveUser(User user);
+    boolean saveUser(String username, String password) throws IOException;
 
     /**
      * Checks if a given username already exists in the database. Returns true if it exists, false if it does not.
      * @param username
      * @return true if username is already in use, false if not
      */
-    boolean existsUsername(String username);
-    User getUserByPetID(String petID);
+    boolean existsUsername(String username) throws IOException;
+    User getUserByPetID(String petID) throws IOException;
     /**
      * Get User given a unique petID.
      * @param username
      * @return the user
      */
-    void deleteUser(String username);
+    boolean deleteUser(String username) throws IOException;
     /**
      * Delete the user.
      * @param username

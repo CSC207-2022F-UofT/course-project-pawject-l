@@ -5,6 +5,9 @@ import entities.Pet;
 import repo.ChatDataAccessInterface;
 import repo.PetDataAccessInterface;
 import repo.UserDataAccessInterface;
+
+import java.io.IOException;
+
 public class ReportInteractor {
     private PetDataAccessInterface pm;
     private ChatDataAccessInterface cm;
@@ -14,11 +17,11 @@ public class ReportInteractor {
         this.cm = cm;
         this.um = um;
     }
-    public void TypeAReport(String userID){
+    public void TypeAReport(String userID) throws IOException {
         Report r = new Report(userID, "TypeA", um);
         r.report();
     }
-    public void TypeBReport(String petID){
+    public void TypeBReport(String petID) throws IOException {
         Report r = new Report(petID, "TypeB", pm, um);
         r.report();
     }
