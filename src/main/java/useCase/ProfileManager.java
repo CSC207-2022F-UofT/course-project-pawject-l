@@ -1,7 +1,7 @@
-package userCase;
+package useCase;
 import entities.Pet;
 import entities.Attributes;
-
+import repo.PetDataAccessInterface;
 
 
 import java.awt.*;
@@ -12,9 +12,9 @@ import java.util.List;
 
 public class ProfileManager implements ProfileInputBoundary{
 
-    PetDataRequestModel petDsGateway;
+    PetDataAccessInterface petDsGateway;
 
-    public ProfileManager(PetDataRequestModel petDsGateway){
+    public ProfileManager(PetDataAccessInterface petDsGateway){
         this.petDsGateway = petDsGateway;
     }
 
