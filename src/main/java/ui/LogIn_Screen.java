@@ -7,21 +7,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SignUpScreen extends JFrame implements ActionListener {
+public class LogIn_Screen extends JFrame implements ActionListener {
     Font f1 = new Font("Arial", Font.PLAIN,  12);
-    Font f2 = new Font("Arial", Font.PLAIN,  9);
     Font f3 = new Font("Arial", Font.PLAIN,  20);
     Container container = getContentPane();
-    JLabel titleLabel = new JLabel("Sign Up");
+    JLabel titleLabel = new JLabel("Log In");
     JLabel usernameLabel = new JLabel("Enter Username");
     JLabel passwordLabel = new JLabel("Enter Password");
-    JLabel passwordMessageLabel = new JLabel("<html>Password must have at least 6 characters, one lowercase and one uppercase character, one number, no spaces</html>");
     JTextField usernameField = new JTextField();
     JPasswordField passwordField = new JPasswordField();
-    JButton signupButton = new JButton("Sign up");
-    JButton loginButton = new JButton("Have an account? Log in.");
+    JButton loginButton = new JButton("Log In");
+    JButton signupButton = new JButton("Don't have an account? Sign up.");
 
-    LogIn_Screen loginScreen = new LogIn_Screen();
+    SignUpScreen signupScreen = new SignUpScreen();
+
 
     public void setLayoutManager() {
         container.setLayout(null);
@@ -31,11 +30,10 @@ public class SignUpScreen extends JFrame implements ActionListener {
         titleLabel.setBounds(150, 70, 100, 30);
         usernameLabel.setBounds(60, 150, 100, 30);
         passwordLabel.setBounds(60, 220, 100, 30);
-        passwordMessageLabel.setBounds(50, 250, 300, 30);
         usernameField.setBounds(160, 150, 150, 30);
         passwordField.setBounds(160, 220, 150, 30);
-        signupButton.setBounds(120, 320, 100, 30);
-        loginButton.setBounds(80, 400, 200, 30);
+        loginButton.setBounds(120, 320, 100, 30);
+        signupButton.setBounds(80, 400, 200, 30);
     }
 
     public void addComponentsToContainer() {
@@ -46,7 +44,6 @@ public class SignUpScreen extends JFrame implements ActionListener {
         container.add(passwordField);
         container.add(signupButton);
         container.add(loginButton);
-        container.add(passwordMessageLabel);
 
         titleLabel.setFont(f3);
         passwordLabel.setFont(f1);
@@ -55,18 +52,14 @@ public class SignUpScreen extends JFrame implements ActionListener {
         passwordField.setFont(f1);
         signupButton.setFont(f1);
         loginButton.setFont(f1);
-        passwordMessageLabel.setFont(f2);
     }
 
     public void addActionEvent() {
-        signupButton.addActionListener(this);
         loginButton.addActionListener(this);
+        signupButton.addActionListener(this);
     }
 
-//    AccountController controller;
-
-    public SignUpScreen () {
-//        this.controller = controller;
+    public LogIn_Screen() {
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
@@ -75,32 +68,28 @@ public class SignUpScreen extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        Coding Part of Sign Up button
-        if (e.getSource() == signupButton) {
+//        Coding Part of Log In button
+        if (e.getSource() == loginButton) {
             String userText = usernameField.getText();
             String pwdText = passwordField.getText();
 
-            if (AccountController.checkPasswordValid(userText, pwdText) == false) {
-                JOptionPane.showMessageDialog(this, "Password requirements unmet.");
-            } else if (AccountController.userExists(userText, pwdText) == true) {
-                JOptionPane.showMessageDialog(this, "Username already associated to an account. Please log in.");
+            if (AccountController.userExists(userText, pwdText) == false) {
+                JOptionPane.showMessageDialog(this, "This username doesn't exist. Please create an account.");
+            } else if (AccountController.correctPassword(userText, pwdText) == false) {
+                JOptionPane.showMessageDialog(this, "Username or password is incorrect. Please try again.");
             } else {
-                AccountController.createUser(userText, pwdText);
-                JOptionPane.showMessageDialog(this, userText + " created.");
+                JOptionPane.showMessageDialog(this, "Logged in.");
             }
-        }
-        if (e.getSource() == loginButton) {
+        } else if (e.getSource() == signupButton) {
             this.dispose();
-            loginScreen.setVisible(true);
-            loginScreen.setSize(370, 600);
+            signupScreen.setVisible(true);
+            signupScreen.setSize(370, 600);
         }
     }
 
     public static void main(String[] args) {
-//        AccountInputBoundary input = new AccountModel()
-//        AccountController controller = new AccountController()
-        SignUpScreen frame = new SignUpScreen();
-        frame.setTitle("Sign Up Screen");
+        LogIn_Screen frame = new LogIn_Screen();
+        frame.setTitle("Log in Screen");
         frame.setVisible(true);
         frame.setBounds(10, 10, 370, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

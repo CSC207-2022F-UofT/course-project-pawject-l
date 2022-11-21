@@ -1,4 +1,4 @@
-package userCase.Account;
+package useCase.Account;
 
 import java.util.HashMap;
 

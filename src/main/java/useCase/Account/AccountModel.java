@@ -1,19 +1,20 @@
-package userCase.Account;
+package useCase.Account;
 
 import entities.User;
-import repo.UserDataRequestModel;
+import repo.UserDataAccessInterface;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 // use case layer
 
 public class AccountModel {
-    UserDataRequestModel accountDsGateway;
+    UserDataAccessInterface accountDsGateway;
     public static HashMap<String, String> idUserDict = new HashMap<>();
     public static HashMap<String, String> userPassDict = new HashMap<>();
 
 
-    public AccountModel(UserDataRequestModel accountDsGateway) {
+    public AccountModel(UserDataAccessInterface accountDsGateway) {
         this.accountDsGateway = accountDsGateway;
     }
 
@@ -31,7 +32,7 @@ public class AccountModel {
      *
      * @return true if the password is valid, false otherwise.
      */
-    public boolean checkPasswordValid(AccountRequestModel requestModel) {
+    public boolean checkPasswordValid(AccountRequestModel requestModel) throws IOException {
         User user = accountDsGateway.getUserByUsername(requestModel.getUsername());
         String password = user.getPassword();
         if (password.length() < 6) {
@@ -60,7 +61,7 @@ public class AccountModel {
      *
      * @return
      */
-    public AccountResponseModel createUser(AccountRequestModel requestModel) {
+    public AccountResponseModel createUser(AccountRequestModel requestModel) throws IOException {
         User user = accountDsGateway.getUserByUsername(requestModel.getUsername());
         idUserDict.put(user.getUserID(), user.getUsername());
         userPassDict.put(user.getUsername(), user.getPassword());
@@ -75,7 +76,7 @@ public class AccountModel {
      *
      * @return true if the username is already in userDict, false otherwise.
      */
-    public boolean userExists(AccountRequestModel requestModel) {
+    public boolean userExists(AccountRequestModel requestModel) throws IOException {
         User user = accountDsGateway.getUserByUsername(requestModel.getUsername());
         if (userPassDict.containsKey(requestModel.getUsername())) {
             return true;
@@ -91,7 +92,7 @@ public class AccountModel {
      *
      * @return true if the given password matches the user's password, false otherwise.
      */
-    public boolean correctPassword(AccountRequestModel requestModel, String password) {
+    public boolean correctPassword(AccountRequestModel requestModel, String password) throws IOException {
         User user = accountDsGateway.getUserByUsername(requestModel.getUsername());
         if (userPassDict.get(user.getUsername()) == password) {
             return true;

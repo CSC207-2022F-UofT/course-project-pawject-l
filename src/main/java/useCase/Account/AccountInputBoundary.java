@@ -1,4 +1,4 @@
-package userCase.Account;
+package useCase.Account;
 
 public interface AccountInputBoundary {
     public boolean checkPasswordValid(AccountRequestModel requestModel);

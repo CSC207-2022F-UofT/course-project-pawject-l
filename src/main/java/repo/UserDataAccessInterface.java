@@ -20,7 +20,8 @@ public interface UserDataAccessInterface {
 
     /**
      * Saves user in database. Returns true if saved, false if not.
-     * @param user
+     * @param username
+     * @param password
      * @return true if saved, false if not
      */
     boolean saveUser(String username, String password) throws IOException;

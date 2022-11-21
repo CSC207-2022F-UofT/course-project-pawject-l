@@ -13,6 +13,29 @@ public class User {
     private List<String> pets;
     private int[] reportCount;
 
+    /**
+     * Creates a new User with the given userID, username, and password.
+     *
+     * @param username A String containing the User's username.
+     * @param password A String containing the User's password.
+     */
+    public User(String username, String password) {
+        this.userID = idGenerator();
+        this.password = password;
+        this.username = username;
+    }
+
+    public static String idGenerator() {
+        String alphaNumString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvxyz" + "123456789";
+        StringBuilder sb = new StringBuilder(8);
+
+        for (int i = 0; i < 8; i++) {
+            int index = (int)(alphaNumString.length() * Math.random());
+            sb.append(alphaNumString.charAt(index));
+        }
+        return sb.toString();
+    }
+
     public User(String user_id, String username, String password, String petID, String reportCount) {
         this.userID = user_id;
         this.password = password;

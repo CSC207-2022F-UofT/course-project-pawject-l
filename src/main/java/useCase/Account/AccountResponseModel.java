@@ -1,4 +1,4 @@
-package userCase.Account;
+package useCase.Account;
 
 public class AccountResponseModel {
     String login;
