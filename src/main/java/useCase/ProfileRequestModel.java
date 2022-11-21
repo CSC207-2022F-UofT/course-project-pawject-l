@@ -3,6 +3,7 @@ package useCase;
 import java.awt.*;
 import java.time.DayOfWeek;
 import java.util.List;
+import java.util.UUID;
 
 public class ProfileRequestModel {
     private String name;
@@ -33,7 +34,7 @@ public class ProfileRequestModel {
     public ProfileRequestModel(String name, String description,List<String> species, List<String> breed, List<Integer> age, String gender,
                                List<String> preferredSpecies, List<String> preferredBreed, List<Integer> preferredAge, String preferredGender,
                                List<Image> images, Image proofOfVaccination, float longitude, float latitude, float preferredProximity,
-                               List<DayOfWeek> availableDay, boolean preferredVaccineStatus, String petId) {
+                               List<DayOfWeek> availableDay, boolean preferredVaccineStatus) {
         this.name = name;
         this.description = description;
         this.species = species;
@@ -51,7 +52,7 @@ public class ProfileRequestModel {
         this.preferredProximity = preferredProximity;
         this.availableDay = availableDay;
         this.preferredVaccineStatus = preferredVaccineStatus;
-        this.petId = petId;
+        this.petId = "Pet ID: " + UUID.randomUUID();
     }
 
 
