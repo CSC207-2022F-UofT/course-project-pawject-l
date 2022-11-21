@@ -1,6 +1,8 @@
 package ui;
 
 import controller.AccountController;
+import userCase.Account.AccountInputBoundary;
+import userCase.Account.AccountModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,7 +65,10 @@ public class SignUpScreen extends JFrame implements ActionListener {
         loginButton.addActionListener(this);
     }
 
+//    AccountController controller;
+
     public SignUpScreen () {
+//        this.controller = controller;
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
@@ -94,6 +99,8 @@ public class SignUpScreen extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
+//        AccountInputBoundary input = new AccountModel()
+//        AccountController controller = new AccountController()
         SignUpScreen frame = new SignUpScreen();
         frame.setTitle("Sign Up Screen");
         frame.setVisible(true);
