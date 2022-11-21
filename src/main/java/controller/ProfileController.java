@@ -1,6 +1,6 @@
 package controller;
-import userCase.ProfileInputBoundary;
-import userCase.ProfileRequestModel;
+import useCase.ProfileInputBoundary;
+import useCase.ProfileRequestModel;
 
 import java.awt.*;
 import java.time.DayOfWeek;
