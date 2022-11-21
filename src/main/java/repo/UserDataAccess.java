@@ -106,7 +106,7 @@ public class UserDataAccess implements UserDataAccessInterface{
         }
         br.close();
         fr.close();
-        return value.contains(username);
+        return value!= null && value.contains(username);
     }
 
     @Override
