@@ -5,7 +5,7 @@ import entities.Chat;
 
 import java.util.ArrayList;
 
-public interface ChatDataRequestModel {
+public interface ChatDataAccessInterface {
 
 
     /**

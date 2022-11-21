@@ -1,8 +1,8 @@
-package userCase;
+package useCase;
 
 import entities.Chat;
 import entities.Pet;
-import repo.ChatDataRequestModel;
+import repo.ChatDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,8 +11,8 @@ import java.util.HashMap;
 
 
 public class ChatManager {
-    ChatDataRequestModel CDRM;
-    public ChatManager(ChatDataRequestModel CDRM){
+    ChatDataAccessInterface CDRM;
+    public ChatManager(ChatDataAccessInterface CDRM){
         this.CDRM = CDRM;
     }
     private static long idCounter = 0;

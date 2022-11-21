@@ -1,48 +1,27 @@
 package entities;
-import entities.Pet;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Stream;
 
-// entity layer
 public class User {
 
-    private String userID;
-    private String username;
-    private String password;
-    private List<Pet> pets;
-    private HashMap<String, Integer> reportCount;
+    public String userID;
+    public String username;
+    public String password;
+    private List<String> pets;
+    private int[] reportCount;
 
-    /**
-     * Creates a new User with the given userID, username, and password.
-     *
-     * @param username A String containing the User's username.
-     * @param password A String containing the User's password.
-     */
-    public User(String username, String password) {
-        this.userID = idGenerator();
+    public User(String user_id, String username, String password, String petID, String reportCount) {
+        this.userID = user_id;
         this.password = password;
         this.username = username;
-        this.pets = new ArrayList<Pet>();
-        this.reportCount = new HashMap<String, Integer>();
+        this.pets = new ArrayList<String>();
+        this.pets.addAll(Arrays.asList(petID.split("$")));
+        this.reportCount = new int[]{0, 0, 0};
+        this.reportCount = Stream.of(reportCount.split("$")).mapToInt(Integer::parseInt).toArray();
     }
-
-    public static String idGenerator() {
-        String alphaNumString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvxyz" + "123456789";
-        StringBuilder sb = new StringBuilder(8);
-
-        for (int i = 0; i < 8; i++) {
-            int index = (int)(alphaNumString.length() * Math.random());
-            sb.append(alphaNumString.charAt(index));
-        }
-        return sb.toString();
-    }
-
-    public User(Pet pet){
-        this.pets.add(pet);
-    }
-
     public String getUserID() {
         return userID;
     }
@@ -55,11 +34,11 @@ public class User {
         return username;
     }
 
-    public int getReportCount(String key) {
-        return reportCount.get(key);
+    public int[] getReportCount() {
+        return reportCount;
     }
 
-    public List<Pet> getPets() {
+    public List<String> getPets() {
         return pets;
     }
 
@@ -75,15 +54,12 @@ public class User {
         this.password = password;
     }
 
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
+    public void setPets(List<String> petIDs) {
+        this.pets = petIDs;
     }
 
-    public void setReportCount(String key) {
-        if (this.reportCount.containsKey(key)) {
-            this.reportCount.put(key, reportCount.get(key) + 1);
-        }
-        else {this.reportCount.put(key, 1);}
+    public void setReportCount(int index) {
+        this.reportCount[index] += 1;
     }
 }
 
