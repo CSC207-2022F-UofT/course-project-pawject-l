@@ -12,7 +12,7 @@ import java.util.Objects;
 public class UserDataAccess implements UserDataAccessInterface{
     /**
      * userID, username, password, petIDs,  reportCounts
-     * "0000001","student","password","0001"$"0002",0$0$0
+     * "0000001","student","password","PET ID:0001$PET ID:0002","0$0$0"
      * 0,         1,         2,       3,           4
      */
     static String defaultUserID = "00000001";

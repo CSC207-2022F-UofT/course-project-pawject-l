@@ -1,4 +1,6 @@
 package entities;
+import repo.PetDataAccessInterface;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,8 +40,12 @@ public class User {
         return reportCount;
     }
 
-    public List<String> getPets() {
-        return pets;
+    public List<Pet> getPets(PetDataAccessInterface pi) {
+        List<Pet> petList = new ArrayList<Pet>();
+        for (String pet: this.pets){
+            petList.add(pi.getPetById(pet));
+        }
+        return petList;
     }
 
     public void setName(String name) {
@@ -56,8 +62,7 @@ public class User {
 
     public void setPets(List<String> petIDs) {
         this.pets = petIDs;
-    }
-
+    };
     public void setReportCount(int index) {
         this.reportCount[index] += 1;
     }
