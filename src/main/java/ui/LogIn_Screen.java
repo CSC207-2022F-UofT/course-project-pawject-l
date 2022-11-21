@@ -19,7 +19,7 @@ public class LogIn_Screen extends JFrame implements ActionListener {
     JButton loginButton = new JButton("Log In");
     JButton signupButton = new JButton("Don't have an account? Sign up.");
 
-    SignUpScreen signupScreen = new SignUpScreen();
+//    SignUpScreen signupScreen = new SignUpScreen();
 
 
     public void setLayoutManager() {
@@ -80,11 +80,12 @@ public class LogIn_Screen extends JFrame implements ActionListener {
             } else {
                 JOptionPane.showMessageDialog(this, "Logged in.");
             }
-        } else if (e.getSource() == signupButton) {
-            this.dispose();
-            signupScreen.setVisible(true);
-            signupScreen.setSize(370, 600);
-        }
+//        } else if (e.getSource() == signupButton) {
+//            this.dispose();
+//            signupScreen.setVisible(true);
+//            signupScreen.setSize(370, 600);
+//        }
+    }
     }
 
     public static void main(String[] args) {
