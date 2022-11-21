@@ -1,6 +1,6 @@
 package controller;
 
-import entities.User.User;
+import entities.User;
 import userCase.Account.AccountInputBoundary;
 
 import java.util.HashMap;

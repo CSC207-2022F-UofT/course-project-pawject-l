@@ -1,4 +1,4 @@
-package entities.User;
+package entities;
 import entities.Pet;
 
 import java.util.ArrayList;

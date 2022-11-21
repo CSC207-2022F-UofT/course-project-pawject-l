@@ -1,6 +1,6 @@
 package userCase.Account;
 
-import entities.User.User;
+import entities.User;
 import repo.UserDataRequestModel;
 
 import java.util.HashMap;

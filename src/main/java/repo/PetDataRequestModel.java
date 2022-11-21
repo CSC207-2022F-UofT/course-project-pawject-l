@@ -1,6 +1,6 @@
 package repo;
 
-import entities.User.User;
+import entities.User;
 import entities.Pet;
 
 import java.util.HashMap;
