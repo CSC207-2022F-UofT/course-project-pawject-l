@@ -1,6 +1,7 @@
 package entities;
 import repo.PetDataAccessInterface;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -40,7 +41,7 @@ public class User {
         return reportCount;
     }
 
-    public List<Pet> getPets(PetDataAccessInterface pi) {
+    public List<Pet> getPets(PetDataAccessInterface pi) throws IOException {
         List<Pet> petList = new ArrayList<Pet>();
         for (String pet: this.pets){
             petList.add(pi.getPetById(pet));

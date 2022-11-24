@@ -7,14 +7,14 @@ import repo.UserDataAccessInterface;
 
 import java.io.IOException;
 
-public class test {
+public class UserTest {
     private static PetDataAccessInterface pm;
     private static ChatDataAccessInterface cm;
     private static UserDataAccessInterface um;
-    public test(PetDataAccessInterface pm, ChatDataAccessInterface cm, UserDataAccessInterface um){
-        test.pm = pm;
-        test.cm = cm;
-        test.um = um;
+    public UserTest(PetDataAccessInterface pm, ChatDataAccessInterface cm, UserDataAccessInterface um){
+        UserTest.pm = pm;
+        UserTest.cm = cm;
+        UserTest.um = um;
     }
     public static void main(String[] args) throws IOException {
         System.out.print(um.existsUsername("12345678"));

@@ -28,7 +28,7 @@ public class Report implements Serializable {
         types.put("TypeC", 2);
         }
     };
-    public Report(User a, String n, String petId, String chatID, PetDataAccessInterface pm, ChatDataAccessInterface cm){
+    public Report(User a, String n, String petId, String chatID, PetDataAccessInterface pm, ChatDataAccessInterface cm) throws IOException {
         this.type = types.get(n);
         this.user = a;
         this.pet = pm.getPetById(petId);
@@ -43,7 +43,7 @@ public class Report implements Serializable {
         this.pet = pm.getPetById(petID);
         this.user = um.getUserByPetID(petID);
     }
-    public Report(String petID, String chatId, String c, PetDataAccessInterface pm, ChatDataAccessInterface cm){
+    public Report(String petID, String chatId, String c, PetDataAccessInterface pm, ChatDataAccessInterface cm) throws IOException {
         this.pet = pm.getPetById(petID);
         this.type = types.get(c);
         this.chat = cm.getChatByID(chatId);
