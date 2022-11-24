@@ -1,4 +1,6 @@
 package entities;
-
-public interface UserInterface {
+public class UserInterface {
+    /**
+     * "0001","student","password",["0001","0002"],[0,0,0]
+     */
 }

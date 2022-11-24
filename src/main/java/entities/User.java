@@ -1,22 +1,26 @@
 package entities;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Stream;
+
 public class User {
 
     public String userID;
     public String username;
     public String password;
-    private List<Pet> pets;
-    private HashMap<String, Integer> reportCount;
+    private List<String> pets;
+    private int[] reportCount;
 
-    public User(String user_id, String password, String username, int report_count) {
+    public User(String user_id, String username, String password, String petID, String reportCount) {
         this.userID = user_id;
         this.password = password;
         this.username = username;
-        this.reportCount = new HashMap<String, Integer>();
-    }
-    public User(Pet pet){
-        this.pets.add(pet);
+        this.pets = new ArrayList<String>();
+        this.pets.addAll(Arrays.asList(petID.split("$")));
+        this.reportCount = new int[]{0, 0, 0};
+        this.reportCount = Stream.of(reportCount.split("$")).mapToInt(Integer::parseInt).toArray();
     }
     public String getUserID() {
         return userID;
@@ -30,11 +34,11 @@ public class User {
         return username;
     }
 
-    public int getReportCount(String key) {
-        return reportCount.get(key);
+    public int[] getReportCount() {
+        return reportCount;
     }
 
-    public List<Pet> getPets() {
+    public List<String> getPets() {
         return pets;
     }
 
@@ -50,15 +54,12 @@ public class User {
         this.password = password;
     }
 
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
+    public void setPets(List<String> petIDs) {
+        this.pets = petIDs;
     }
 
-    public void setReportCount(String key) {
-        if (this.reportCount.containsKey(key)) {
-            this.reportCount.put(key, reportCount.get(key) + 1);
-        }
-        else {this.reportCount.put(key, 1);}
+    public void setReportCount(int index) {
+        this.reportCount[index] += 1;
     }
 }
 
