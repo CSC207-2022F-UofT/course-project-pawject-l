@@ -3,6 +3,7 @@ import useCase.ProfileInputBoundary;
 import useCase.ProfileRequestModel;
 
 import java.awt.*;
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.util.List;
 
@@ -15,75 +16,75 @@ public class ProfileController {
         this.profileInput = profileInput;
     }
 
-    public void performProfileCreation(ProfileRequestModel requestModel) {
+    public void performProfileCreation(ProfileRequestModel requestModel) throws IOException {
         this.profileInput.createNewProfile(requestModel);
     }
 
-    public void editName (ProfileRequestModel requestModel, String newValue) {
+    public void editName (ProfileRequestModel requestModel, String newValue) throws IOException {
         this.profileInput.editName(requestModel, newValue);
     }
 
-    public void editSpecies(ProfileRequestModel requestModel, List<String> newValues) {
+    public void editSpecies(ProfileRequestModel requestModel, List<String> newValues) throws IOException {
         this.profileInput.editSpecies(requestModel, newValues);
     }
 
-    public void editBreed (ProfileRequestModel requestModel, List<String> newValues) {
+    public void editBreed (ProfileRequestModel requestModel, List<String> newValues) throws IOException {
         this.profileInput.editBreed(requestModel, newValues);
     }
 
-    public void editAge(ProfileRequestModel requestModel,List<Integer> newValues){
+    public void editAge(ProfileRequestModel requestModel,List<Integer> newValues) throws IOException {
         this.profileInput.editAge(requestModel, newValues);
     }
 
-    public void editGender(ProfileRequestModel requestModel,String newValue){
+    public void editGender(ProfileRequestModel requestModel,String newValue) throws IOException {
         this.profileInput.editGender(requestModel, newValue);
     }
 
-    public void editDescription(ProfileRequestModel requestModel,String newValue){
+    public void editDescription(ProfileRequestModel requestModel,String newValue) throws IOException {
         this.profileInput.editDescription(requestModel, newValue);
     }
 
-    public void addImage(ProfileRequestModel requestModel, Image newImage){
+    public void addImage(ProfileRequestModel requestModel, Image newImage) throws IOException {
         this.profileInput.addImage(requestModel, newImage);
     }
 
-    public void removeImage(ProfileRequestModel requestModel, Image imageToRemove){
+    public void removeImage(ProfileRequestModel requestModel, Image imageToRemove) throws IOException {
         this.profileInput.removeImage(requestModel, imageToRemove);
     }
 
-    public void updateProofOfVaccination (ProfileRequestModel requestModel, Image proofOfVaccination){
+    public void updateProofOfVaccination (ProfileRequestModel requestModel, Image proofOfVaccination) throws IOException {
         this.profileInput.updateProofOfVaccination(requestModel, proofOfVaccination);
     }
 
-    public void editLongitude (ProfileRequestModel requestModel, float newValue){
+    public void editLongitude (ProfileRequestModel requestModel, float newValue) throws IOException {
         this.profileInput.editLongitude(requestModel, newValue);
     }
 
-    public void editLatitude (ProfileRequestModel requestModel, float newValue){
+    public void editLatitude (ProfileRequestModel requestModel, float newValue) throws IOException {
         this.profileInput.editLatitude(requestModel, newValue);
     }
 
-    public void editAvailableDay (ProfileRequestModel requestModel, List<DayOfWeek> availableDay){
+    public void editAvailableDay (ProfileRequestModel requestModel, List<DayOfWeek> availableDay) throws IOException {
         this.profileInput.editAvailableDay(requestModel, availableDay);
     }
 
-    public void editPreferredSpecies(ProfileRequestModel requestModel, List<String> newValues) {
+    public void editPreferredSpecies(ProfileRequestModel requestModel, List<String> newValues) throws IOException {
         this.profileInput.editPreferredSpecies(requestModel, newValues);
     }
 
-    public void editPreferredBreeds (ProfileRequestModel requestModel, List<String> newValues) {
+    public void editPreferredBreeds (ProfileRequestModel requestModel, List<String> newValues) throws IOException {
         this.profileInput.editPreferredBreed(requestModel, newValues);
     }
 
-    public void editPreferredAge(ProfileRequestModel requestModel,List<Integer> newValues){
+    public void editPreferredAge(ProfileRequestModel requestModel,List<Integer> newValues) throws IOException {
         this.profileInput.editPreferredAge(requestModel, newValues);
     }
 
-    public void editPreferredGender(ProfileRequestModel requestModel,String newValue){
+    public void editPreferredGender(ProfileRequestModel requestModel,String newValue) throws IOException {
         this.profileInput.editPreferredGender(requestModel, newValue);
     }
 
-    public void editPreferredProximity(ProfileRequestModel requestModel, float newValue){
+    public void editPreferredProximity(ProfileRequestModel requestModel, float newValue) throws IOException {
         this.profileInput.editPreferredProximity(requestModel, newValue);
     }
 }
