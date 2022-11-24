@@ -4,6 +4,8 @@ import useCase.MatchManagerInputBoundary;
 import useCase.ChatManagerInputBoundary;
 import useCase.MatchManagerRequestModel;
 
+import java.io.IOException;
+
 public class MatchManagerController {
 
     final MatchManagerInputBoundary matchInput;
@@ -14,7 +16,7 @@ public class MatchManagerController {
         this.chatInput = chatInput;
     }
 
-    public void manageMatch(String p1_id, String p2_id, boolean p1_owner_decision) {
+    public void manageMatch(String p1_id, String p2_id, boolean p1_owner_decision) throws IOException {
         MatchManagerRequestModel requestModel = new MatchManagerRequestModel(p1_id, p2_id, p1_owner_decision);
 
         if (matchInput.manageMatch(requestModel)) {

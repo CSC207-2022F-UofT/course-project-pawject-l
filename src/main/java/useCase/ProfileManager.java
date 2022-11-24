@@ -5,6 +5,7 @@ import repo.PetDataAccessInterface;
 
 
 import java.awt.*;
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +24,7 @@ public class ProfileManager implements ProfileInputBoundary{
     /**
      * Create a new pet and save all the information into the Pet database.
      */
-    public void createNewProfile(ProfileRequestModel requestModel){
+    public void createNewProfile(ProfileRequestModel requestModel) throws IOException {
         Attributes attributes = new Attributes(requestModel.getSpecies(), requestModel.getBreed(), requestModel.getAge(), requestModel.getGender(), true);
         Attributes preferredAttributes = new Attributes(requestModel.getPreferredSpecies(), requestModel.getPreferredBreed(),
                 requestModel.getPreferredAge(), requestModel.getPreferredGender(), requestModel.getPreferredVaccineStatus());
@@ -33,88 +34,88 @@ public class ProfileManager implements ProfileInputBoundary{
         petDsGateway.savePet(newPet);
     }
 
-    public void editName(ProfileRequestModel requestModel, String newValue){
+    public void editName(ProfileRequestModel requestModel, String newValue) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.setName(newValue);
     }
 
-    public void editSpecies(ProfileRequestModel requestModel, List<String> newValues){
+    public void editSpecies(ProfileRequestModel requestModel, List<String> newValues) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.getAttributes().setSpecies(newValues);
     }
 
-    public void editBreed(ProfileRequestModel requestModel,List<String> newValues){
+    public void editBreed(ProfileRequestModel requestModel,List<String> newValues) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.getAttributes().setBreed(newValues);
     }
 
-    public void editAge(ProfileRequestModel requestModel,List<Integer> newValues){
+    public void editAge(ProfileRequestModel requestModel,List<Integer> newValues) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.getAttributes().setAge(newValues);
     }
 
-    public void editGender(ProfileRequestModel requestModel,String newValue){
+    public void editGender(ProfileRequestModel requestModel,String newValue) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.getAttributes().setGender(newValue);
     }
 
-    public void editDescription(ProfileRequestModel requestModel,String newValue){
+    public void editDescription(ProfileRequestModel requestModel,String newValue) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.setDescription(newValue);
     }
 
-    public void addImage(ProfileRequestModel requestModel, Image newImage){
+    public void addImage(ProfileRequestModel requestModel, Image newImage) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.getImages().add(newImage);
     }
 
-    public void removeImage(ProfileRequestModel requestModel, Image imageToRemove){
+    public void removeImage(ProfileRequestModel requestModel, Image imageToRemove) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.getImages().remove(imageToRemove);
     }
 
-    public void updateProofOfVaccination (ProfileRequestModel requestModel, Image proofOfVaccination){
+    public void updateProofOfVaccination (ProfileRequestModel requestModel, Image proofOfVaccination) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.setProofOfVaccination(proofOfVaccination);
         pet.getAttributes().setVaccineStatus(true);
     }
 
-    public void editLongitude (ProfileRequestModel requestModel, float newValue){
+    public void editLongitude (ProfileRequestModel requestModel, float newValue) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.setLongitude(newValue);
     }
 
-    public void editLatitude (ProfileRequestModel requestModel, float newValue){
+    public void editLatitude (ProfileRequestModel requestModel, float newValue) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.setLatitude(newValue);
     }
 
-    public void editAvailableDay (ProfileRequestModel requestModel, List<DayOfWeek> availableDay){
+    public void editAvailableDay (ProfileRequestModel requestModel, List<DayOfWeek> availableDay) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.setAvailableDay(availableDay);
     }
 
-    public void editPreferredSpecies(ProfileRequestModel requestModel,List<String> newValues){
+    public void editPreferredSpecies(ProfileRequestModel requestModel,List<String> newValues) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.getPreferredAttributes().setSpecies(newValues);
     }
 
-    public void editPreferredBreed(ProfileRequestModel requestModel,List<String> newValues){
+    public void editPreferredBreed(ProfileRequestModel requestModel,List<String> newValues) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.getPreferredAttributes().setBreed(newValues);
     }
 
-    public void editPreferredAge(ProfileRequestModel requestModel,List<Integer> newValues){
+    public void editPreferredAge(ProfileRequestModel requestModel,List<Integer> newValues) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.getPreferredAttributes().setAge(newValues);
     }
 
-    public void editPreferredGender(ProfileRequestModel requestModel,String newValue){
+    public void editPreferredGender(ProfileRequestModel requestModel,String newValue) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.getPreferredAttributes().setGender(newValue);
     }
 
-    public void editPreferredProximity(ProfileRequestModel requestModel, float newValue){
+    public void editPreferredProximity(ProfileRequestModel requestModel, float newValue) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.setPreferredProximity(newValue);
     }
@@ -124,7 +125,7 @@ public class ProfileManager implements ProfileInputBoundary{
      * @param petID
      * @return all profile information of a pet.
      */
-    public List<Object> getProfileAllInfo(String petID) {
+    public List<Object> getProfileAllInfo(String petID) throws IOException {
         Pet userPet = petDsGateway.getPetById(petID);
         List<Object> petInfo = new ArrayList<>();
          /* All pet profile information in order: name, species, breed, age, gender, description, images, proofOfVaccination, vaccineStatus,
@@ -150,7 +151,7 @@ public class ProfileManager implements ProfileInputBoundary{
         return petInfo;
     }
 
-    public HashMap<Object, List<Object>> getPetFullProfileData(String petID) {
+    public HashMap<Object, List<Object>> getPetFullProfileData(String petID) throws IOException {
         Pet userPet = petDsGateway.getPetById(petID);
 
         HashMap<Object, List<Object>> petProfile = new HashMap<>();
@@ -159,7 +160,7 @@ public class ProfileManager implements ProfileInputBoundary{
         return petProfile;
     }
 
-    public HashMap<Object, List<Object>> getPetProfilePreviewData(String petID) {
+    public HashMap<Object, List<Object>> getPetProfilePreviewData(String petID) throws IOException {
         Pet userPet = petDsGateway.getPetById(petID);
 
         HashMap<Object, List<Object>> petProfile = new HashMap<>();

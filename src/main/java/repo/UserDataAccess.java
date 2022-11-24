@@ -1,24 +1,20 @@
 package repo;
-import org.hamcrest.Factory;
-import repo.*;
 import entities.User;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Objects;
 
 public class UserDataAccess implements UserDataAccessInterface{
     /**
      * userID, username, password, petIDs,  reportCounts
-     * "0000001","student","password","0001"$"0002",0$0$0
+     * "0000001","student","password","PET ID:0001$PET ID:0002","0$0$0"
      * 0,         1,         2,       3,           4
      */
     static String defaultUserID = "00000001";
     static String defaultPetID = "00000001";
     static String defaultReportCount = "0$0$0";
-    static String filename = "123.txt";
+    static String filename = "userData";
     @Override
     public User getUserById(String id) throws IOException {
         FileReader fr = new FileReader(filename);
@@ -106,7 +102,7 @@ public class UserDataAccess implements UserDataAccessInterface{
         }
         br.close();
         fr.close();
-        return value.contains(username);
+        return value!= null && value.contains(username);
     }
 
     @Override
