@@ -17,7 +17,6 @@ public class UserTest {
         UserTest.um = um;
     }
     public static void main(String[] args) throws IOException {
-        System.out.print(um.existsUsername("12345678"));
-        System.out.print("123");
+        System.out.print(um.getUserById("12345678").getUserID());
     }
 }
