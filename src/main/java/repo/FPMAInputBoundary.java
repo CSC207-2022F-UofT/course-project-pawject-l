@@ -1,16 +1,16 @@
 package repo;
-import entities.Chat;
 import entities.Pet;
 import useCase.FPMA;
+import useCase.FPMARequestModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public interface FPMARequestModel{
+public interface FPMAInputBoundary{
     /**
      * Creates list of potential matching candidates
      * @param userPet the pet entity resposible for calling the FPMA request
      * @return a list of pets to be judged by the user
      */
-    Pet[] PotentialCandidates(Pet userPet) throws IOException;
+    Pet[] PotentialCandidates(FPMARequestModel requestModel) throws IOException;
 }
