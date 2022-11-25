@@ -21,9 +21,9 @@ public class User {
         this.password = password;
         this.username = username;
         this.pets = new ArrayList<String>();
-        this.pets.addAll(Arrays.asList(petID.split("$")));
-        this.reportCount = new int[]{0, 0, 0};
-        this.reportCount = Stream.of(reportCount.split("$")).mapToInt(Integer::parseInt).toArray();
+        this.pets.addAll(Arrays.asList(petID.split("\\$")));
+        String[] a = reportCount.split("\\$");
+        this.reportCount = new int[]{Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt((a[2]))};
     }
     public String getUserID() {
         return userID;
