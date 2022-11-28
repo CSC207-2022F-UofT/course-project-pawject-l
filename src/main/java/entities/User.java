@@ -1,4 +1,7 @@
 package entities;
+import repo.PetDataAccessInterface;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,9 +21,9 @@ public class User {
         this.password = password;
         this.username = username;
         this.pets = new ArrayList<String>();
-        this.pets.addAll(Arrays.asList(petID.split("$")));
-        this.reportCount = new int[]{0, 0, 0};
-        this.reportCount = Stream.of(reportCount.split("$")).mapToInt(Integer::parseInt).toArray();
+        this.pets.addAll(Arrays.asList(petID.split("\\$")));
+        String[] a = reportCount.split("\\$");
+        this.reportCount = new int[]{Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt((a[2]))};
     }
     public String getUserID() {
         return userID;
@@ -38,8 +41,12 @@ public class User {
         return reportCount;
     }
 
-    public List<String> getPets() {
-        return pets;
+    public List<Pet> getPets(PetDataAccessInterface pi) throws IOException {
+        List<Pet> petList = new ArrayList<Pet>();
+        for (String pet: this.pets){
+            petList.add(pi.getPetById(pet));
+        }
+        return petList;
     }
 
     public void setName(String name) {
@@ -56,8 +63,7 @@ public class User {
 
     public void setPets(List<String> petIDs) {
         this.pets = petIDs;
-    }
-
+    };
     public void setReportCount(int index) {
         this.reportCount[index] += 1;
     }
