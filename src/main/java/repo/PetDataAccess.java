@@ -44,6 +44,12 @@ public class PetDataAccess implements PetDataAccessInterface{
         }
         return pet;
     }
+
+    @Override
+    public String getPetNameById(String id) throws IOException {
+        return getPetById(id).getName();
+    }
+
     /**
      * Creates HashMap with petId as Key and Pet object as value corresponding to given User object
      * @param user the User object used to find specific Pet objects
