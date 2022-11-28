@@ -21,13 +21,13 @@ public class SignUpScreen extends JFrame implements ActionListener {
     JButton signupButton = new JButton("Sign up");
     JButton loginButton = new JButton("Have an account? Log in.");
 
-    LogIn_Screen loginScreen = new LogIn_Screen();
 
-    public void setLayoutManager() {
+//    AccountController controller;
+
+    public SignUpScreen () {
+//        this.controller = controller;
         container.setLayout(null);
-    }
 
-    public void setLocationAndSize() {
         titleLabel.setBounds(150, 70, 100, 30);
         usernameLabel.setBounds(60, 150, 100, 30);
         passwordLabel.setBounds(60, 220, 100, 30);
@@ -36,9 +36,7 @@ public class SignUpScreen extends JFrame implements ActionListener {
         passwordField.setBounds(160, 220, 150, 30);
         signupButton.setBounds(120, 320, 100, 30);
         loginButton.setBounds(80, 400, 200, 30);
-    }
 
-    public void addComponentsToContainer() {
         container.add(titleLabel);
         container.add(usernameLabel);
         container.add(passwordLabel);
@@ -53,24 +51,10 @@ public class SignUpScreen extends JFrame implements ActionListener {
         usernameLabel.setFont(f1);
         usernameField.setFont(f1);
         passwordField.setFont(f1);
-        signupButton.setFont(f1);
-        loginButton.setFont(f1);
         passwordMessageLabel.setFont(f2);
-    }
 
-    public void addActionEvent() {
         signupButton.addActionListener(this);
         loginButton.addActionListener(this);
-    }
-
-//    AccountController controller;
-
-    public SignUpScreen () {
-//        this.controller = controller;
-        setLayoutManager();
-        setLocationAndSize();
-        addComponentsToContainer();
-        addActionEvent();
     }
 
     @Override
@@ -87,10 +71,16 @@ public class SignUpScreen extends JFrame implements ActionListener {
             } else {
                 AccountController.createUser(userText, pwdText);
                 JOptionPane.showMessageDialog(this, userText + " created.");
+                HomeScreen hs = new HomeScreen();
+                hs.setVisible(true);
+                this.setVisible(false);
+                hs.setSize(370, 600);
+
             }
         }
         if (e.getSource() == loginButton) {
-            this.dispose();
+            LogIn_Screen loginScreen = new LogIn_Screen();
+            this.setVisible(false);
             loginScreen.setVisible(true);
             loginScreen.setSize(370, 600);
         }
@@ -102,7 +92,7 @@ public class SignUpScreen extends JFrame implements ActionListener {
         SignUpScreen frame = new SignUpScreen();
         frame.setTitle("Sign Up Screen");
         frame.setVisible(true);
-        frame.setBounds(10, 10, 370, 600);
+        frame.setBounds(0, 0, 370, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
     }

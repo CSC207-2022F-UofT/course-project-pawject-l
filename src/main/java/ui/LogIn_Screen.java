@@ -19,14 +19,11 @@ public class LogIn_Screen extends JFrame implements ActionListener {
     JButton loginButton = new JButton("Log In");
     JButton signupButton = new JButton("Don't have an account? Sign up.");
 
-//    SignUpScreen signupScreen = new SignUpScreen();
 
 
-    public void setLayoutManager() {
+    public LogIn_Screen() {
         container.setLayout(null);
-    }
 
-    public void setLocationAndSize() {
         titleLabel.setBounds(150, 70, 100, 30);
         usernameLabel.setBounds(60, 150, 100, 30);
         passwordLabel.setBounds(60, 220, 100, 30);
@@ -34,9 +31,7 @@ public class LogIn_Screen extends JFrame implements ActionListener {
         passwordField.setBounds(160, 220, 150, 30);
         loginButton.setBounds(120, 320, 100, 30);
         signupButton.setBounds(80, 400, 200, 30);
-    }
 
-    public void addComponentsToContainer() {
         container.add(titleLabel);
         container.add(usernameLabel);
         container.add(passwordLabel);
@@ -50,20 +45,10 @@ public class LogIn_Screen extends JFrame implements ActionListener {
         usernameLabel.setFont(f1);
         usernameField.setFont(f1);
         passwordField.setFont(f1);
-        signupButton.setFont(f1);
-        loginButton.setFont(f1);
-    }
 
-    public void addActionEvent() {
         loginButton.addActionListener(this);
         signupButton.addActionListener(this);
-    }
 
-    public LogIn_Screen() {
-        setLayoutManager();
-        setLocationAndSize();
-        addComponentsToContainer();
-        addActionEvent();
     }
 
     @Override
@@ -79,21 +64,27 @@ public class LogIn_Screen extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Username or password is incorrect. Please try again.");
             } else {
                 JOptionPane.showMessageDialog(this, "Logged in.");
+                HomeScreen hs = new HomeScreen();
+                hs.setVisible(true);
+                this.setVisible(false);
+                hs.setSize(370, 600);
             }
-//        } else if (e.getSource() == signupButton) {
-//            this.dispose();
-//            signupScreen.setVisible(true);
-//            signupScreen.setSize(370, 600);
-//        }
-    }
+        }
+        if (e.getSource() == signupButton) {
+            SignUpScreen signupScreen = new SignUpScreen();
+            this.setVisible(false);
+            signupScreen.setVisible(true);
+            signupScreen.setSize(370, 600);
+        }
     }
 
-    public static void main(String[] args) {
-        LogIn_Screen frame = new LogIn_Screen();
-        frame.setTitle("Log in Screen");
-        frame.setVisible(true);
-        frame.setBounds(10, 10, 370, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-    }
+//    public static void main(String[] args) {
+//        LogIn_Screen frame = new LogIn_Screen();
+//
+//        frame.setTitle("Log in Screen");
+//        frame.setVisible(true);
+//        frame.setBounds(0, 0, 370, 600);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setResizable(false);
+//    }
 }
