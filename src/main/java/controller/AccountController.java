@@ -2,7 +2,6 @@ package controller;
 
 import entities.User;
 import useCase.Account.AccountInputBoundary;
-
 import java.util.HashMap;
 
 public class AccountController{
