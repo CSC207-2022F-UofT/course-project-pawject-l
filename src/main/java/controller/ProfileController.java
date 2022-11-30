@@ -3,6 +3,7 @@ import useCase.ProfileInputBoundary;
 import useCase.ProfileRequestModel;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.util.List;
@@ -44,15 +45,15 @@ public class ProfileController {
         this.profileInput.editDescription(requestModel, newValue);
     }
 
-    public void addImage(ProfileRequestModel requestModel, Image newImage) throws IOException {
+    public void addImage(ProfileRequestModel requestModel, BufferedImage newImage) throws IOException {
         this.profileInput.addImage(requestModel, newImage);
     }
 
-    public void removeImage(ProfileRequestModel requestModel, Image imageToRemove) throws IOException {
+    public void removeImage(ProfileRequestModel requestModel, BufferedImage imageToRemove) throws IOException {
         this.profileInput.removeImage(requestModel, imageToRemove);
     }
 
-    public void updateProofOfVaccination (ProfileRequestModel requestModel, Image proofOfVaccination) throws IOException {
+    public void updateProofOfVaccination (ProfileRequestModel requestModel, BufferedImage proofOfVaccination) throws IOException {
         this.profileInput.updateProofOfVaccination(requestModel, proofOfVaccination);
     }
 
