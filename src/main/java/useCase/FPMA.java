@@ -28,7 +28,7 @@ public class FPMA implements FPMAInputBoundary {
      * @param userPet Pet user has logged in at time of method call
      * @return Pet array of potential match candidates sorted by preference saturation.
      */
-    public Pet[] PotentialCandidates(FPMARequestModel requestModel) throws IOException {
+    public FPMAResponseModel PotentialCandidates(FPMARequestModel requestModel) throws IOException {
         Pet userPet = PDAI.getPetById(requestModel.getPetId());
         HashMap<Float, Pet> potentialCandidateGrading = new HashMap<Float, Pet>(); // Initializes new HashMap with Floats as keys and Pets as values
         Attributes userPetPreferredAttributes = userPet.getPreferredAttributes(); // Initializes Attributes object containing attributes of userPet
@@ -37,7 +37,8 @@ public class FPMA implements FPMAInputBoundary {
             Attributes candidatePetAttributes = pet.getAttributes(); // Initializes Attributes object containing attributes of
             potentialCandidateGrading.put(getGrade(userPetPreferredAttributes, candidatePetAttributes), pet); //Assigns grade to candidate pet based on how its attributes satisfy userPet
         }
-        return sortedHashmap(potentialCandidateGrading); //Returns list of pets ordered by grade
+        return new FPMAResponseModel(sortedHashmap(potentialCandidateGrading));
+        // return sortedHashmap(potentialCandidateGrading); //Returns list of pets ordered by grade
     }
 
     /**
