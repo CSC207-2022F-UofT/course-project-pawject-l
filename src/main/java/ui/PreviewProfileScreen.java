@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PreviewProfileScreen extends JFrame implements ActionListener {
+public class PreviewProfileScreen extends JPanel implements ActionListener {
 
     JLabel petName;
     JLabel petImage;
@@ -17,6 +17,8 @@ public class PreviewProfileScreen extends JFrame implements ActionListener {
 
     public PreviewProfileScreen(String name, ImageIcon image, String bio, String age, String breed,
     String species, ImageIcon vaccine) {
+
+        this.setLayout(null);
 
         this.petName = new JLabel("Hi, I'm " + name + "!");
         this.petBreed = new JLabel("Breed: " + breed);
@@ -30,9 +32,6 @@ public class PreviewProfileScreen extends JFrame implements ActionListener {
 
         this.petImage = new JLabel(scaledPetImage);
         this.petVaccinationRecords = new JLabel(scaledVaccinationRecords);
-
-        Container container = getContentPane();
-        container.setLayout(null);
 
         JButton toGetVaccinationRecords = new JButton("Click here to see my vaccination records!");
         toGetVaccinationRecords.addActionListener(this);
@@ -51,17 +50,16 @@ public class PreviewProfileScreen extends JFrame implements ActionListener {
         this.petBreed.setFont(new Font("Arial", Font.PLAIN, 12));
         this.petAge.setFont(new Font("Arial", Font.PLAIN, 12));
 
-        container.add(this.petName);
-        container.add(this.petImage);
-        container.add(this.petBio);
-        container.add(this.petAge);
-        container.add(this.petBreed);
-        container.add(this.petSpecies);
-        container.add(toGetVaccinationRecords);
+        this.add(this.petName);
+        this.add(this.petImage);
+        this.add(this.petBio);
+        this.add(this.petAge);
+        this.add(this.petBreed);
+        this.add(this.petSpecies);
+        this.add(toGetVaccinationRecords);
 
         this.setBounds(500, 450, 500, 450);
         this.setVisible(true);
-        this.setTitle("Profile Preview");
     }
 
     @Override

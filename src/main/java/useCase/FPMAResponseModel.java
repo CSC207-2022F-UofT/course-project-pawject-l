@@ -11,12 +11,13 @@ public class FPMAResponseModel {
         this.listOfPotentialMatches = pets;
     }
 
-    public Pet[] getListOfPotentialMatches() {
-        return listOfPotentialMatches;
-    }
 
     public String getPetNameAt(int index) {
         return ((Pet) Array.get(this.listOfPotentialMatches, index)).getName();
+    }
+
+    public String getPetIdAt(int index) {
+        return ((Pet) Array.get(this.listOfPotentialMatches, index)).getPetID();
     }
 
     public Image getPetImageAt(int index) {

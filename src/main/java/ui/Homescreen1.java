@@ -1,21 +1,16 @@
 package ui;
 
-import controller.GeneralController;
-import controller.MatchManagerController;
-
-import useCase.FPMAResponseModel;
+import entities.Pet;
+import repo.PetDataAccess;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
-public class Homescreen extends JFrame implements ActionListener {
-
-    GeneralController generalCtrl;
-    MatchManagerController matchCtrl;
-
+public class Homescreen1 extends JFrame implements ActionListener {
     JButton likeButton = new JButton("Like");
     JButton dislikeButton = new JButton("Dislike");
     JButton homeButton = new JButton("Home");
@@ -23,24 +18,17 @@ public class Homescreen extends JFrame implements ActionListener {
     JButton profileButton = new JButton("Profile");
     JButton logoutButton = new JButton("Logout");
     int curr = 0;
-
-    public Homescreen(GeneralController ctrl1, String petId, MatchManagerController ctrl2) throws IOException {
-
+    public Homescreen1(ArrayList<Pet> pets) {
         Container container = getContentPane();
         container.setLayout(null);
 
-        this.generalCtrl = ctrl1;
-        this.matchCtrl = ctrl2;
-
-
-        FPMAResponseModel listOfPotentialMatches = generalCtrl.getPotentialCandidates(petId);
-        PreviewProfileScreen currPet = new PreviewProfileScreen(listOfPotentialMatches.getPetNameAt(curr),
-                new ImageIcon(listOfPotentialMatches.getPetImageAt(curr)),
-                listOfPotentialMatches.getPetBioAt(curr),
-                listOfPotentialMatches.getPetAgeAt(curr).toString(),
-                listOfPotentialMatches.getPetBreedAt(curr),
-                listOfPotentialMatches.getPetSpeciesAt(curr),
-                new ImageIcon(listOfPotentialMatches.getPetVaccineAt(curr)));
+        PreviewProfileScreen currPet = new PreviewProfileScreen(pets.get(curr).getName(),
+                new ImageIcon(pets.get(curr).getImages().get(0)),
+                pets.get(curr).getDescription(),
+                pets.get(curr).getAttributes().getAge().get(0).toString(),
+                pets.get(curr).getAttributes().getBreed().get(0),
+                pets.get(curr).getAttributes().getSpecies().get(0),
+                new ImageIcon(pets.get(curr).getProofOfVaccination()));
 
         currPet.setBounds(0, 10, 500, 450);
         likeButton.setBounds(100, 470, 150, 50);
@@ -53,33 +41,27 @@ public class Homescreen extends JFrame implements ActionListener {
         container.add(currPet);
         container.add(likeButton);
         container.add(dislikeButton);
+        container.add(profileButton);
         container.add(homeButton);
         container.add(chatButton);
-        container.add(profileButton);
         container.add(logoutButton);
 
         profileButton.addActionListener(this);
         chatButton.addActionListener(this);
-        homeButton.addActionListener(this);
         logoutButton.addActionListener(this);
+        homeButton.addActionListener(this);
         likeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    matchCtrl.manageMatch(petId, listOfPotentialMatches.getPetIdAt(curr), true);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-                curr++;
-                PreviewProfileScreen newCurrPet = new PreviewProfileScreen(
-                        listOfPotentialMatches.getPetNameAt(curr),
-                        new ImageIcon(listOfPotentialMatches.getPetImageAt(curr)),
-                        listOfPotentialMatches.getPetBioAt(curr),
-                        listOfPotentialMatches.getPetAgeAt(curr).toString(),
-                        listOfPotentialMatches.getPetBreedAt(curr),
-                        listOfPotentialMatches.getPetSpeciesAt(curr),
-                        new ImageIcon(listOfPotentialMatches.getPetVaccineAt(curr)));
                 container.removeAll();
+                curr++;
+                PreviewProfileScreen newCurrPet = new PreviewProfileScreen(pets.get(curr).getName(),
+                        new ImageIcon(pets.get(curr).getImages().get(0)),
+                        pets.get(curr).getDescription(),
+                        pets.get(curr).getAttributes().getAge().get(0).toString(),
+                        pets.get(curr).getAttributes().getBreed().get(0),
+                        pets.get(curr).getAttributes().getSpecies().get(0),
+                        new ImageIcon(pets.get(curr).getProofOfVaccination()));
                 newCurrPet.setBounds(0, 10, 500, 450);
                 likeButton.setBounds(100, 470, 150, 50);
                 dislikeButton.setBounds(250, 470, 150, 50);
@@ -102,21 +84,15 @@ public class Homescreen extends JFrame implements ActionListener {
         dislikeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    matchCtrl.manageMatch(petId, listOfPotentialMatches.getPetIdAt(curr), false);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-                curr++;
-                PreviewProfileScreen newCurrPet = new PreviewProfileScreen(
-                        listOfPotentialMatches.getPetNameAt(curr),
-                        new ImageIcon(listOfPotentialMatches.getPetImageAt(curr)),
-                        listOfPotentialMatches.getPetBioAt(curr),
-                        listOfPotentialMatches.getPetAgeAt(curr).toString(),
-                        listOfPotentialMatches.getPetBreedAt(curr),
-                        listOfPotentialMatches.getPetSpeciesAt(curr),
-                        new ImageIcon(listOfPotentialMatches.getPetVaccineAt(curr)));
                 container.removeAll();
+                curr++;
+                PreviewProfileScreen newCurrPet = new PreviewProfileScreen(pets.get(curr).getName(),
+                        new ImageIcon(pets.get(curr).getImages().get(0)),
+                        pets.get(curr).getDescription(),
+                        pets.get(curr).getAttributes().getAge().get(0).toString(),
+                        pets.get(curr).getAttributes().getBreed().get(0),
+                        pets.get(curr).getAttributes().getSpecies().get(0),
+                        new ImageIcon(pets.get(curr).getProofOfVaccination()));
                 newCurrPet.setBounds(0, 10, 500, 450);
                 likeButton.setBounds(100, 470, 150, 50);
                 dislikeButton.setBounds(250, 470, 150, 50);
@@ -134,19 +110,27 @@ public class Homescreen extends JFrame implements ActionListener {
                 container.add(logoutButton);
                 container.validate();
                 container.repaint();
+                container.validate();
+                container.repaint();
+
             }
         });
+        this.setBounds(500, 650, 500, 650);
+        this.setVisible(true);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //if(e.getSource() == profileButton){
-        //PreferencesEditScreen profileEditScreen = new PreferencesEditScreen();
-        //this.setVisible(false);
-        //profileEditScreen.setVisible(true);
-        //profileEditScreen.setSize(370, 600);
-        //if(e.getSource() == chatButton){
+    }
+
+    public static void main(String[] args) throws IOException {
+        PetDataAccess ds = new PetDataAccess();
+        Pet p1 = ds.getPetById("PET ID:1");
+        Pet p2 = ds.getPetById("PET ID:2");
+        ArrayList<Pet> pets = new ArrayList<>();
+        pets.add(p1);
+        pets.add(p2);
+        Homescreen1 h1 = new Homescreen1(pets);
     }
 }
-
-
