@@ -25,7 +25,7 @@ public class PetDataAccess implements PetDataAccessInterface {
     public Pet getPetById(String id) throws IOException {
         Pet pet = null;
         try {
-            File file = new File("src/data.csv");
+            File file = new File("src/main/java/data/petData.csv");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             String line = "";
@@ -38,16 +38,31 @@ public class PetDataAccess implements PetDataAccessInterface {
                     pet = new Pet(tempArr[1], tempArr[0], tempArr[2], new Attributes(Arrays.asList(att[0].split("&")), Arrays.asList(att[1].split("&")), stringToIntConversion(att[2].split("&")), att[3], Boolean.parseBoolean(att[4])), new Attributes(Arrays.asList(pref[0].split("&")), Arrays.asList(pref[1].split("&")), stringToIntConversion(pref[2].split("&")), pref[3], Boolean.parseBoolean(att[4])), convertToPhotos(tempArr[5].split("\\$")), convertToPhoto(tempArr[6]), Float.parseFloat(tempArr[7]), Float.parseFloat(tempArr[8]), Float.parseFloat(tempArr[9]), convertToDaysOfWeek(tempArr[10].split("\\$")));
                     try {
                         pet.setDislikes(Arrays.asList(tempArr[11].split("\\$")));
+                        ArrayList<String> new_dislikes = new ArrayList<>();
+                        for (String petId: pet.getDislikes()){
+                            new_dislikes.add(petId);
+                        }
+                        pet.setDislikes(new_dislikes);
                     } catch (Exception e) {
                         pet.setDislikes(new ArrayList<>());
                     }
                     try {
                         pet.setLikes(Arrays.asList(tempArr[12].split("\\$")));
+                        ArrayList<String> new_likes = new ArrayList<>();
+                        for (String petId: pet.getLikes()){
+                            new_likes.add(petId);
+                        }
+                        pet.setLikes(new_likes);
                     } catch (Exception e) {
                         pet.setLikes(new ArrayList<>());
                     }
                     try {
                         pet.setMatches(Arrays.asList(tempArr[13].split("\\$")));
+                        ArrayList<String> new_matches = new ArrayList<>();
+                        for (String petId: pet.getMatches()){
+                            new_matches.add(petId);
+                        }
+                        pet.setMatches(new_matches);
                     } catch (Exception e) {
                         pet.setMatches(new ArrayList<>());
                     }
@@ -201,7 +216,7 @@ public class PetDataAccess implements PetDataAccessInterface {
     public boolean savePet(Pet pet) throws IOException {
         boolean saved = false;
         try {
-            FileWriter fw = new FileWriter("src/data/petData.csv", true);
+            FileWriter fw = new FileWriter("src/main/java/data/petData.csv", true);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.newLine();
             bw.write(petConvertedToString(pet));
@@ -264,22 +279,22 @@ public class PetDataAccess implements PetDataAccessInterface {
         construction.append(pet.getPreferredAttributes().getGender()).append("$");
         construction.append(pet.getPreferredAttributes().isVaccinated()).append(",");
         for (BufferedImage image : pet.getImages()) {
-            Integer num = getNumFiles("src/Images");
+            Integer num = getNumFiles("images");
             if (count == 0) {
-                ImageIO.write(image, "jpg", new File("src/Images/image" + num + ".jpg"));
-                construction.append("src/Images/image").append(num).append(".jpg");
+                ImageIO.write(image, "jpeg", new File("images" + num + ".jpeg"));
+                construction.append("images").append(num).append(".jpeg");
                 count += 1;
             } else {
-                ImageIO.write(image, "jpg", new File("src/Images/image" + num + ".jpg"));
-                construction.append("src/Images/image").append(num).append(".jpg");
+                ImageIO.write(image, "jpeg", new File("images" + num + ".jpeg"));
+                construction.append("images").append(num).append(".jpeg");
             }
 
         }
         construction.append(",");
         count = 0;
-        Integer num = getNumFiles("src/POVs");
-        ImageIO.write(pet.getProofOfVaccination(), "jpg", new File("src/POVs/POV" + num + ".jpg"));
-        construction.append("src/POVs/POV").append(num).append(".jpg");
+        Integer num = getNumFiles("images");
+        ImageIO.write(pet.getProofOfVaccination(), "jpeg", new File("images" + num + ".jpeg"));
+        construction.append("images").append(num).append(".jpeg");
         construction.append(",");
         construction.append(pet.getLongitude()).append(",");
         construction.append(pet.getLatitude()).append(",");

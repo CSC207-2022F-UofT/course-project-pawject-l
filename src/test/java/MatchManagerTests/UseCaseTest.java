@@ -20,18 +20,30 @@ public class UseCaseTest {
 
     @Test
     public void matched() throws IOException {
-        // p1_owner liked p2 $$ p2_owner liked p1 -> matched
-        MatchManagerRequestModel rm = new MatchManagerRequestModel("2", "1", true);
+        // p1 liked p2 $$ p2 liked p1 -> matched
+        MatchManagerRequestModel rm = new MatchManagerRequestModel("PET ID:1", "PET ID:2", true);
         assertTrue(mm.manageMatch(rm));
     }
 
     @Test
     public void mismatched1() throws IOException {
-        // p1_owner disliked p2 -> not matched (if p1_owner or p2_owner dislikes then match doesn't occur)
+        // p1 disliked p2 && p2 liked p1 -> not matched
+        MatchManagerRequestModel rm = new MatchManagerRequestModel("PET ID:5", "PET ID:4", false);
+        assertFalse(mm.manageMatch(rm));
+
     }
 
     @Test
     public void mismatched2() throws IOException {
-        // p1_owner liked p2 && p2_owner haven't seen p1 yet -> not matched
+        // p1 liked p2 && p2 haven't seen p1 yet -> not matched
+        MatchManagerRequestModel rm = new MatchManagerRequestModel("PET ID:3", "PET ID:4", true);
+        assertFalse(mm.manageMatch(rm));
+    }
+
+    @Test
+    public void mismatched3() throws IOException {
+        // p1 disliked p2 && p2 haven't seen p1 yet -> not matched
+        MatchManagerRequestModel rm = new MatchManagerRequestModel("PET ID:4", "PET ID:3", false);
+        assertFalse(mm.manageMatch(rm));
     }
 }

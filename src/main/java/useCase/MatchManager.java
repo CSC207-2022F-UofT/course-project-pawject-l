@@ -37,11 +37,26 @@ public class MatchManager implements MatchManagerInputBoundary {
             if (p2.getLikes().contains(p1.getPetID())) {
                 p1.addMatches(p2.getPetID());
                 p2.addMatches(p1.getPetID());
+                p2.removeLikes(p1.getPetID());
+                PetDsGateway.savePet(p1);
+                PetDsGateway.savePet(p2);
                 return true;
             }
-             // at this point p2 hasn't interacted with p1 yet
+            else {
+                // at this point p2 hasn't interacted with p1 yet
+                p1.addLikes(p2.getPetID());
+                PetDsGateway.savePet(p1);
+            }
         } else {
             p1.addDislikes(p2.getPetID());
+            PetDsGateway.savePet(p1);
+            if (p2.getLikes().contains(p1.getPetID())) {
+                p2.getLikes().remove(p1.getPetID());
+                p2.addDislikes(p1.getPetID());
+                PetDsGateway.savePet(p2);
+            }
+            // at this point p2 hasn't interacted with p1 yet, but they'll never show up at each other's list of potential
+            // candidates as one of them has disliked the other
         }
         return false;
     }
