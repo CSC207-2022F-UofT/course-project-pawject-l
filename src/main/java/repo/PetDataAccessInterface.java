@@ -10,9 +10,18 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface PetDataAccessInterface {
-
+    /**
+     * Get Pet based on given ID
+     * @param id id of Pet
+     * @return Pet
+     */
     Pet getPetById(String id) throws IOException;
-
+    /**
+     * Get Pet name based on given ID
+     * @param id id of Pet
+     * @return given Pet's name
+     */
+    String getPetNameById(String id) throws IOException;
     /**
      * Get all pets given a user.
      * @param user

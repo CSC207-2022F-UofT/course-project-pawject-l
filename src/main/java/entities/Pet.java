@@ -1,7 +1,9 @@
 package entities;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.nio.Buffer;
 import java.time.DayOfWeek;
 import java.util.List;
 
@@ -12,21 +14,21 @@ public class Pet implements Serializable {
     private String description;
     private Attributes attributes;
     private Attributes preferredAttributes;
-    private List<Image> images;
-    private List<Pet> dislikes;
-    private List<Pet> likes;
-    private List<Pet> matches;
+    private List<BufferedImage> images;
+    private List<String> dislikes;
+    private List<String> likes;
+    private List<String> matches;
 
     private float preferredProximity; // distance in KM
     private List<DayOfWeek> availableDay; // list of the available days of the week
-    private Image proofOfVaccination;
+    private BufferedImage proofOfVaccination;
 
     private float longitude;
 
     private float latitude;
 
     public Pet(String name, String petID, String description, Attributes attributes, Attributes preferredAttributes,
-               List<Image> images, Image proofOfVaccination, float longitude, float latitude, float preferredProximity, List<DayOfWeek> availableDay) {
+               List<BufferedImage> images, BufferedImage proofOfVaccination, float longitude, float latitude, float preferredProximity, List<DayOfWeek> availableDay) {
         this.name = name;
         this.petID = petID;
         this.description = description;
@@ -80,15 +82,15 @@ public class Pet implements Serializable {
         this.preferredAttributes = preferredAttributes;
     }
 
-    public List<Image> getImages() {
+    public List<BufferedImage> getImages() {
         return images;
     }
 
-    public void setImages(List<Image> images) {
+    public void setImages(List<BufferedImage> images) {
         this.images = images;
     }
 
-    public void setProofOfVaccination(Image proofOfVaccination){
+    public void setProofOfVaccination(BufferedImage proofOfVaccination){
         this.proofOfVaccination = proofOfVaccination;
     }
 
@@ -116,7 +118,7 @@ public class Pet implements Serializable {
         this.availableDay = availableDay;
     }
 
-    public Image getProofOfVaccination() {
+    public BufferedImage getProofOfVaccination() {
         return proofOfVaccination;
     }
 
@@ -128,51 +130,49 @@ public class Pet implements Serializable {
         return availableDay;
     }
 
-    public List<Pet> getDislikes() {
+    public List<String> getDislikes() {
         return dislikes;
     }
 
-    public void setDislikes(List<Pet> dislikes) {
+    public void setDislikes(List<String> dislikes) {
         this.dislikes = dislikes;
     }
 
-    public List<Pet> getLikes() {
+    public List<String> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<Pet> likes) {
+    public void setLikes(List<String> likes) {
         this.likes = likes;
     }
 
-    public List<Pet> getMatches() {
-        return matches;
-    }
+    public List<String> getMatches() {return matches;}
 
-    public void setMatches(List<Pet> matches) {
+    public void setMatches(List<String> matches) {
         this.matches = matches;
     }
 
-    public void addLikes(Pet pet) {
+    public void addLikes(String pet) {
         this.likes.add(pet);
     }
 
-    public void addDislikes(Pet pet) {
+    public void addDislikes(String pet) {
         this.dislikes.add(pet);
     }
 
-    public void addMatches(Pet pet) {
+    public void addMatches(String pet) {
         this.matches.add(pet);
     }
 
-    public void removeLikes(Pet pet) {
+    public void removeLikes(String pet) {
         this.likes.remove(pet);
     }
 
-    public void removeDislikes(Pet pet) {
+    public void removeDislikes(String pet) {
         this.dislikes.remove(pet);
     }
 
-    public void removeMatches(Pet pet) {
+    public void removeMatches(String pet) {
         this.matches.remove(pet);
     }
 
