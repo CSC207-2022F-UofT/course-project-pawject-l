@@ -60,7 +60,7 @@ public class UserDataAccess implements UserDataAccessInterface{
     }
 
     @Override
-    public boolean saveUser(String UserID, String username, String password, String PetID) throws IOException {
+    public boolean saveUser(String userID, String username, String password, String petID, String reportCount) throws IOException {
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
@@ -73,23 +73,32 @@ public class UserDataAccess implements UserDataAccessInterface{
         int i = 0;
         boolean flag = false;
         while (i + 5 <= value.size() && !flag) {
-            if (Objects.equals(value.get(i), UserID)) {
+            if (Objects.equals(value.get(i), userID)) {
                 value.set(i+1, username);
                 value.set(i+2, password);
-                value.set(i+3, PetID);
+                value.set(i+3, petID);
+                value.set(i+4, reportCount);
                 flag = true;
             }
             i += 5;
         }
         if (!flag) {
-            String newUser = UserID + "," + username + "," + password + "," + PetID + "," + defaultReportCount;
+            String newUser = userID + "," + username + "," + password + "," + petID + "," + defaultReportCount;
             FileWriter fw = new FileWriter(filename, true);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(newUser);
             br.close();
             fr.close();
+            return true;
         }
-        return flag;
+        else{
+            FileWriter fw = new FileWriter(filename);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(value.toString());
+            br.close();
+            fr.close();
+            return true;
+        }
     }
 
     @Override

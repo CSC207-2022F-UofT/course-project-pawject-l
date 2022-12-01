@@ -23,7 +23,7 @@ public interface UserDataAccessInterface {
      * @param user
      * @return true if saved, false if not
      */
-    boolean saveUser(String UserID, String username, String password, String PetID) throws IOException;
+    boolean saveUser(String userID, String username, String password, String petID, String reportCount) throws IOException;
 
     /**
      * Checks if a given username already exists in the database. Returns true if it exists, false if it does not.
