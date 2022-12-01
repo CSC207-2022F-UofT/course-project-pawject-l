@@ -15,8 +15,12 @@ public class ChatScreen extends JFrame{
         this.chatID = chatID;
     }
 
-    ArrayList<Container> temporaryMemory = new ArrayList<>();
-
+    /**
+     * Method that creates a container with the texts
+     * @param listOfTexts a 2d string array with the texts
+     * @param petID the petID
+     * @return
+     */
     public Container createTextBubbles(String[][] listOfTexts, String petID) {
         int i = 20;
         Container container = getContentPane();
@@ -47,6 +51,12 @@ public class ChatScreen extends JFrame{
         container.add(new JPanel());
         return container;
     }
+
+    /**
+     *
+     * @param CC Chat Controller
+     * @param petID the petID
+     */
 
     public void generateChatScreen(ChatController CC, String petID) {
         String[][] listOfTexts = CC.getTextsList(this.chatID);

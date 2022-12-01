@@ -13,11 +13,6 @@ public class ChatController {
         ChatController.CMIB = CMIB;
     }
 
-    /**
-    public Chat openChat(String chatID) {
-        ChatScreenUI CSUI = new ChatScreenUI(chatID);
-     **/
-
     public ArrayList<Chat> getChatsByPet (String petID) {
         ArrayList<Chat> chatList = new ArrayList<>(CMIB.getChatsByPet(petID).values());
         CMIB.generateSortedChatList(chatList);
