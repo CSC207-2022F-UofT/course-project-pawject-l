@@ -10,10 +10,10 @@ import java.util.stream.Stream;
 
 public class User {
 
-    public String userID;
-    public String username;
-    public String password;
-    private List<String> pets;
+    private String userID;
+    private String username;
+    private String password;
+    private String petID;
     private int[] reportCount;
 
     /**
@@ -48,8 +48,7 @@ public class User {
         this.userID = user_id;
         this.password = password;
         this.username = username;
-        this.pets = new ArrayList<String>();
-        this.pets.addAll(Arrays.asList(petID.split("\\$")));
+        this.petID = petID;
         String[] a = reportCount.split("\\$");
         this.reportCount = new int[]{Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt((a[2]))};
     }
@@ -69,13 +68,7 @@ public class User {
         return reportCount;
     }
 
-    public List<Pet> getPets(PetDataAccessInterface pi) throws IOException {
-        List<Pet> petList = new ArrayList<Pet>();
-        for (String pet: this.pets){
-            petList.add(pi.getPetById(pet));
-        }
-        return petList;
-    }
+    public String getPet() {return petID;}
 
     public void setName(String name) {
         this.username = name;
@@ -89,8 +82,8 @@ public class User {
         this.password = password;
     }
 
-    public void setPets(List<String> petIDs) {
-        this.pets = petIDs;
+    public void setPet(String petId) {
+        this.petID = petID;
     };
     public void setReportCount(int index) {
         this.reportCount[index] += 1;
