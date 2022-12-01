@@ -5,11 +5,8 @@ import entities.Pet;
 import entities.User;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.DayOfWeek;
 import java.util.*;
 import java.util.List;
@@ -22,13 +19,13 @@ public class PetDataAccess implements PetDataAccessInterface {
      * @return Returns the corresponding Pet object
      */
     @Override
-    public Pet getPetById(String id) throws IOException {
+    public Pet getPetById(String id) {
         Pet pet = null;
         try {
             File file = new File("src/main/java/data/petData.csv");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
-            String line = "";
+            String line;
             String[] tempArr;
             while ((line = br.readLine()) != null) {
                 tempArr = line.split(",");
@@ -77,67 +74,36 @@ public class PetDataAccess implements PetDataAccessInterface {
         return pet;
     }
 
+    /**
+     * Get Pet name based on given ID
+     *
+     * @param id id of Pet
+     * @return given Pet's name
+     */
     @Override
-    public String getPetNameById(String id) throws IOException {
+    public String getPetNameById(String id) {
         return getPetById(id).getName();
     }
 
     /**
-     * Creates HashMap with petId as Key and Pet object as value corresponding to given User object
+     * Creates String object containing a user's petId
      *
-     * @param user the User object used to find specific Pet objects
-     * @return Returns a HashMap containing petId and Pet object
+     * @param user the User object used to find specific petId
+     * @return Returns String object containing petId
      */
     @Override
-    public HashMap<String, Pet> getPetsByUser(User user) throws IOException {
-        String petIds = getPetIdsByUser(user);
-        HashMap<String, Pet> petHashMap = new HashMap<>();
-        String[] petIdArr = petIds.split("$");
-        for (String petId : petIdArr) {
-            petHashMap.put(petId, getPetById(petId));
-        }
-        return petHashMap;
-    }
-
-    /**
-     * Creates Pet object corresponding to User object and petName variable
-     *
-     * @param user the User object used to find specific Pet object
-     * @param name petName corresponding to queried Pet object
-     * @return Returns the corresponding Pet object
-     */
-    @Override
-    public Pet getPetByUserAndName(User user, String name) throws IOException {
-        String[] petIds = getPetIdsByUser(user).split("$");
-        Pet pet = null;
-        for (String petId : petIds) {
-            Pet possiblePet = getPetById(petId);
-            if (possiblePet.getName().equals(name)) {
-                pet = possiblePet;
-            }
-        }
-        return pet;
-    }
-
-    /**
-     * Creates String object containing a user's petIds
-     *
-     * @param user the User object used to find specific petIds
-     * @return Returns String object containing petIds
-     */
-    private String getPetIdsByUser(User user) {
-        String petIds = null;
+    public String getPetIdByUser(User user) {
+        String petId = null;
         try {
-            int count = 0;
             File file = new File("java/data/userData");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
-            String line = "";
+            String line;
             String[] tempArr;
             while ((line = br.readLine()) != null) {
                 tempArr = line.split(",");
                 if (tempArr[0].equals(user.getUserID())) {
-                    petIds = tempArr[3];
+                    petId = tempArr[3];
                 }
             }
             fr.close();
@@ -145,29 +111,7 @@ public class PetDataAccess implements PetDataAccessInterface {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-        return petIds;
-    }
-
-    /**
-     * Creates HashMap with petId as Key and Pet object as value corresponding to given User object and specified species
-     *
-     * @param user      the User object used to find specific Pet objects
-     * @param typeOfPet the specified species of Pet
-     * @return Returns a HashMap containing petId and Pet object
-     */
-    @Override
-    public HashMap<String, Pet> getPetsByUserAndType(User user, String typeOfPet) throws IOException {
-        String petIds = getPetIdsByUser(user);
-        HashMap<String, Pet> petHashMap = new HashMap<>();
-        String[] petIdArr = petIds.split("$");
-        for (String petId : petIdArr) {
-            Pet possiblePet = getPetById(petId);
-            String type = possiblePet.getAttributes().getSpecies().get(0);
-            if (Objects.equals(type, typeOfPet)) {
-                petHashMap.put(petId, getPetById(petId));
-            }
-        }
-        return petHashMap;
+        return petId;
     }
 
     /**
@@ -176,7 +120,7 @@ public class PetDataAccess implements PetDataAccessInterface {
      * @return Returns random Pet object
      */
     @Override
-    public Pet getRandomPet() throws IOException {
+    public Pet getRandomPet() {
         int size = getSizeOfDataFile();
         int randIndex = (int) (Math.random() * (size + 1));
         String petId = "PET ID:" + randIndex;
@@ -194,8 +138,7 @@ public class PetDataAccess implements PetDataAccessInterface {
             File file = new File("java/data/petData");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
-            String line = "";
-            while ((line = br.readLine()) != null) {
+            while ((br.readLine()) != null) {
                 count += 1;
             }
             fr.close();
@@ -223,6 +166,56 @@ public class PetDataAccess implements PetDataAccessInterface {
             bw.close();
             fw.close();
             saved = true;
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        return saved;
+    }
+
+    /**
+     * Updates a pet already existing in the database, returns true if updated.
+     *
+     * @param pet pet Object being updated.
+     * @return true if updated, false if update fails.
+     */
+    @Override
+    public boolean updatePet(Pet pet) {
+        boolean saved = false;
+        try {
+            File file = new File("java/data/petData.csv");
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            List<String> totalFile = new ArrayList<>();
+            String line;
+            String[] tempArr;
+            while ((line = br.readLine()) != null) {
+                tempArr = line.split(",");
+                if (!(Objects.equals(tempArr[0], pet.getPetID()))) {
+                    totalFile.add(line);
+                }
+            }
+            br.close();
+            fr.close();
+            PrintWriter writer = new PrintWriter(file);
+            writer.print("");
+            writer.close();
+            FileWriter fw = new FileWriter("java/data/petData.csv", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            boolean first = true;
+            for (String str : totalFile) {
+                if (first) {
+                    bw.write(str);
+                    first = false;
+                } else {
+                    bw.newLine();
+                    bw.write(str);
+                }
+            }
+            bw.close();
+            fw.close();
+            savePet(pet);
+            saved = true;
+
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -279,22 +272,22 @@ public class PetDataAccess implements PetDataAccessInterface {
         construction.append(pet.getPreferredAttributes().getGender()).append("$");
         construction.append(pet.getPreferredAttributes().isVaccinated()).append(",");
         for (BufferedImage image : pet.getImages()) {
-            Integer num = getNumFiles("images");
+            Integer num = getNumFiles("java/data/Images");
+            ImageIO.write(image, "jpg", new File("java/data/Images/image" + num + ".jpg"));
             if (count == 0) {
-                ImageIO.write(image, "jpeg", new File("images" + num + ".jpeg"));
-                construction.append("images").append(num).append(".jpeg");
+                construction.append("java/data/Images/image").append(num).append(".jpg");
                 count += 1;
             } else {
-                ImageIO.write(image, "jpeg", new File("images" + num + ".jpeg"));
-                construction.append("images").append(num).append(".jpeg");
+                construction.append("$").append("java/data/Images/image").append(num).append(".jpg");
             }
 
         }
         construction.append(",");
         count = 0;
-        Integer num = getNumFiles("images");
-        ImageIO.write(pet.getProofOfVaccination(), "jpeg", new File("images" + num + ".jpeg"));
-        construction.append("images").append(num).append(".jpeg");
+
+        Integer num = getNumFiles("java/data/POVs");
+        ImageIO.write(pet.getProofOfVaccination(), "jpg", new File("java/data/POVs/POV" + num + ".jpg"));
+        construction.append("java/data/POVs/POV").append(num).append(".jpg");
         construction.append(",");
         construction.append(pet.getLongitude()).append(",");
         construction.append(pet.getLatitude()).append(",");
@@ -348,7 +341,7 @@ public class PetDataAccess implements PetDataAccessInterface {
      */
     private Integer getNumFiles(String src) {
         File f = new File(src);
-        return f.list().length + 1;
+        return Objects.requireNonNull(f.list()).length + 1;
     }
 
     /**
@@ -358,7 +351,6 @@ public class PetDataAccess implements PetDataAccessInterface {
      * @return Returns List<Integer> with values corresponding to given String array
      */
     public List<Integer> stringToIntConversion(String[] strarr) {
-        int i = 0;
         java.util.List<Integer> intarr = new ArrayList<>();
         for (String num : strarr) {
             if (Objects.equals(num, "")) {
@@ -381,7 +373,7 @@ public class PetDataAccess implements PetDataAccessInterface {
         java.util.List<BufferedImage> images = new ArrayList<>();
         for (String str : strarr) {
             File f = new File(str);
-            BufferedImage image = new BufferedImage(1920, 1080, BufferedImage.TYPE_INT_ARGB);
+            BufferedImage image;
             image = ImageIO.read(f);
             images.add(image);
         }
@@ -396,7 +388,7 @@ public class PetDataAccess implements PetDataAccessInterface {
      */
     public BufferedImage convertToPhoto(String str) throws IOException {
         File f = new File(str);
-        BufferedImage image = new BufferedImage(1920, 1080, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image;
         image = ImageIO.read(f);
         return image;
     }
@@ -408,7 +400,7 @@ public class PetDataAccess implements PetDataAccessInterface {
      * @return Returns List<DayOfWeek> with values corresponding to given String array
      */
     public List<DayOfWeek> convertToDaysOfWeek(String[] days) {
-        List<DayOfWeek> DayOfWeekList = new ArrayList<DayOfWeek>();
+        List<DayOfWeek> DayOfWeekList = new ArrayList<>();
         for (String day : days) {
             if (day.equals("MONDAY")) {
                 DayOfWeekList.add(DayOfWeek.MONDAY);

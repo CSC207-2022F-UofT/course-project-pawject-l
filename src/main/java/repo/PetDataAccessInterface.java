@@ -1,13 +1,9 @@
 package repo;
 
-import entities.Attributes;
 import entities.User;
 import entities.Pet;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 
 public interface PetDataAccessInterface {
     /**
@@ -23,28 +19,12 @@ public interface PetDataAccessInterface {
      */
     String getPetNameById(String id) throws IOException;
     /**
-     * Get all pets given a user.
-     * @param user
-     * @return Hashmap with keys as the id and values as Pet object
+     * Creates String object containing a user's petId
+     *
+     * @param user the User object used to find specific petId
+     * @return Returns String object containing petId
      */
-    HashMap<String, Pet> getPetsByUser(User user) throws IOException;
-
-    /**
-     * Get a pet given the user and the pet name.
-     * @param user
-     * @param name
-     * @return Pet
-     */
-    Pet getPetByUserAndName(User user, String name) throws IOException;
-
-    /**
-     * Get pets given the user and the pet type (cat, dog, etc.)
-     * @param user
-     * @param typeOfPet
-     * @return Pet
-     */
-    HashMap<String, Pet> getPetsByUserAndType(User user, String typeOfPet) throws IOException;
-
+    String getPetIdByUser(User user);
     /**
      * Get a random pet
      *
@@ -54,11 +34,18 @@ public interface PetDataAccessInterface {
 
     /**
      * Saves pet in database. Returns true if saved, false if not.
-     * @param pet
+     * @param pet pet Object being saved.
      * @return true if saved, false if not
      */
 
     boolean savePet(Pet pet) throws IOException;
+
+    /**
+     * Updates a pet already existing in the database, returns true if updated.
+     * @param pet pet Object being saved.
+     * @return true if updated, false if update fails.
+     */
+    boolean updatePet(Pet pet) throws IOException;
 
     // Let me know if you would like other methods (e.g. to get a specific pet given a user and an attribute(s)).
 
