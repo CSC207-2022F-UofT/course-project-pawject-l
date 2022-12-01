@@ -13,8 +13,11 @@ public class User {
     private String userID;
     private String username;
     private String password;
+
+    // changed from list to string
     private String petID;
     private int[] reportCount;
+
 
     /**
      * Creates a new User with the given userID, username, and password.
@@ -26,7 +29,10 @@ public class User {
         this.userID = idGenerator();
         this.password = password;
         this.username = username;
+        this.petID = "";
+        this.reportCount = new int[]{0, 0, 0};
     }
+
 
     /**
      * Generates a unique userID composed of 8 alphanumeric characters.
@@ -82,7 +88,7 @@ public class User {
         this.password = password;
     }
 
-    public void setPet(String petId) {
+    public void setPets(String petID) {
         this.petID = petID;
     };
     public void setReportCount(int index) {

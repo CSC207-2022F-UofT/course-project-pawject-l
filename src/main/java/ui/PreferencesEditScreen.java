@@ -1,5 +1,7 @@
 package ui;
 
+import controller.AccountController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -34,11 +36,11 @@ public class PreferencesEditScreen extends JFrame implements ActionListener {
     JButton profileButton = new JButton("Profile");
     JButton logoutButton = new JButton("Log Out");
 
-//    AccountController controller;
+    AccountController controller;
 
 
-    public PreferencesEditScreen () {
-
+    public PreferencesEditScreen (AccountController controller) {
+        this.controller = controller;
         container.setLayout(null);
 
         titleLabel.setBounds(65, 50, 300, 30);
@@ -98,13 +100,13 @@ public class PreferencesEditScreen extends JFrame implements ActionListener {
         if (e.getSource() == saveButton) {
         }
         if (e.getSource() == homeButton) {
-            HomeScreen hs = new HomeScreen();
+            HomeScreen hs = new HomeScreen(controller);
             hs.setVisible(true);
             this.setVisible(false);
             hs.setSize(370, 600);
         }
         if (e.getSource() == logoutButton) {
-            LogIn_Screen lis = new LogIn_Screen();
+            LogIn_Screen lis = new LogIn_Screen(controller);
             lis.setVisible(true);
             this.setVisible(false);
             lis.setSize(370, 600);

@@ -4,27 +4,15 @@ import entities.User;
 import repo.UserDataAccessInterface;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 // use case layer
 
-public class AccountModel {
+public class AccountModel implements AccountInputBoundary{
     UserDataAccessInterface accountDsGateway;
-    public static HashMap<String, String> idUserDict = new HashMap<>();
-    public static HashMap<String, String> userPassDict = new HashMap<>();
-
 
     public AccountModel(UserDataAccessInterface accountDsGateway) {
         this.accountDsGateway = accountDsGateway;
     }
-
-//    public static void main(String[] args) {
-//        AccountModel user = new AccountModel("User", "HelloWorld1");
-//        user.createUser();
-//        AccountModel user1 = new AccountModel("elyse", "HelloWorld1");
-//        user1.createUser();
-//        System.out.println(idUserDict);
-//    }
 
     /**
      * Checks if the password is valid. A password is valid if it has at least 6 characters, has at least one lowercase
@@ -32,9 +20,8 @@ public class AccountModel {
      *
      * @return true if the password is valid, false otherwise.
      */
-    public boolean checkPasswordValid(AccountRequestModel requestModel) throws IOException {
-        User user = accountDsGateway.getUserByUsername(requestModel.getUsername());
-        String password = user.getPassword();
+    public boolean checkPasswordValid(AccountRequestModel requestModel) {
+        String password = requestModel.getPassword();
         if (password.length() < 6) {
             return false;
         } else {
@@ -57,46 +44,28 @@ public class AccountModel {
     }
 
     /**
-     * Creates a user by appending the username and password into userDict.
-     *
-     * @return
-     */
-    public AccountResponseModel createUser(AccountRequestModel requestModel) throws IOException {
-        User user = accountDsGateway.getUserByUsername(requestModel.getUsername());
-        idUserDict.put(user.getUserID(), user.getUsername());
-        userPassDict.put(user.getUsername(), user.getPassword());
-        AccountResponseModel responseModel = new AccountResponseModel(user.getUsername());
-        return responseModel;
-    }
-
-    /**
-     * Checks if the username is already in userPassDict.
-     * <p>
-     * //     * @param username username to be checked
-     *
-     * @return true if the username is already in userDict, false otherwise.
-     */
-    public boolean userExists(AccountRequestModel requestModel) throws IOException {
-        User user = accountDsGateway.getUserByUsername(requestModel.getUsername());
-        if (userPassDict.containsKey(requestModel.getUsername())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Checks if the given password matches the user's password.
      * <p>
      * //     * @param password the inputted password
      *
      * @return true if the given password matches the user's password, false otherwise.
      */
-    public boolean correctPassword(AccountRequestModel requestModel, String password) throws IOException {
-        User user = accountDsGateway.getUserByUsername(requestModel.getUsername());
-        if (userPassDict.get(user.getUsername()) == password) {
+    public boolean correctPassword(String username, String password){
+        User user = accountDsGateway.getUser(username);
+//        return user.getPassword() == password;
+        return true;
+    }
+
+    public boolean userExists(AccountRequestModel requestModel) throws IOException {
+        if (accountDsGateway.existsUser(requestModel.getUsername()) == true) {
             return true;
+        } else {
+            return false;
         }
-        return false;
+    }
+
+    public void create(AccountRequestModel requestModel) throws IOException {
+        User user = new User(requestModel.getUsername(), requestModel.getPassword());
+        accountDsGateway.save(user);
     }
 }

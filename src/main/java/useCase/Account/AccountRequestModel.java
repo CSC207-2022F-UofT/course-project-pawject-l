@@ -1,6 +1,8 @@
 package useCase.Account;
 
-import java.util.HashMap;
+import entities.User;
+
+import java.io.IOException;
 
 // use case layer
 
@@ -29,5 +31,4 @@ public class AccountRequestModel {
     void setPassword(String password) {
         this.password = password;
     }
-
 }

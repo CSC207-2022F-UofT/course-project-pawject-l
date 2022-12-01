@@ -1,11 +1,16 @@
 package ui;
 
 import controller.AccountController;
+import repo.UserDataAccess;
+import repo.UserDataAccessInterface;
+import useCase.Account.AccountInputBoundary;
+import useCase.Account.AccountModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class LogIn_Screen extends JFrame implements ActionListener {
     Font f1 = new Font("Arial", Font.PLAIN,  12);
@@ -19,9 +24,10 @@ public class LogIn_Screen extends JFrame implements ActionListener {
     JButton loginButton = new JButton("Log In");
     JButton signupButton = new JButton("Don't have an account? Sign up.");
 
+    AccountController controller;
 
-
-    public LogIn_Screen() {
+    public LogIn_Screen(AccountController controller) {
+        this.controller = controller;
         container.setLayout(null);
 
         titleLabel.setBounds(150, 70, 100, 30);
@@ -58,20 +64,24 @@ public class LogIn_Screen extends JFrame implements ActionListener {
             String userText = usernameField.getText();
             String pwdText = passwordField.getText();
 
-            if (AccountController.userExists(userText, pwdText) == false) {
-                JOptionPane.showMessageDialog(this, "This username doesn't exist. Please create an account.");
-            } else if (AccountController.correctPassword(userText, pwdText) == false) {
-                JOptionPane.showMessageDialog(this, "Username or password is incorrect. Please try again.");
-            } else {
-                JOptionPane.showMessageDialog(this, "Logged in.");
-                HomeScreen hs = new HomeScreen();
-                hs.setVisible(true);
-                this.setVisible(false);
-                hs.setSize(370, 600);
+            try {
+                if (!controller.userExists(userText, pwdText)) {
+                    JOptionPane.showMessageDialog(this, "This username doesn't exist. Please create an account.");
+                } else if (!controller.correctPassword(userText, pwdText)) {
+                    JOptionPane.showMessageDialog(this, "Username or password is incorrect. Please try again.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Logged in.");
+                    HomeScreen hs = new HomeScreen(controller);
+                    hs.setVisible(true);
+                    this.setVisible(false);
+                    hs.setSize(370, 600);
+                }
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
         }
         if (e.getSource() == signupButton) {
-            SignUpScreen signupScreen = new SignUpScreen();
+            SignUpScreen signupScreen = new SignUpScreen(controller);
             this.setVisible(false);
             signupScreen.setVisible(true);
             signupScreen.setSize(370, 600);
@@ -79,7 +89,17 @@ public class LogIn_Screen extends JFrame implements ActionListener {
     }
 
 //    public static void main(String[] args) {
-//        LogIn_Screen frame = new LogIn_Screen();
+//        UserDataAccessInterface user;
+//        try {
+//            user = new UserDataAccess("./user.csv");
+//        } catch (IOException e) {
+//            throw new RuntimeException("Could not create file.");
+//        }
+//
+//        AccountInputBoundary interactor = new AccountModel(user);
+//
+//        AccountController control = new AccountController(interactor);
+//        LogIn_Screen frame = new LogIn_Screen(control);
 //
 //        frame.setTitle("Log in Screen");
 //        frame.setVisible(true);
