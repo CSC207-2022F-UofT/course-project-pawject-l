@@ -9,7 +9,7 @@ import java.util.Objects;
 public class UserDataAccess implements UserDataAccessInterface{
     /**
      * userID, username, password, petIDs,  reportCounts
-     * "0000001","student","password","PET ID:0001$PET ID:0002","0$0$0"
+     * "0000001","student","password","1","0$0$0"
      * 0,         1,         2,       3,           4
      */
     static String defaultUserID = "00000001";
@@ -60,7 +60,7 @@ public class UserDataAccess implements UserDataAccessInterface{
     }
 
     @Override
-    public boolean saveUser(String username, String password) throws IOException {
+    public boolean saveUser(String UserID, String username, String password, String PetID) throws IOException {
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
@@ -70,23 +70,22 @@ public class UserDataAccess implements UserDataAccessInterface{
         }
         br.close();
         fr.close();
-        int i = 1;
+        int i = 0;
         boolean flag = false;
-        while (i + 4 <= value.size() && !flag) {
-            if (Objects.equals(value.get(i), username)) {
-                value.add(defaultUserID);
-                value.add(username);
-                value.add(password);
-                value.add(defaultPetID);
-                value.add(defaultReportCount);
+        while (i + 5 <= value.size() && !flag) {
+            if (Objects.equals(value.get(i), UserID)) {
+                value.set(i+1, username);
+                value.set(i+2, password);
+                value.set(i+3, PetID);
                 flag = true;
             }
             i += 5;
         }
-        if (flag) {
-            FileWriter fw = new FileWriter(filename);
+        if (!flag) {
+            String newUser = UserID + "," + username + "," + password + "," + PetID + "," + defaultReportCount;
+            FileWriter fw = new FileWriter(filename, true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(value.toString());
+            bw.write(newUser);
             br.close();
             fr.close();
         }
