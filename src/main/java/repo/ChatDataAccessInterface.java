@@ -1,5 +1,8 @@
 package repo;
 
+import entities.Chat;
+import entities.Text;
+
 import java.io.IOException;
 import java.util.ArrayList;
 

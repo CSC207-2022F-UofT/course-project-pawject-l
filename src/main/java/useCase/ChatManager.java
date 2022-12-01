@@ -1,5 +1,10 @@
 package useCase;
 
+import entities.Chat;
+import entities.Pet;
+import entities.Text;
+import repo.ChatDataAccessInterface;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -32,16 +37,6 @@ public class ChatManager implements ChatManagerInputBoundary {
     }
 
     /**
-     * A method that creates a chat between two pets
-     * @param p1 the first pet in the chat
-     * @param p2 the second chat in the chat
-     */
-    public void createChat(Pet p1, Pet p2) throws IOException, IOException {
-        Chat newChat = new Chat(generateUniqueChatID());
-        CDAI.saveChat(p1.getPetID(), p1.getPetID(), newChat);
-    }
-
-    /**
      * A method that creates a chat between two pets using petIDs
      * @param petID1 ID of the first pet in the chat
      * @param petID2 ID of the second chat in the chat
@@ -71,14 +66,6 @@ public class ChatManager implements ChatManagerInputBoundary {
      */
     public Chat getChatByID(String ChatID) {
         return CDAI.getChatByID(ChatID);
-    }
-
-    public String getOtherPetInChat(String firstPet, Chat chat){
-        return CDAI.getSecondPetInChat(chat.getChatID(), firstPet);
-    }
-
-    public Chat getChatByPets(String petID1, String petID2){
-        return getChatByID(CDAI.getChatByPets(petID1, petID2));
     }
 
     public String[][] getTextsList(String chatID) {
