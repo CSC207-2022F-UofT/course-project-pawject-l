@@ -1,6 +1,7 @@
 package useCase;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.util.List;
@@ -21,11 +22,11 @@ public interface ProfileInputBoundary {
 
     public void editDescription(ProfileRequestModel requestModel,String newValue) throws IOException;
 
-    public void addImage(ProfileRequestModel requestModel, Image newImage) throws IOException;
+    public void addImage(ProfileRequestModel requestModel, BufferedImage newImage) throws IOException;
 
-    public void removeImage(ProfileRequestModel requestModel, Image imageToRemove) throws IOException;
+    public void removeImage(ProfileRequestModel requestModel, BufferedImage imageToRemove) throws IOException;
 
-    public void updateProofOfVaccination (ProfileRequestModel requestModel, Image proofOfVaccination) throws IOException;
+    public void updateProofOfVaccination (ProfileRequestModel requestModel, BufferedImage proofOfVaccination) throws IOException;
 
     public void editLongitude (ProfileRequestModel requestModel, float newValue) throws IOException;
 
