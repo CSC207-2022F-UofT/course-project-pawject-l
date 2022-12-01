@@ -5,6 +5,7 @@ import repo.PetDataAccessInterface;
 
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
@@ -64,17 +65,17 @@ public class ProfileManager implements ProfileInputBoundary{
         pet.setDescription(newValue);
     }
 
-    public void addImage(ProfileRequestModel requestModel, Image newImage) throws IOException {
+    public void addImage(ProfileRequestModel requestModel, BufferedImage newImage) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.getImages().add(newImage);
     }
 
-    public void removeImage(ProfileRequestModel requestModel, Image imageToRemove) throws IOException {
+    public void removeImage(ProfileRequestModel requestModel, BufferedImage imageToRemove) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.getImages().remove(imageToRemove);
     }
 
-    public void updateProofOfVaccination (ProfileRequestModel requestModel, Image proofOfVaccination) throws IOException {
+    public void updateProofOfVaccination (ProfileRequestModel requestModel, BufferedImage proofOfVaccination) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.setProofOfVaccination(proofOfVaccination);
         pet.getAttributes().setVaccineStatus(true);
