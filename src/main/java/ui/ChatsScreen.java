@@ -11,6 +11,11 @@ import java.util.ArrayList;
 
 public class ChatsScreen extends JFrame {
 
+    /**
+     * A method that loads the chats screen ui
+     * @param CC chat controller
+     * @param petID pet id
+     */
     public void loadChatUI(ChatController CC, String petID) {
 
         JFrame frame = new JFrame("Chat");
