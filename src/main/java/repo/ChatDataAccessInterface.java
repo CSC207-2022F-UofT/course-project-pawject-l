@@ -1,19 +1,17 @@
 package repo;
 
-import entities.Pet;
-import entities.Chat;
-
+import java.io.IOException;
 import java.util.ArrayList;
 
 public interface ChatDataAccessInterface {
 
 
     /**
-     * Get all chats from the database by pet
-     * @param pet the pet entity
+     * Get all chats from the database by pet ID
+     * @param petID the pet id
      * @return an arraylist of chat entities
      */
-    ArrayList<Chat> getChatsByPet(Pet pet);
+    ArrayList<Chat> getChatsByPet(String petID);
 
     /**
      * Get a chat given the chatID.
@@ -27,7 +25,12 @@ public interface ChatDataAccessInterface {
      * @param pet1ID, pet2ID, chat
      * @return true if saved, false if not
      */
-    boolean saveChat(String pet1ID, String pet2ID, Chat chat);
+    boolean saveChat(String pet1ID, String pet2ID, Chat chat) throws IOException;
+
+    void saveText(String chatID, Text text) throws IOException;
 
 
+    String getSecondPetInChat(String chatID, String firstPet);
+
+    public String getChatByPets(String petID1, String petID2);
 }
