@@ -79,6 +79,13 @@ public class ChatManager implements ChatManagerInputBoundary {
         return textList;
     }
 
+    /**
+     * Save text to csv
+     * @param chatID the chat id
+     * @param petID the pet id who sent the message
+     * @param message the message
+     * @throws IOException
+     */
     public void sendText(String chatID, String petID, String message) throws IOException {
         Text text = new Text(petID, LocalDateTime.now(), message);
         CDAI.saveText(chatID, text);
