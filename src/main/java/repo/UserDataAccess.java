@@ -79,10 +79,6 @@ public class UserDataAccess implements UserDataAccessInterface{
     public User getUser(String username) {return accounts.get(username);}
 
 //    public AccountRequestModel getReqMod(String username) { return accounts.get(username); }
-
-
-
-
     /**
      * userID, username, password, petIDs,  reportCounts
      * "0000001","student","password","PET ID:0001$PET ID:0002","0$0$0"
