@@ -38,8 +38,4 @@ public interface ChatDataAccessInterface {
      */
     void saveText(String chatID, Text text) throws IOException;
 
-
-    String getSecondPetInChat(String chatID, String firstPet);
-
-    public String getChatByPets(String petID1, String petID2);
 }

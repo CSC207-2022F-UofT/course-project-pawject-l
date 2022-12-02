@@ -149,45 +149,6 @@ public class ChatDataAccess implements ChatDataAccessInterface {
         Files.write(path, fileContent, StandardCharsets.UTF_8);
     }
 
-    public String getSecondPetInChat(String chatID, String firstPet) {
-        try (BufferedReader br = new BufferedReader(new FileReader("src/chatData.csv"))) {
-            String line;
-            String pet1 = null;
-            String pet2 = null;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                if(Objects.equals(chatID, values[0])){
-                    pet1 = values[1];
-                    pet2 = values[2];
-                }
-            }
-            br.close();
-            if(firstPet.equals(pet1)){
-                return pet2;
-            }
-            return pet1;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @Override
-    public String getChatByPets(String petID1, String petID2) {
-        ArrayList<Chat> chats = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("src/chatData.csv"))) {
-            String line;
-            String chatID = null;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                if(((petID1.equals(values[1]))||(petID1.equals(values[2]))) &&
-                        ((petID2.equals(values[1]))||petID2.equals(values[2]))){
-                    chatID = values[3];
-                }
-            }
-            br.close();
-            return chatID;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
 }
