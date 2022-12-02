@@ -246,4 +246,18 @@ public class UserDataAccess implements UserDataAccessInterface{
         }
         return flag;
     }
+
+    @Override
+    public int CountUser() throws IOException {
+        FileReader fr = new FileReader(filename);
+        BufferedReader br = new BufferedReader(fr);
+        br.readLine();//skip the header
+        int count = 0;
+        while(br.readLine() != null){
+            count += 1;
+        }
+        br.close();
+        fr.close();
+        return count;
+    }
 }

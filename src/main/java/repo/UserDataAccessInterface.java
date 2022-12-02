@@ -50,6 +50,8 @@ public interface UserDataAccessInterface {
      * Delete the user.
      * @param username
      */
+    int CountUser() throws IOException;
+
     // Let me know if you would like other methods (e.g. to get a user by some other identifier).
 
 }
