@@ -26,7 +26,7 @@ public class FPMA implements FPMAInputBoundary {
     /**
      * Get Potential Matching Candidates
      *
-     * @param userPet Pet user has logged in at time of method call
+     * @param requestModel Pet user has logged in at time of method call
      * @return Pet array of potential match candidates sorted by preference saturation.
      */
     public FPMAResponseModel PotentialCandidates(FPMARequestModel requestModel) throws IOException {
@@ -105,9 +105,12 @@ public class FPMA implements FPMAInputBoundary {
     public boolean isWithin(Pet possible, Pet[] candidates) {
         String id1 = possible.getPetID();
         for (Pet pet : candidates) {
+            if (pet == null) {
+            } else{
             String id2 = pet.getPetID();
             if (Objects.equals(id1, id2)) {
                 return true;
+            }
             }
         }
         return false;
