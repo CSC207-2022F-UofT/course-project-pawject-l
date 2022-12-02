@@ -17,6 +17,7 @@ import useCase.ProfileInputBoundary;
 
 import repo.PetDataAccessInterface;
 import repo.PetDataAccess;
+import useCase.ProfileManager;
 
 
 public class ProfileCreationScreen1 extends JFrame implements ActionListener {
@@ -255,20 +256,17 @@ public class ProfileCreationScreen1 extends JFrame implements ActionListener {
     }
 
 
-/**
     public static void main(String[] args) {
-        PetDataAccessInterface petData;
-        try{
-            petData = new PetDataAccess()
-        }
-
-        ProfileController profileController = new ProfileController(profileInputBoundary);
+        PetDataAccessInterface pet;
+        pet = new PetDataAccess();
+        ProfileInputBoundary PIB = new ProfileManager(pet);
+        ProfileController profileController = new ProfileController(PIB);
         ProfileCreationScreen1 frame = new ProfileCreationScreen1(profileController);
         frame.setTitle("Profile Creation Screen");
         frame.setVisible(true);
         frame.setBounds(10, 10, 370, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    }*/
+    }
 
 }

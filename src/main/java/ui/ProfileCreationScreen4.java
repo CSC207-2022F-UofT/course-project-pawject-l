@@ -187,7 +187,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
                 petP.add(petPhoto);
 
                 try {
-                    profileController.performProfileCreation(name, bio, species, breed, age, gender, preferredSpec,
+                    profileController.performProfileCreation(name, bio, species, breed, age, gender, vaccineSta, preferredSpec,
                             preferredBre, preferredAgeRange, preferredGen, petP, vaccineImage, lo, la, proximity,
                             availableDays,preferredVaccineSta);
                 } catch (IOException e) {

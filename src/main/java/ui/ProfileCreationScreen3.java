@@ -237,7 +237,13 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
                         preferredSpec.add(p.getName());
                     }
                 }
-                List<String> preferredBre = List.of(preferredBreed.toString().split(","));
+                List<String> preferredBre = new ArrayList<>();
+                if (preferredBreed.toString().contains(",")){
+                    preferredBre = List.of(preferredBreed.getText().split(","));
+                }
+                else{
+                    preferredBre.add(preferredBreed.getText());
+                }
                 String preferredGen = preferredGender.getSelectedItem().toString();
                 if(Objects.equals(preferredGender.getSelectedItem().toString(), "No preference")){
                     preferredGen = "";

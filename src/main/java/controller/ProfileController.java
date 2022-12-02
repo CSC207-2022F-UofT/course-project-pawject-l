@@ -17,11 +17,11 @@ public class ProfileController {
         this.profileInput = profileInput;
     }
 
-    public void performProfileCreation(String name, String description,List<String> species, List<String> breed, List<Integer> age, String gender,
+    public void performProfileCreation(String name, String description,List<String> species, List<String> breed, List<Integer> age, String gender, boolean vaccineStatus,
                                        List<String> preferredSpecies, List<String> preferredBreed, List<Integer> preferredAge, String preferredGender,
                                        List<BufferedImage> images, BufferedImage proofOfVaccination, float longitude, float latitude, float preferredProximity,
                                        List<DayOfWeek> availableDay, boolean preferredVaccineStatus) throws IOException {
-        ProfileRequestModel requestModel = new ProfileRequestModel(name, description,species, breed, age, gender,
+        ProfileRequestModel requestModel = new ProfileRequestModel(name, description,species, breed, age, gender,vaccineStatus,
                 preferredSpecies, preferredBreed, preferredAge, preferredGender, images, proofOfVaccination,longitude,
                 latitude, preferredProximity, availableDay, preferredVaccineStatus);
         this.profileInput.createNewProfile(requestModel);

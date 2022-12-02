@@ -272,22 +272,22 @@ public class PetDataAccess implements PetDataAccessInterface {
         construction.append(pet.getPreferredAttributes().getGender()).append("$");
         construction.append(pet.getPreferredAttributes().isVaccinated()).append(",");
         for (BufferedImage image : pet.getImages()) {
-            Integer num = getNumFiles("java/data/Images");
-            ImageIO.write(image, "jpg", new File("java/data/Images/image" + num + ".jpg"));
+            Integer num = getNumFiles("src/main/java/data/Images");
+            ImageIO.write(image, "jpg", new File("src/main/java/data/Images/image" + num + ".jpg"));
             if (count == 0) {
-                construction.append("java/data/Images/image").append(num).append(".jpg");
+                construction.append("src/main/java/data/Images/image").append(num).append(".jpg");
                 count += 1;
             } else {
-                construction.append("$").append("java/data/Images/image").append(num).append(".jpg");
+                construction.append("$").append("src/main/java/data/Images/image").append(num).append(".jpg");
             }
 
         }
         construction.append(",");
         count = 0;
 
-        Integer num = getNumFiles("java/data/POVs");
-        ImageIO.write(pet.getProofOfVaccination(), "jpg", new File("java/data/POVs/POV" + num + ".jpg"));
-        construction.append("java/data/POVs/POV").append(num).append(".jpg");
+        Integer num = getNumFiles("src/main/java/data/POVs");
+        ImageIO.write(pet.getProofOfVaccination(), "jpg", new File("src/main/java/data/POVs/POV" + num + ".jpg"));
+        construction.append("src/main/java/data/POVs/POV").append(num).append(".jpg");
         construction.append(",");
         construction.append(pet.getLongitude()).append(",");
         construction.append(pet.getLatitude()).append(",");

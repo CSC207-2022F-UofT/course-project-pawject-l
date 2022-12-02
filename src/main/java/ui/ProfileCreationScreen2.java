@@ -249,14 +249,7 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource() == uploadVaccineImageButton) {
-            if (Objects.equals(vaccineStatus.getSelectedItem().toString(),"Unvaccinated")){
-                File file = new File("java/data/NO VAX.jpg");
-                try {
-                    vaccineImage = ImageIO.read(file);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }else{
+            if (Objects.equals(vaccineStatus.getSelectedItem().toString(),"Vaccinated")){
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.addChoosableFileFilter(new ProfileCreationScreen2.ImageFilter());
                 fileChooser.setAcceptAllFileFilterUsed(false);
@@ -266,7 +259,7 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
                     File file = fileChooser.getSelectedFile();
                     imageSelectedLabel.setText("File Selected: " + file.getName());
                     try {
-                        vaccineImage = ImageIO.read(file);
+                        vaccineImage = ImageIO.read(file.getAbsoluteFile());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -274,7 +267,14 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
                     imageSelectedLabel.setText("Image upload canceled");
                 }
             }
-
+            else{
+                File file = new File("src/main/java/data/NO VAX.jpg");
+                try {
+                    vaccineImage = ImageIO.read(file);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
 
         if(evt.getSource() == saveAndContinueButton){
