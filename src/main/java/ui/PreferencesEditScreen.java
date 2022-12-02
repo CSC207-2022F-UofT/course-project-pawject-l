@@ -100,10 +100,10 @@ public class PreferencesEditScreen extends JFrame implements ActionListener {
         if (e.getSource() == saveButton) {
         }
         if (e.getSource() == homeButton) {
-            HomeScreen hs = new HomeScreen(controller);
-            hs.setVisible(true);
-            this.setVisible(false);
-            hs.setSize(370, 600);
+//            HomeScreen hs = new HomeScreen(controller);
+//            hs.setVisible(true);
+//            this.setVisible(false);
+//            hs.setSize(370, 600);
         }
         if (e.getSource() == logoutButton) {
             LogIn_Screen lis = new LogIn_Screen(controller);

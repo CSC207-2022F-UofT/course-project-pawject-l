@@ -2,10 +2,11 @@ package FPMATests;
 
 import entities.Pet;
 import org.junit.Test;
-import repo.FPMARequestModel;
+import useCase.FPMARequestModel;
 import repo.PetDataAccess;
 import repo.PetDataAccessInterface;
 import useCase.FPMA;
+import useCase.FPMAResponseModel;
 
 import java.io.IOException;
 
@@ -16,5 +17,9 @@ public class UseCaseTest {
     @Test
     public void getPossibleCandidates() throws IOException {
         Pet userPet = ds.getRandomPet();
+        FPMARequestModel FRM = new FPMARequestModel(userPet.getPetID());
+        System.out.println(userPet.getPetID());
+        FPMAResponseModel PC = fpma.PotentialCandidates(FRM);
+        assert true;
     }
 }

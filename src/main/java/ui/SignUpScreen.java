@@ -81,10 +81,10 @@ public class SignUpScreen extends JFrame implements ActionListener {
                 } else {
                     JOptionPane.showMessageDialog(this, userText + " created.");
                     controller.create(userText, pwdText);
-                    HomeScreen hs = new HomeScreen(controller);
-                    hs.setVisible(true);
-                    this.setVisible(false);
-                    hs.setSize(370, 600);
+//                    HomeScreen hs = new HomeScreen(controller);
+//                    hs.setVisible(true);
+//                    this.setVisible(false);
+//                    hs.setSize(370, 600);
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

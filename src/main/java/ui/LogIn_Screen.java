@@ -71,10 +71,10 @@ public class LogIn_Screen extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "Username or password is incorrect. Please try again.");
                 } else {
                     JOptionPane.showMessageDialog(this, "Logged in.");
-                    HomeScreen hs = new HomeScreen(controller);
-                    hs.setVisible(true);
-                    this.setVisible(false);
-                    hs.setSize(370, 600);
+//                    HomeScreen hs = new HomeScreen(controller);
+//                    hs.setVisible(true);
+//                    this.setVisible(false);
+//                    hs.setSize(370, 600);
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

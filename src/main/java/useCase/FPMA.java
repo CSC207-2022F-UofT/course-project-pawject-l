@@ -26,7 +26,7 @@ public class FPMA implements FPMAInputBoundary {
     /**
      * Get Potential Matching Candidates
      *
-     * @param userPet Pet user has logged in at time of method call
+     * @param requestModel Pet user has logged in at time of method call
      * @return Pet array of potential match candidates sorted by preference saturation.
      */
     public FPMAResponseModel PotentialCandidates(FPMARequestModel requestModel) throws IOException {
@@ -49,16 +49,16 @@ public class FPMA implements FPMAInputBoundary {
      * @return Pet array of potential candidates for grading
      */
     public Pet[] getPossibleCandidates(Pet userPet) throws IOException {
-        Pet[] possibleCandidates = new Pet[20]; //Initializes list as well as limits the maximum number of candidates
+        Pet[] possibleCandidates = new Pet[3]; //Initializes list as well as limits the maximum number of candidates
         Attributes userPetPreferredAttributes = userPet.getPreferredAttributes(); //Initializes attributes object containing the preferences of the user
         float[] location = getLocation(userPet.getLatitude(), userPet.getLongitude()); //Initializes float list containing the coordinates of the user
         float preferredDistance = userPet.getPreferredProximity(); //Initializes float object containing the preferred proximity of the user
         int count = 0; //Initializes arbitrary count integer
-        while (count < 19) {
+        while (count < 2) {
             Pet candidate = PDAI.getRandomPet(); //Initializes Pet object containing a possible candidate
             Attributes candidatePetAttributes = candidate.getAttributes();//Initializes Attributes object containing the attributes of candidate
             if (!Objects.equals(candidate, userPet)) { //Ensures one can't match themselves
-                if (!isWithin(candidate, possibleCandidates)) { //Checks to see if random Pet was inserted
+                if (!isWithin(candidate, possibleCandidates, count)) { //Checks to see if random Pet was inserted
                     if (!userPet.getDislikes().contains(candidate.getPetID())) { //Checks if user has already disliked candidate
                         if (!userPet.getLikes().contains(candidate.getPetID())) { //Checks if user has already liked candidate
                             if (!userPet.getMatches().contains(userPet.getPetID())) { //Checks if candidate already disliked user
@@ -66,7 +66,7 @@ public class FPMA implements FPMAInputBoundary {
                                     if (userPetPreferredAttributes.isVaccinated()) { //Checks if user prefers vaccinated pets
                                         if (userPetPreferredAttributes.isVaccinated() == candidatePetAttributes.isVaccinated()) { //Checks if candidate is vaccinated
                                             if (!userPetPreferredAttributes.getSpecies().isEmpty()) { //Checks if user has preferred species
-                                                if (userPetPreferredAttributes.getSpecies().contains(candidatePetAttributes.getBreed().get(0))) { //Checks if candidate's species satisfies preference
+                                                if (userPetPreferredAttributes.getSpecies().contains(candidatePetAttributes.getSpecies().get(0))) { //Checks if candidate's species satisfies preference
                                                     possibleCandidates[count] = candidate; //Candidate is added to list to be graded
                                                     count += 1; //Count variable increased
                                                 }
@@ -104,10 +104,10 @@ public class FPMA implements FPMAInputBoundary {
      * @param candidates array of pets to be queried
      * @return True if within, False if not found.
      */
-    public boolean isWithin(Pet possible, Pet[] candidates) {
+    public boolean isWithin(Pet possible, Pet[] candidates, int count) {
         String id1 = possible.getPetID();
-        for (Pet pet : candidates) {
-            String id2 = pet.getPetID();
+        for (int i = 0; i < count; i++) {
+            String id2 = candidates[i].getPetID();
             if (Objects.equals(id1, id2)) {
                 return true;
             }
@@ -146,7 +146,7 @@ public class FPMA implements FPMAInputBoundary {
         if (prereq == 0) { //If no preferences found automatically apply perfect grade
             return 1; //Returns perfect grade 1/1
         } else {
-            return (prereq / satisficataion); //Returns the grade based on preference saturation
+            return (satisficataion / prereq); //Returns the grade based on preference saturation
         }
     }
 

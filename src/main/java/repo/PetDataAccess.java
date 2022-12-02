@@ -95,7 +95,7 @@ public class PetDataAccess implements PetDataAccessInterface {
     public String getPetIdByUser(User user) {
         String petId = null;
         try {
-            File file = new File("java/data/userData");
+            File file = new File("src/main/java/data/userData.csv");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             String line;
@@ -122,7 +122,7 @@ public class PetDataAccess implements PetDataAccessInterface {
     @Override
     public Pet getRandomPet() {
         int size = getSizeOfDataFile();
-        int randIndex = (int) (Math.random() * (size + 1));
+        int randIndex = (int) (Math.random() * (size) + 1 );
         String petId = "PET ID:" + randIndex;
         return getPetById(petId);
     }
@@ -135,7 +135,7 @@ public class PetDataAccess implements PetDataAccessInterface {
     private int getSizeOfDataFile() {
         int count = 0;
         try {
-            File file = new File("java/data/petData");
+            File file = new File("src/main/java/data/petData.csv");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             while ((br.readLine()) != null) {
@@ -182,7 +182,7 @@ public class PetDataAccess implements PetDataAccessInterface {
     public boolean updatePet(Pet pet) {
         boolean saved = false;
         try {
-            File file = new File("java/data/petData.csv");
+            File file = new File("src/main/java/data/petData.csv");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             List<String> totalFile = new ArrayList<>();
@@ -272,22 +272,22 @@ public class PetDataAccess implements PetDataAccessInterface {
         construction.append(pet.getPreferredAttributes().getGender()).append("$");
         construction.append(pet.getPreferredAttributes().isVaccinated()).append(",");
         for (BufferedImage image : pet.getImages()) {
-            Integer num = getNumFiles("java/data/Images");
-            ImageIO.write(image, "jpg", new File("java/data/Images/image" + num + ".jpg"));
+            Integer num = getNumFiles("src/main/java/data/Images");
+            ImageIO.write(image, "jpg", new File("src/main/java/data/Images/image" + num + ".jpg"));
             if (count == 0) {
-                construction.append("java/data/Images/image").append(num).append(".jpg");
+                construction.append("src/main/java/data/Images/image").append(num).append(".jpg");
                 count += 1;
             } else {
-                construction.append("$").append("java/data/Images/image").append(num).append(".jpg");
+                construction.append("$").append("src/main/java/data/Images/image").append(num).append(".jpg");
             }
 
         }
         construction.append(",");
         count = 0;
 
-        Integer num = getNumFiles("java/data/POVs");
-        ImageIO.write(pet.getProofOfVaccination(), "jpg", new File("java/data/POVs/POV" + num + ".jpg"));
-        construction.append("java/data/POVs/POV").append(num).append(".jpg");
+        Integer num = getNumFiles("src/main/java/data/POVs");
+        ImageIO.write(pet.getProofOfVaccination(), "jpg", new File("src/main/java/data/POVs/POV" + num + ".jpg"));
+        construction.append("src/main/java/data/POVs/POV").append(num).append(".jpg");
         construction.append(",");
         construction.append(pet.getLongitude()).append(",");
         construction.append(pet.getLatitude()).append(",");
