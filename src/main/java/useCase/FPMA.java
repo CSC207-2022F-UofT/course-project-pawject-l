@@ -49,12 +49,12 @@ public class FPMA implements FPMAInputBoundary {
      * @return Pet array of potential candidates for grading
      */
     public Pet[] getPossibleCandidates(Pet userPet) throws IOException {
-        Pet[] possibleCandidates = new Pet[3]; //Initializes list as well as limits the maximum number of candidates
+        Pet[] possibleCandidates = new Pet[10]; //Initializes list as well as limits the maximum number of candidates
         Attributes userPetPreferredAttributes = userPet.getPreferredAttributes(); //Initializes attributes object containing the preferences of the user
         float[] location = getLocation(userPet.getLatitude(), userPet.getLongitude()); //Initializes float list containing the coordinates of the user
         float preferredDistance = userPet.getPreferredProximity(); //Initializes float object containing the preferred proximity of the user
         int count = 0; //Initializes arbitrary count integer
-        while (count < 2) {
+        while (count < 10) {
             Pet candidate = PDAI.getRandomPet(); //Initializes Pet object containing a possible candidate
             Attributes candidatePetAttributes = candidate.getAttributes();//Initializes Attributes object containing the attributes of candidate
             if (!Objects.equals(candidate, userPet)) { //Ensures one can't match themselves
