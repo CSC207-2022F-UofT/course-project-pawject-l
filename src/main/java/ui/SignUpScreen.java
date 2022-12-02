@@ -80,11 +80,12 @@ public class SignUpScreen extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "Password requirements unmet.");
                 } else {
                     JOptionPane.showMessageDialog(this, userText + " created.");
+                    //profile creation
                     controller.create(userText, pwdText);
-//                    HomeScreen hs = new HomeScreen(controller);
-//                    hs.setVisible(true);
-//                    this.setVisible(false);
-//                    hs.setSize(370, 600);
+                    //Homescreen hs = new Homescreen(controller);
+                    //hs.setVisible(true);
+                    //this.setVisible(false);
+                    //hs.setSize(370, 600);
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -92,10 +93,10 @@ public class SignUpScreen extends JFrame implements ActionListener {
 
         }
         if (e.getSource() == loginButton) {
-            LogIn_Screen loginScreen = new LogIn_Screen(controller);
-            this.setVisible(false);
-            loginScreen.setVisible(true);
-            loginScreen.setSize(370, 600);
+            //LogIn_Screen loginScreen = new LogIn_Screen(controller);
+            //this.setVisible(false);
+            //loginScreen.setVisible(true);
+            //loginScreen.setSize(370, 600);
         }
     }
 
@@ -103,7 +104,7 @@ public class SignUpScreen extends JFrame implements ActionListener {
 
         UserDataAccessInterface user;
         try {
-            user = new UserDataAccess("./user.csv");
+            user = new UserDataAccess("data/user.csv");
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }

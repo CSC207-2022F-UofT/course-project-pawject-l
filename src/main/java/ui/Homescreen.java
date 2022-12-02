@@ -1,7 +1,16 @@
 package ui;
 
+import controller.ChatController;
 import controller.GeneralController;
 import controller.MatchManagerController;
+import controller.AccountController;
+
+import entities.Pet;
+import repo.*;
+import useCase.*;
+import useCase.Account.AccountInputBoundary;
+import useCase.Account.AccountModel;
+import repo.FPMAInputBoundary;
 
 import useCase.FPMAResponseModel;
 
@@ -15,6 +24,8 @@ public class Homescreen extends JFrame implements ActionListener {
 
     GeneralController generalCtrl;
     MatchManagerController matchCtrl;
+    ChatController chatCtrl;
+    AccountController accCtrl;
 
     JButton likeButton = new JButton("Like");
     JButton dislikeButton = new JButton("Dislike");
@@ -23,14 +34,19 @@ public class Homescreen extends JFrame implements ActionListener {
     JButton profileButton = new JButton("Profile");
     JButton logoutButton = new JButton("Logout");
     int curr = 0;
+    String petId;
 
-    public Homescreen(GeneralController ctrl1, String petId, MatchManagerController ctrl2) throws IOException {
+    public Homescreen(String id, GeneralController ctrl1, MatchManagerController ctrl2,
+                      ChatController ctrl3, AccountController ctrl4) throws IOException {
 
         Container container = getContentPane();
         container.setLayout(null);
 
         this.generalCtrl = ctrl1;
         this.matchCtrl = ctrl2;
+        this.chatCtrl = ctrl3;
+        this.accCtrl = ctrl4;
+        this.petId = id;
 
 
         FPMAResponseModel listOfPotentialMatches = generalCtrl.getPotentialCandidates(petId);
@@ -140,12 +156,42 @@ public class Homescreen extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //if(e.getSource() == profileButton){
-        //PreferencesEditScreen profileEditScreen = new PreferencesEditScreen();
-        //this.setVisible(false);
-        //profileEditScreen.setVisible(true);
-        //profileEditScreen.setSize(370, 600);
-        //if(e.getSource() == chatButton){
+        if(e.getSource() == profileButton) {
+        } else if (e.getSource() == chatButton){
+            ChatsScreen CU = new ChatsScreen();
+            CU.loadChatUI(chatCtrl, petId);
+        } else if (e.getSource() == logoutButton) {
+            LogIn_Screen LS = new LogIn_Screen(accCtrl, generalCtrl, matchCtrl, chatCtrl);
+            LS.setTitle("Log in Screen");
+            LS.setVisible(true);
+            LS.setBounds(0, 0, 370, 600);
+            LS.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            LS.setResizable(false);
+            this.setVisible(false);
+        }
+
+    }
+
+    public static void main(String[] args) throws IOException {
+        PetDataAccessInterface petDS = new PetDataAccess();
+        ChatDataAccessInterface chatDS = new ChatDataAccess();
+        UserDataAccessInterface userDS = new UserDataAccess("./user1.csv");
+        // userDS.saveUser("001", "user1", "ilovemydog");
+
+        FPMAInputBoundary fpma = new FPMA(petDS);
+        GeneralController genCtrl = new GeneralController(fpma);
+
+        ChatManagerInputBoundary chat = new ChatManager(chatDS);
+        ChatController chatCtrl = new ChatController(chat);
+
+        MatchManagerInputBoundary match = new MatchManager(petDS);
+        MatchManagerController matchCtrl = new MatchManagerController(match, chat);
+
+        AccountInputBoundary acc = new AccountModel(userDS);
+        AccountController accCtrl = new AccountController(acc);
+
+        Homescreen h = new Homescreen("PET ID:1", genCtrl, matchCtrl, chatCtrl, accCtrl);
+        h.setVisible(true);
     }
 }
 
