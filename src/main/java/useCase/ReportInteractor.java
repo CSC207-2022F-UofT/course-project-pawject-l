@@ -25,7 +25,7 @@ public class ReportInteractor {
         Report r = new Report(petID, "TypeB", pm, um);
         r.report();
     }
-    public void TypeCReport(String petID, String chatId) {
+    public void TypeCReport(String petID, String chatId) throws IOException {
         Report r = new Report(petID, chatId,"TypeC", pm,cm);
         r.report();
     }

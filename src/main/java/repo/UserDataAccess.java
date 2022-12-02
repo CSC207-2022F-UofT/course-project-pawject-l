@@ -1,39 +1,37 @@
 package repo;
-import org.hamcrest.Factory;
-import repo.*;
 import entities.User;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class UserDataAccess implements UserDataAccessInterface{
     /**
      * userID, username, password, petIDs,  reportCounts
-     * "0000001","student","password","0001"$"0002",0$0$0
+     * "0000001","student","password","PET ID:0001$PET ID:0002","0$0$0"
      * 0,         1,         2,       3,           4
      */
     static String defaultUserID = "00000001";
     static String defaultPetID = "00000001";
     static String defaultReportCount = "0$0$0";
-    static String filename = "123.txt";
+    static String filename = "src/main/java/data/userData";
     @Override
     public User getUserById(String id) throws IOException {
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
-        ArrayList<String> value = null;
-        while((line = br.readLine()) != null){
-            value.addAll(Arrays.asList(line.split(",")));
+        ArrayList<String> value = new ArrayList<String>();
+        while ((line = br.readLine()) != null) {
+            String[] a = line.split(",");
+            value.addAll(List.of(a));
         }
         br.close();
         fr.close();
         int i = 0;
-        while (i + 5 <= value.size()){
-            if (Objects.equals(value.get(i), id)){
-                return new User(id, value.get(i + 1), value.get(i + 2), value.get(i+3), value.get(i+4));
+        while (i + 5 <= value.size()) {
+            if (Objects.equals(value.get(i), id)) {
+                return new User(id, value.get(i + 1), value.get(i + 2), value.get(i + 3), value.get(i + 4));
             }
             i += 5;
         }
@@ -45,7 +43,7 @@ public class UserDataAccess implements UserDataAccessInterface{
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
-        ArrayList<String> value = null;
+        ArrayList<String> value = new ArrayList<String>();
         while((line = br.readLine()) != null){
             value.addAll(Arrays.asList(line.split(",")));
         }
@@ -66,7 +64,7 @@ public class UserDataAccess implements UserDataAccessInterface{
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
-        ArrayList<String> value = null;
+        ArrayList<String> value = new ArrayList<String>();
         while((line = br.readLine()) != null){
             value.addAll(Arrays.asList(line.split(",")));
         }
@@ -100,7 +98,7 @@ public class UserDataAccess implements UserDataAccessInterface{
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
-        ArrayList<String> value = null;
+        ArrayList<String> value = new ArrayList<String>();
         while((line = br.readLine()) != null){
             value.addAll(Arrays.asList(line.split(",")));
         }
@@ -114,7 +112,7 @@ public class UserDataAccess implements UserDataAccessInterface{
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
-        ArrayList<String> value = null;
+        ArrayList<String> value = new ArrayList<String>();
         while((line = br.readLine()) != null){
             value.addAll(Arrays.asList(line.split(",")));
         }
@@ -122,7 +120,7 @@ public class UserDataAccess implements UserDataAccessInterface{
         fr.close();
         int i = 3;
         while (i + 2 <= value.size()){
-            if (Arrays.asList(value.get(i).split("$")).contains(petID)){
+            if (Arrays.asList(value.get(i).split("\\$")).contains(petID)){
                 return new User(value.get(i-3), value.get(i-2), value.get(i-1), value.get(i), value.get(i+1));
             }
             i += 5;
@@ -135,7 +133,7 @@ public class UserDataAccess implements UserDataAccessInterface{
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
-        ArrayList<String> value = null;
+        ArrayList<String> value = new ArrayList<String>();
         while((line = br.readLine()) != null){
             value.addAll(Arrays.asList(line.split(",")));
         }

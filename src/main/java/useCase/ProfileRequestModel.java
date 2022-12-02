@@ -1,6 +1,7 @@
 package useCase;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.time.DayOfWeek;
 import java.util.List;
 import java.util.UUID;
@@ -18,10 +19,10 @@ public class ProfileRequestModel {
     private List<String> preferredBreed; // allow for multiple preferred breeds
     private List<Integer> preferredAge; // allow for a range of preferred ages
     private String preferredGender;
-    private java.util.List<Image> images;
+    private java.util.List<BufferedImage> images;
     private float preferredProximity; // distance in KM
     private List<DayOfWeek> availableDay; // list of the available days of the week
-    private Image proofOfVaccination;
+    private BufferedImage proofOfVaccination;
     private float longitude;
     private float latitude;
 
@@ -33,7 +34,7 @@ public class ProfileRequestModel {
 
     public ProfileRequestModel(String name, String description,List<String> species, List<String> breed, List<Integer> age, String gender,
                                List<String> preferredSpecies, List<String> preferredBreed, List<Integer> preferredAge, String preferredGender,
-                               List<Image> images, Image proofOfVaccination, float longitude, float latitude, float preferredProximity,
+                               List<BufferedImage> images, BufferedImage proofOfVaccination, float longitude, float latitude, float preferredProximity,
                                List<DayOfWeek> availableDay, boolean preferredVaccineStatus) {
         this.name = name;
         this.description = description;
@@ -119,7 +120,7 @@ public class ProfileRequestModel {
         return longitude;
     }
 
-    public Image getProofOfVaccination() {
+    public BufferedImage getProofOfVaccination() {
         return proofOfVaccination;
     }
 
@@ -143,7 +144,7 @@ public class ProfileRequestModel {
         return preferredAge;
     }
 
-    public List<Image> getImages() {
+    public List<BufferedImage> getImages() {
         return images;
     }
 
@@ -159,7 +160,7 @@ public class ProfileRequestModel {
         return species;
     }
 
-    public void setImages(List<Image> images) {
+    public void setImages(List<BufferedImage> images) {
         this.images = images;
     }
 
@@ -187,7 +188,7 @@ public class ProfileRequestModel {
         this.preferredProximity = preferredProximity;
     }
 
-    public void setProofOfVaccination(Image proofOfVaccination) {
+    public void setProofOfVaccination(BufferedImage proofOfVaccination) {
         this.proofOfVaccination = proofOfVaccination;
     }
 

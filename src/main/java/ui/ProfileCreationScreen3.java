@@ -1,12 +1,17 @@
 package ui;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.Objects;
+import controller.ProfileController;
 
 public class ProfileCreationScreen3 extends JFrame implements ActionListener {
+    ProfileController profileController;
     Font f1 = new Font("Arial", Font.PLAIN, 20);
     Font f2 = new Font("Arial", Font.PLAIN, 12);
     Font f3 = new Font("Arial", Font.PLAIN, 15);
@@ -44,6 +49,20 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
     JTextArea[] textAreas = {preferredBreed};
 
     JComboBox[] comboBoxes = {preferredGender};
+
+    //info from previous pages
+    boolean vaccineSta;
+    String bio;
+    float lo;
+    float la;
+    float proximity;
+    String name;
+    List<String> species;
+    List<String> breed;
+    String gender;
+    List<Integer> age;
+    BufferedImage petPhoto;
+    BufferedImage vaccineImage;
 
 
     public void setLayoutManager() {
@@ -148,7 +167,23 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
 
     }
 
-    public ProfileCreationScreen3(){
+    public ProfileCreationScreen3(ProfileController profileController, boolean vaccineSta, String bio, float lo, float la, float proximity, String name,
+                                  List<String> species, List<String> breed, String gender, List<Integer> age,
+                                  BufferedImage petPhoto, BufferedImage vaccineImage){
+        this.profileController = profileController;
+        this.vaccineSta = vaccineSta;
+        this.bio = bio;
+        this.lo = lo;
+        this.la = la;
+        this.proximity = proximity;
+        this.name = name;
+        this.species = species;
+        this.breed = breed;
+        this.gender = gender;
+        this.age = age;
+        this.petPhoto = petPhoto;
+        this.vaccineImage = vaccineImage;
+
         setLayoutManager();
         setPositionAndSize();
         addComponentsToContainer();
@@ -156,22 +191,77 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
         setFonts();
     }
 
+    public boolean checkFilled(){
+        for (JTextField i:textFields){
+            if (Objects.equals(i.getText(), "")){
+                return false;
+            }
+        }
+        for (JTextArea i:textAreas){
+            if (Objects.equals(i.getText(), "")){
+                return false;
+            }
+        }
+        for (JComboBox c: comboBoxes){
+            if (Objects.equals(c.getSelectedItem().toString(), "Select")){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean checkInputCorrect(){
+        try{
+            Integer min = Integer.valueOf(this.minAge.getText());
+            Integer max = Integer.valueOf(this.maxAge.getText());
+            return true;
+        } catch(NumberFormatException ex) {
+            return false;
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
         if(evt.getSource() == saveAndContinueButton){
-            ProfileCreationScreen4 PCS4 = new ProfileCreationScreen4();
-            this.setVisible(false);
-            PCS4.setVisible(true);
-            PCS4.setSize(370, 600);
+            if (!checkFilled()){
+                JOptionPane.showMessageDialog(this, "Incomplete, please fill out all sections");
+            }
+            else if(!checkInputCorrect()){
+                JOptionPane.showMessageDialog(this,"Age must be a number");
+            }
+            else{
+                List<String> preferredSpec = new ArrayList<>();
+                for(JCheckBox p:preferredSpeciesChoices){
+                    if (p.isSelected()){
+                        preferredSpec.add(p.getName());
+                    }
+                }
+                List<String> preferredBre = List.of(preferredBreed.toString().split(","));
+                String preferredGen = preferredGender.getSelectedItem().toString();
+                if(Objects.equals(preferredGender.getSelectedItem().toString(), "No preference")){
+                    preferredGen = "";
+                }
+                List<Integer> preferredAgeRange= new ArrayList<>();
+                int min = Integer.parseInt(minAge.getText());
+                int max = Integer.parseInt(maxAge.getText());
+                for(int i = min; i < max; i ++){
+                    preferredAgeRange.add(i);
+                }
+                ProfileCreationScreen4 PCS4 = new ProfileCreationScreen4(profileController, vaccineSta, bio, lo, la, proximity, name, species,
+                        breed, gender, age, petPhoto, vaccineImage, preferredSpec, preferredBre, preferredGen, preferredAgeRange);
+                this.setVisible(false);
+                PCS4.setVisible(true);
+                PCS4.setSize(370, 600);
+            }
         }
     }
-
+/**
     public static void main(String[] args) {
         ProfileCreationScreen3 frame = new ProfileCreationScreen3();
         frame.setTitle("Profile Creation Screen");
         frame.setVisible(true);
         frame.setBounds(10, 10, 370, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+    }*/
 }

@@ -3,6 +3,8 @@ package useCase;
 import entities.Pet;
 import repo.PetDataAccessInterface;
 
+import java.io.IOException;
+
 //use case layer
 
 public class MatchManager implements MatchManagerInputBoundary {
@@ -22,21 +24,21 @@ public class MatchManager implements MatchManagerInputBoundary {
      */
 
     @Override
-    public boolean manageMatch(MatchManagerRequestModel requestModel) {
+    public boolean manageMatch(MatchManagerRequestModel requestModel) throws IOException {
 
         Pet p1 = PetDsGateway.getPetById(requestModel.getP1_id());
         Pet p2 = PetDsGateway.getPetById(requestModel.getP2_id());
 
         if (requestModel.isP1_owner_decision()) {
             if (p2.getLikes().contains(p1)) {
-                p1.addMatches(p2);
-                p2.addMatches(p1);
+                //p1.addMatches(p2);
+                //p2.addMatches(p1);
                 return true;
             }
              // at this point p2 hasn't interacted with p1 yet
 
         } else {
-            p1.getDislikes().add(p2);
+            //p1.getDislikes().add(p2);
         }
         return false;
     }

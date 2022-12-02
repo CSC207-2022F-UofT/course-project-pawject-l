@@ -1,15 +1,21 @@
 package ui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.io.IOException;
+import java.util.List;
 import java.awt.*;
 import javax.swing.filechooser.FileFilter;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
+import controller.ProfileController;
 
 
 public class ProfileCreationScreen2 extends JFrame implements ActionListener {
+    ProfileController profileController;
     Font f1 = new Font("Arial", Font.PLAIN,  20);
     Font f2 = new Font("Arial", Font.PLAIN,  12);
     Font f3 = new Font("Arial", Font.PLAIN,  15);
@@ -35,6 +41,8 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
     JButton uploadVaccineImageButton = new JButton("Upload");
     JLabel imageSelectedLabel = new JLabel();
 
+    BufferedImage vaccineImage;
+
     JLabel page = new JLabel("Page 2/4");
     JButton saveAndContinueButton = new JButton("Save & Continue");
 
@@ -45,6 +53,14 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
     JTextArea[] textAreas = {description};
 
     JComboBox[] comboBoxes = {vaccineStatus};
+
+    //user data from previous page
+    String name;
+    List<String> species;
+    List<String> breed;
+    String gender;
+    List<Integer> age;
+    BufferedImage petPhoto;
 
 
 
@@ -143,13 +159,7 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
     }
 
     class ImageFilter extends FileFilter {
-
-        public final static String PNG = "png";
-        public final static String JPEG = "jpeg";
         public final static String JPG = "jpg";
-        public final static String GIF = "gif";
-        public final static String TIFF = "tiff";
-        public final static String TIF = "tif";
 
         @Override
         public boolean accept(File f) {
@@ -159,8 +169,7 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
 
             String extension = getExtension(f);
             if (extension != null) {
-                return extension.equals(JPG) || extension.equals(PNG) || extension.equals(JPEG) || extension.equals(TIFF) ||
-                        extension.equals(TIF) || extension.equals(GIF);
+                return extension.equals(JPG);
             }
             return false;
 
@@ -168,7 +177,7 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
 
         @Override
         public String getDescription() {
-            return "Images only";
+            return "jpg file only";
         }
         String getExtension(File f) {
             String extension = null;
@@ -190,7 +199,15 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
 
     }
 
-    public ProfileCreationScreen2(){
+    public ProfileCreationScreen2(ProfileController profileController, String name, List<String> species, List<String> breed, String gender, List<Integer> age, BufferedImage petPhoto){
+        this.profileController = profileController;
+        this.name = name;
+        this.species = species;
+        this.breed = breed;
+        this.gender = gender;
+        this.age = age;
+        this.petPhoto = petPhoto;
+
         setLayoutManager();
         setPositionAndSize();
         addComponentsToContainer();
@@ -198,41 +215,100 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
         setFonts();
     }
 
+    public boolean checkFilled(){
+        for (JTextField i:textFields){
+            if (Objects.equals(i.getText(), "")){
+                return false;
+            }
+        }
+        for (JComboBox c: comboBoxes){
+            if (Objects.equals(c.getSelectedItem().toString(), "Select")){
+                return false;
+            }
+        }
+        if (Objects.equals(vaccineStatus.getSelectedItem().toString(),"Vaccinated")){
+            if (Objects.equals(imageSelectedLabel.getText(), "Image upload canceled") || Objects.equals(imageSelectedLabel.getText(), "")){
+                return false;
+            }
+        }
 
+        return true;
+    }
 
+    public boolean checkInputCorrect(){
+        try{
+            Float lo = Float.valueOf(this.longitude.getText());
+            Float la = Float.valueOf(this.latitude.getText());
+            Float pp = Float.valueOf(this.preferredProximity.getText());
+            return true;
+        } catch(NumberFormatException ex) {
+            return false;
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if(evt.getSource() == saveAndContinueButton){
-            ProfileCreationScreen3 PCS3 = new ProfileCreationScreen3();
-            this.setVisible(false);
-            PCS3.setVisible(true);
-            PCS3.setSize(370, 600);
-        }
-        else if (evt.getSource() == uploadVaccineImageButton) {
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.addChoosableFileFilter(new ProfileCreationScreen2.ImageFilter());
-            fileChooser.setAcceptAllFileFilterUsed(false);
-
-            int option = fileChooser.showOpenDialog(this);
-            if(option == JFileChooser.APPROVE_OPTION){
-                File file = fileChooser.getSelectedFile();
-                imageSelectedLabel.setText("File Selected: " + file.getName());
+        if (evt.getSource() == uploadVaccineImageButton) {
+            if (Objects.equals(vaccineStatus.getSelectedItem().toString(),"Unvaccinated")){
+                File file = new File("java/data/NO VAX.jpg");
+                try {
+                    vaccineImage = ImageIO.read(file);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }else{
-                imageSelectedLabel.setText("Image upload canceled");
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.addChoosableFileFilter(new ProfileCreationScreen2.ImageFilter());
+                fileChooser.setAcceptAllFileFilterUsed(false);
+
+                int option = fileChooser.showOpenDialog(this);
+                if(option == JFileChooser.APPROVE_OPTION){
+                    File file = fileChooser.getSelectedFile();
+                    imageSelectedLabel.setText("File Selected: " + file.getName());
+                    try {
+                        vaccineImage = ImageIO.read(file);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }else{
+                    imageSelectedLabel.setText("Image upload canceled");
+                }
+            }
+
+        }
+
+        if(evt.getSource() == saveAndContinueButton){
+            if (!checkFilled()){
+                JOptionPane.showMessageDialog(this, "Incomplete, please fill out all sections");
+            }else if(!checkInputCorrect()){
+                JOptionPane.showMessageDialog(this,"Longitude, Latitude and Proximity must all be numbers");
+            }
+            else{
+                boolean vaccineSta = Objects.equals(this.vaccineStatus.getSelectedItem().toString(), "Vaccinated");
+                String bio = this.description.getText();
+                Float lo = Float.valueOf(this.longitude.getText());
+                Float la = Float.valueOf(this.latitude.getText());
+                Float proximity = Float.valueOf(this.preferredProximity.getText());
+
+
+                ProfileCreationScreen3 PCS3 = new ProfileCreationScreen3(profileController, vaccineSta, bio, lo, la,
+                        proximity, name, species, breed, gender, age, petPhoto, vaccineImage);
+                this.setVisible(false);
+                PCS3.setVisible(true);
+                PCS3.setSize(370, 600);
             }
 
         }
     }
 
+    /**public static void main(String[] args) {
 
-    public static void main(String[] args) {
         ProfileCreationScreen2 frame = new ProfileCreationScreen2();
         frame.setTitle("Profile Creation Screen");
         frame.setVisible(true);
         frame.setBounds(10, 10, 370, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);}*/
 
-    }
+
 
 }
