@@ -56,15 +56,27 @@ public class FPMA implements FPMARequestModel {
         while (count < 19) {
             Pet candidate = PDAI.getRandomPet(); //Initializes Pet object containing a possible candidate
             Attributes candidatePetAttributes = candidate.getAttributes();//Initializes Attributes object containing the attributes of candidate
-            if (!isWithin(candidate, possibleCandidates)) { //Checks to see if random Pet was inserted
-                if (!userPet.getDislikes().contains(candidate.getPetID())) { //Checks if user has already disliked candidate
-                    if (!userPet.getLikes().contains(candidate.getPetID())) { //Checks if user has already liked candidate
-                        if (!userPet.getMatches().contains(userPet.getPetID())) { //Checks if candidate already disliked user
-                            if (getDistance(getLocation(candidate.getLatitude(), candidate.getLongitude()), location) < preferredDistance) { //Checks if candidates location satisfies users preferred proximity
-                                if (userPetPreferredAttributes.isVaccinated()) { //Checks if user prefers vaccinated pets
-                                    if (userPetPreferredAttributes.isVaccinated() == candidatePetAttributes.isVaccinated()) { //Checks if candidate is vaccinated
-                                        if (!userPetPreferredAttributes.getSpecies().isEmpty()) { //Checks if user has preferred species
-                                            if (userPetPreferredAttributes.getSpecies().contains(candidatePetAttributes.getBreed().get(0))) { //Checks if candidate's species satisfies preference
+            if (!Objects.equals(candidate, userPet)) { //Ensures one can't match themselves
+                if (!isWithin(candidate, possibleCandidates)) { //Checks to see if random Pet was inserted
+                    if (!userPet.getDislikes().contains(candidate.getPetID())) { //Checks if user has already disliked candidate
+                        if (!userPet.getLikes().contains(candidate.getPetID())) { //Checks if user has already liked candidate
+                            if (!userPet.getMatches().contains(userPet.getPetID())) { //Checks if candidate already disliked user
+                                if (getDistance(getLocation(candidate.getLatitude(), candidate.getLongitude()), location) < preferredDistance) { //Checks if candidates location satisfies users preferred proximity
+                                    if (userPetPreferredAttributes.isVaccinated()) { //Checks if user prefers vaccinated pets
+                                        if (userPetPreferredAttributes.isVaccinated() == candidatePetAttributes.isVaccinated()) { //Checks if candidate is vaccinated
+                                            if (!userPetPreferredAttributes.getSpecies().isEmpty()) { //Checks if user has preferred species
+                                                if (userPetPreferredAttributes.getSpecies().contains(candidatePetAttributes.getBreed().get(0))) { //Checks if candidate's species satisfies preference
+                                                    possibleCandidates[count] = candidate; //Candidate is added to list to be graded
+                                                    count += 1; //Count variable increased
+                                                }
+                                            } else {
+                                                possibleCandidates[count] = candidate; //Candidate is added to list to be graded
+                                                count += 1; //Count variable increased
+                                            }
+                                        }
+                                    } else {
+                                        if (!userPetPreferredAttributes.getSpecies().isEmpty()) {//Checks if user has preferred species
+                                            if (userPetPreferredAttributes.getSpecies().contains(candidatePetAttributes.getBreed().get(0))) {//Checks if candidate's species satisfies preference
                                                 possibleCandidates[count] = candidate; //Candidate is added to list to be graded
                                                 count += 1; //Count variable increased
                                             }
@@ -72,16 +84,6 @@ public class FPMA implements FPMARequestModel {
                                             possibleCandidates[count] = candidate; //Candidate is added to list to be graded
                                             count += 1; //Count variable increased
                                         }
-                                    }
-                                } else {
-                                    if (!userPetPreferredAttributes.getSpecies().isEmpty()) {//Checks if user has preferred species
-                                        if (userPetPreferredAttributes.getSpecies().contains(candidatePetAttributes.getBreed().get(0))) {//Checks if candidate's species satisfies preference
-                                            possibleCandidates[count] = candidate; //Candidate is added to list to be graded
-                                            count += 1; //Count variable increased
-                                        }
-                                    } else {
-                                        possibleCandidates[count] = candidate; //Candidate is added to list to be graded
-                                        count += 1; //Count variable increased
                                     }
                                 }
                             }
@@ -97,7 +99,7 @@ public class FPMA implements FPMARequestModel {
     /**
      * Checks if pet Object is within array of pet Objects
      *
-     * @param possible given pet Object
+     * @param possible   given pet Object
      * @param candidates array of pets to be queried
      * @return True if within, False if not found.
      */
