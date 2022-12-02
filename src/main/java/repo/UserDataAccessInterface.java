@@ -1,6 +1,7 @@
 package repo;
 
 import entities.User;
+import useCase.Account.AccountRequestModel;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,10 +21,17 @@ public interface UserDataAccessInterface {
 
     /**
      * Saves user in database. Returns true if saved, false if not.
-     * @param user
+     * @param username
+     * @param password
      * @return true if saved, false if not
      */
     boolean saveUser(String userID, String username, String password, String petID, String reportCount) throws IOException;
+
+    public void save(User user);
+
+    public boolean existsUser(String username);
+    public User getUser(String username);
+//    public AccountRequestModel getReqMod(String username);
 
     /**
      * Checks if a given username already exists in the database. Returns true if it exists, false if it does not.
