@@ -285,9 +285,9 @@ public class PetDataAccess implements PetDataAccessInterface {
         construction.append(",");
         count = 0;
 
-        Integer num = getNumFiles("images");
-        ImageIO.write(pet.getProofOfVaccination(), "png", new File("images" + num + ".png"));
-        construction.append("images").append(num).append(".png");
+        Integer num = getNumFiles("java/data/POVs");
+        ImageIO.write(pet.getProofOfVaccination(), "jpg", new File("java/data/POVs/POV" + num + ".jpg"));
+        construction.append("java/data/POVs/POV").append(num).append(".jpg");
         construction.append(",");
         construction.append(pet.getLongitude()).append(",");
         construction.append(pet.getLatitude()).append(",");

@@ -12,6 +12,8 @@ import useCase.Account.AccountInputBoundary;
 import useCase.Account.AccountModel;
 import repo.FPMAInputBoundary;
 
+import useCase.FPMAResponseModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
