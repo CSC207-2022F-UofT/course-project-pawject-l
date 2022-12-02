@@ -2,7 +2,7 @@ package useCase;
 
 import entities.Pet;
 import entities.Attributes;
-import repo.FPMARequestModel;
+import repo.FPMAInputBoundary;
 import repo.PetDataAccessInterface;
 
 import java.io.IOException;
@@ -12,9 +12,8 @@ import java.util.TreeMap;
 import java.util.Map;
 import java.lang.Math;
 
-public class FPMA implements FPMARequestModel {
-    private final PetDataAccessInterface PDAI;
-
+public class FPMA implements FPMAInputBoundary {
+    private PetDataAccessInterface PDAI;
     /**
      * Initialize PetDataAcessInterface
      *
@@ -30,15 +29,17 @@ public class FPMA implements FPMARequestModel {
      * @param userPet Pet user has logged in at time of method call
      * @return Pet array of potential match candidates sorted by preference saturation.
      */
-    public Pet[] PotentialCandidates(Pet userPet) throws IOException {
-        HashMap<Float, Pet> potentialCandidateGrading = new HashMap<>(); // Initializes new HashMap with Floats as keys and Pets as values
+    public FPMAResponseModel PotentialCandidates(FPMARequestModel requestModel) throws IOException {
+        Pet userPet = PDAI.getPetById(requestModel.getPetId());
+        HashMap<Float, Pet> potentialCandidateGrading = new HashMap<Float, Pet>(); // Initializes new HashMap with Floats as keys and Pets as values
         Attributes userPetPreferredAttributes = userPet.getPreferredAttributes(); // Initializes Attributes object containing attributes of userPet
         Pet[] PossibleCandidates = getPossibleCandidates(userPet); // Initializes Pet array and calls getPossibleCandidates method
         for (Pet pet : PossibleCandidates) { // Loops through Pet array with goal to grade each candidate
             Attributes candidatePetAttributes = pet.getAttributes(); // Initializes Attributes object containing attributes of
             potentialCandidateGrading.put(getGrade(userPetPreferredAttributes, candidatePetAttributes), pet); //Assigns grade to candidate pet based on how its attributes satisfy userPet
         }
-        return sortedHashmap(potentialCandidateGrading); //Returns list of pets ordered by grade
+        return new FPMAResponseModel(sortedHashmap(potentialCandidateGrading));
+        // return sortedHashmap(potentialCandidateGrading); //Returns list of pets ordered by grade
     }
 
     /**
