@@ -1,28 +1,37 @@
-/**package controller;
+package controller;
 
-import userCase.Account.AccountInputBoundary;
+import entities.User;
+import repo.UserDataAccess;
+import useCase.Account.AccountInputBoundary;
+import useCase.Account.AccountRequestModel;
+import repo.UserDataAccessInterface;
+
+import java.io.IOException;
 
 public class AccountController{
-    final AccountInputBoundary inputBoundary;
+    final AccountInputBoundary userInput;
 
-    public AccountController(AccountInputBoundary inputBoundary) {
-        this.inputBoundary = inputBoundary;
+    public AccountController(AccountInputBoundary userInput) {
+        this.userInput = userInput;
     }
 
-    public boolean logIn(String username, String password) {
-        if (inputBoundary.userExists(username)) {
-            if (inputBoundary.correctPassword(username, password)) {
-                return true;
-            }
-        } return false;
+    public boolean userExists(String username, String password) throws IOException {
+        AccountRequestModel requestModel = new AccountRequestModel(username, password);
+        return userInput.userExists(requestModel);
     }
 
-    public void signUp(String username, String password) {
-        if (!inputBoundary.userExists(username)) {
-            if (inputBoundary.checkPasswordValid(password)) {
-                inputBoundary.createUser();
-            }
-        }
+    public boolean checkPasswordValid(String username, String password){
+        AccountRequestModel requestModel = new AccountRequestModel(username, password);
+        return userInput.checkPasswordValid(requestModel);
+    }
+
+    public boolean correctPassword(String username, String password) throws IOException {
+//        AccountRequestModel requestModel = new AccountRequestModel(username, password);
+        return userInput.correctPassword(username, password);
+    }
+
+    public void create(String username, String password) throws IOException {
+        AccountRequestModel requestModel = new AccountRequestModel(username, password);
+        userInput.create(requestModel);
     }
 }
-*/

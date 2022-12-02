@@ -2,18 +2,17 @@ package useCase;
 
 import entities.Chat;
 import entities.Pet;
+import entities.Text;
 import repo.ChatDataAccessInterface;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.*;
 
-
-public class ChatManager {
-    ChatDataAccessInterface CDRM;
-    public ChatManager(ChatDataAccessInterface CDRM){
-        this.CDRM = CDRM;
+public class ChatManager implements ChatManagerInputBoundary {
+    static ChatDataAccessInterface CDAI;
+    public ChatManager(ChatDataAccessInterface CDAI){
+        ChatManager.CDAI = CDAI;
     }
     private static long idCounter = 0;
 
@@ -21,8 +20,8 @@ public class ChatManager {
      * A method that generates a unique Chat ID
      * @return unique chatID
      */
-    public static String generateUniqueChatID() {
-        return "ChatID" + Long.toString(idCounter++);
+    public String generateUniqueChatID() {
+        return "ChatID" + idCounter++;
     }
 
     /**
@@ -32,28 +31,29 @@ public class ChatManager {
      */
     public ArrayList<Chat> generateSortedChatList(ArrayList<Chat> chats) {
         Collections.sort(chats,
-                Comparator.comparing(c-> c.getConversation().get(c.getConversation().size()).getTimeSent()));
+                Comparator.comparing(c-> c.getConversation().get(c.getConversation().size() - 1).getTimeSent()));
+        Collections.reverse(chats);
         return chats;
     }
 
     /**
-     * A method that creates a chat between two pets
-     * @param p1 the first pet in the chat
-     * @param p2 the second chat in the chat
+     * A method that creates a chat between two pets using petIDs
+     * @param petID1 ID of the first pet in the chat
+     * @param petID2 ID of the second chat in the chat
      */
-    public void createChat(Pet p1, Pet p2){
+    public void createChat(String petID1, String petID2) throws IOException {
         Chat newChat = new Chat(generateUniqueChatID());
-        CDRM.saveChat(p1.getPetID(), p1.getPetID(), newChat);
+        CDAI.saveChat(petID1, petID2, newChat);
     }
 
     /**
      * A method that returns a hashmap of the chats belonging to the pet
-     * @param pet the pet entity
+     * @param petID the pet id
      * @return a hashmap with chatID as keys and chat entities as values
      */
-    public HashMap<String, Chat> getChatsByPet (Pet pet) {
+    public HashMap<String, Chat> getChatsByPet (String petID) {
         HashMap<String, Chat> listOfChats = new HashMap<>();
-        for(Chat chat : CDRM.getChatsByPet(pet)){
+        for(Chat chat : CDAI.getChatsByPet(petID)){
             listOfChats.put(chat.getChatID(), chat);
         }
         return listOfChats;
@@ -65,8 +65,28 @@ public class ChatManager {
      * @return A chat entity
      */
     public Chat getChatByID(String ChatID) {
-        return CDRM.getChatByID(ChatID);
+        return CDAI.getChatByID(ChatID);
     }
+
+    public String[][] getTextsList(String chatID) {
+        List<Text> conversation = CDAI.getChatByID(chatID).getConversation();
+        String[][] textList = new String[conversation.size()][3];
+        for(int i = 0; i < conversation.size(); i++){
+            textList[i][0] = conversation.get(i).getMessageText();
+            textList[i][1] = conversation.get(i).getSenderID();
+            textList[i][2] = conversation.get(i).getTimeSent().toString();
+        }
+        return textList;
+    }
+
+    public void sendText(String chatID, String petID, String message) throws IOException {
+        Text text = new Text(petID, LocalDateTime.now(), message);
+        CDAI.saveText(chatID, text);
+    }
+
+
+
+
 
 
 }
