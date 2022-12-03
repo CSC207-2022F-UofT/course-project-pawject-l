@@ -36,7 +36,7 @@ public class PetDataAccess implements PetDataAccessInterface {
                     try {
                         pet.setDislikes(Arrays.asList(tempArr[11].split("\\$")));
                         ArrayList<String> new_dislikes = new ArrayList<>();
-                        for (String petId: pet.getDislikes()){
+                        for (String petId : pet.getDislikes()) {
                             new_dislikes.add(petId);
                         }
                         pet.setDislikes(new_dislikes);
@@ -46,7 +46,7 @@ public class PetDataAccess implements PetDataAccessInterface {
                     try {
                         pet.setLikes(Arrays.asList(tempArr[12].split("\\$")));
                         ArrayList<String> new_likes = new ArrayList<>();
-                        for (String petId: pet.getLikes()){
+                        for (String petId : pet.getLikes()) {
                             new_likes.add(petId);
                         }
                         pet.setLikes(new_likes);
@@ -56,7 +56,7 @@ public class PetDataAccess implements PetDataAccessInterface {
                     try {
                         pet.setMatches(Arrays.asList(tempArr[13].split("\\$")));
                         ArrayList<String> new_matches = new ArrayList<>();
-                        for (String petId: pet.getMatches()){
+                        for (String petId : pet.getMatches()) {
                             new_matches.add(petId);
                         }
                         pet.setMatches(new_matches);
@@ -95,7 +95,7 @@ public class PetDataAccess implements PetDataAccessInterface {
     public String getPetIdByUser(User user) {
         String petId = null;
         try {
-            File file = new File("java/data/userData");
+            File file = new File("src/main/java/data/userData.csv");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             String line;
@@ -122,9 +122,34 @@ public class PetDataAccess implements PetDataAccessInterface {
     @Override
     public Pet getRandomPet() {
         int size = getSizeOfDataFile();
-        int randIndex = (int) (Math.random() * (size + 1));
-        String petId = "PET ID:" + randIndex;
-        return getPetById(petId);
+        int randIndex = 0;
+        String petid = "";
+        while (randIndex == 0) {
+            randIndex = (int) (Math.random() * (size) + 1);
+        }
+        int count = 0;
+        try {
+            File file = new File("src/main/java/data/petData.csv");
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            String[] tempArr;
+            while ((line = br.readLine()) != null) {
+                if (count == randIndex) {
+                    tempArr = line.split(",");
+                    petid = tempArr[0];
+                    break;
+                }
+                else {
+                    count++;
+                }
+            }
+            fr.close();
+            br.close();
+        } catch (IOException ignored) {
+
+        }
+        return getPetById(petid);
     }
 
     /**
@@ -135,7 +160,7 @@ public class PetDataAccess implements PetDataAccessInterface {
     private int getSizeOfDataFile() {
         int count = 0;
         try {
-            File file = new File("java/data/petData");
+            File file = new File("src/main/java/data/petData.csv");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             while ((br.readLine()) != null) {
@@ -182,7 +207,7 @@ public class PetDataAccess implements PetDataAccessInterface {
     public boolean updatePet(Pet pet) {
         boolean saved = false;
         try {
-            File file = new File("java/data/petData.csv");
+            File file = new File("src/main/java/data/petData.csv");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             List<String> totalFile = new ArrayList<>();

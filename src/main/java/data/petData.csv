@@ -29,6 +29,3 @@ PET ID:28,Pet 28,Pet Desc,Dog$Border Collie$6$Male$true,Dog$$$Male$true,src/main
 PET ID:29,Pet 29,Pet Desc,Dog$Border Collie$6$Male$true,Dog$$$Male$true,src/main/java/data/Images/image 1.jpg,src/main/java/data/POVs/POV1.jpg,19.2,5.3,100,MONDAY$WEDNESDAY$FRIDAY,,,
 PET ID:30,Pet 30,Pet Desc,Dog$Border Collie$6$Male$true,Dog$$$Male$true,src/main/java/data/Images/image 1.jpg,src/main/java/data/POVs/POV1.jpg,19.2,5.3,100,MONDAY$WEDNESDAY$FRIDAY,,,
 PET ID:31,Pet 31,Pet Desc,Dog$Border Collie$6$Male$true,Dog$$$Male$true,src/main/java/data/Images/image 1.jpg,src/main/java/data/POVs/POV1.jpg,19.2,5.3,100,MONDAY$WEDNESDAY$FRIDAY,,,
-
-Pet ID: 64a71d7a-1206-4744-b581-18bd96fc5611,UIDog,this is a profile created using the UI,Dog$idk$5$Male$true,Dog$breed1$1&2&3&4&5$$true,src/main/java/data/Images/image1.jpg,src/main/java/data/POVs/POV1.jpg,100.0,200.0,10.0,SATURDAY$SUNDAY,,,
-
