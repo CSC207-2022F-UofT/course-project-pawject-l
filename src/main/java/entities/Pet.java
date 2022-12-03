@@ -30,7 +30,7 @@ public class Pet implements Serializable {
 
     public Pet(String name, String petID, String description, Attributes attributes, Attributes preferredAttributes,
                List<BufferedImage> images, BufferedImage proofOfVaccination, float longitude, float latitude,
-               float preferredProximity, List<DayOfWeek> availableDay) { //, List<String> dislikes,List<String> likes, List<String> matches
+               float preferredProximity, List<DayOfWeek> availableDay) {
         this.name = name;
         this.petID = petID;
         this.description = description;
@@ -42,9 +42,9 @@ public class Pet implements Serializable {
         this.latitude = latitude;
         this.preferredProximity = preferredProximity;
         this.availableDay = availableDay;
-        //this.dislikes = dislikes;
-        //this.likes = likes;
-        //this.matches = matches;
+        this.dislikes = new ArrayList<>();
+        this.likes = new ArrayList<>();
+        this.matches = new ArrayList<>();
     }
 
     public String getName() {

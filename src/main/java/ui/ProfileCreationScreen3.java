@@ -208,17 +208,25 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
             }
         }
 
-        return true;
+        boolean atLeastOneSelected = false;
+        for (JCheckBox s : preferredSpeciesChoices) {
+            if (s.isSelected()) {
+                atLeastOneSelected = true;
+            }
+        }
+        return atLeastOneSelected;
     }
 
     public boolean checkInputCorrect(){
+
         try{
             Integer min = Integer.valueOf(this.minAge.getText());
             Integer max = Integer.valueOf(this.maxAge.getText());
-            return true;
+            return min <= max;
         } catch(NumberFormatException ex) {
             return false;
         }
+
     }
 
     @Override
@@ -228,13 +236,13 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Incomplete, please fill out all sections");
             }
             else if(!checkInputCorrect()){
-                JOptionPane.showMessageDialog(this,"Age must be a number");
+                JOptionPane.showMessageDialog(this,"Ages must be numbers and the maximum age should be greater than or equal to the minimum age");
             }
             else{
                 List<String> preferredSpec = new ArrayList<>();
                 for(JCheckBox p:preferredSpeciesChoices){
                     if (p.isSelected()){
-                        preferredSpec.add(p.getName());
+                        preferredSpec.add(p.getText());
                     }
                 }
                 List<String> preferredBre = new ArrayList<>();
@@ -251,7 +259,7 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
                 List<Integer> preferredAgeRange= new ArrayList<>();
                 int min = Integer.parseInt(minAge.getText());
                 int max = Integer.parseInt(maxAge.getText());
-                for(int i = min; i < max; i ++){
+                for(int i = min; i <= max; i ++){
                     preferredAgeRange.add(i);
                 }
                 ProfileCreationScreen4 PCS4 = new ProfileCreationScreen4(profileController, vaccineSta, bio, lo, la, proximity, name, species,

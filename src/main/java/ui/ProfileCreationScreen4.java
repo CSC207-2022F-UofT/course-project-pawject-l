@@ -164,19 +164,19 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
                 for(JCheckBox d:availableDaysChoices){
                     if (d.isSelected()){
                         if(d.isSelected()){
-                            if (Objects.equals(d.getName(), "monday")){
+                            if (Objects.equals(d.getName(), "Monday")){
                                 availableDays.add(DayOfWeek.MONDAY);
-                            } else if (Objects.equals(d.getName(), "tuesday")) {
+                            } else if (Objects.equals(d.getText(), "Tuesday")) {
                                 availableDays.add(DayOfWeek.TUESDAY);
-                            } else if (Objects.equals(d.getName(), "wednesday")) {
+                            } else if (Objects.equals(d.getText(), "Wednesday")) {
                                 availableDays.add(DayOfWeek.WEDNESDAY);
-                            } else if (Objects.equals(d.getName(), "thursday")) {
+                            } else if (Objects.equals(d.getText(), "Thursday")) {
                                 availableDays.add(DayOfWeek.THURSDAY);
-                            } else if(Objects.equals(d.getName(), "friday")){
+                            } else if(Objects.equals(d.getText(), "Friday")){
                                 availableDays.add(DayOfWeek.FRIDAY);
-                            }else if (Objects.equals(d.getName(), "saturday")){
+                            }else if (Objects.equals(d.getText(), "Saturday")){
                                 availableDays.add(DayOfWeek.SATURDAY);
-                            } else if (Objects.equals(d.getName(), "sunday")){
+                            } else if (Objects.equals(d.getText(), "Sunday")){
                             availableDays.add(DayOfWeek.SUNDAY);}
                         }
                     }
@@ -185,6 +185,12 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
                 boolean preferredVaccineSta = !Objects.equals(preferredVaccineStatus.getSelectedItem().toString(), "No");
                 List<BufferedImage> petP = new ArrayList<>();
                 petP.add(petPhoto);
+
+                /**
+                 Once all the user inputs are all converted into the data form needed to create a Pet object,
+                 the UI will call the profile controller which calls the method to create new Pet and save it to the
+                 database.
+                 */
 
                 try {
                     profileController.performProfileCreation(name, bio, species, breed, age, gender, vaccineSta, preferredSpec,

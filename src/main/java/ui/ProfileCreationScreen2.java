@@ -267,14 +267,6 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
                     imageSelectedLabel.setText("Image upload canceled");
                 }
             }
-            else{
-                File file = new File("src/main/java/data/NO VAX.jpg");
-                try {
-                    vaccineImage = ImageIO.read(file);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
         }
 
         if(evt.getSource() == saveAndContinueButton){

@@ -29,12 +29,10 @@ public class ProfileManager implements ProfileInputBoundary{
         Attributes attributes = new Attributes(requestModel.getSpecies(), requestModel.getBreed(), requestModel.getAge(), requestModel.getGender(), requestModel.getVaccineStatus());
         Attributes preferredAttributes = new Attributes(requestModel.getPreferredSpecies(), requestModel.getPreferredBreed(),
                 requestModel.getPreferredAge(), requestModel.getPreferredGender(), requestModel.getPreferredVaccineStatus());
-        //List<String> dislikes = new ArrayList<>();
-        //List<String> likes = new ArrayList<>();
-        //List<String> matches = new ArrayList<>();
+
         Pet newPet = new Pet(requestModel.getName(), requestModel.getPetId(), requestModel.getDescription(),attributes, preferredAttributes,
                 requestModel.getImages(), requestModel.getProofOfVaccination(), requestModel.getLongitude(), requestModel.getLatitude(),
-                requestModel.getPreferredProximity(), requestModel.getAvailableDay()); //, dislikes, likes, matches
+                requestModel.getPreferredProximity(), requestModel.getAvailableDay());
         petDsGateway.savePet(newPet);
     }
 
