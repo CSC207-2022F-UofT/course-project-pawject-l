@@ -22,8 +22,7 @@ import useCase.ProfileManager;
 
 public class ProfileCreationScreen1 extends JFrame implements ActionListener {
     ProfileController profileController;
-    ProfileInputBoundary profileInputBoundary;
-    PetDataAccess petDataAccess;
+
     Font f1 = new Font("Arial", Font.PLAIN, 20);
     Font f2 = new Font("Arial", Font.PLAIN, 12);
     Font f3 = new Font("Arial", Font.PLAIN, 15);
