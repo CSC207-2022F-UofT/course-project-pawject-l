@@ -1,8 +1,7 @@
 package controller;
-import useCase.ProfileInputBoundary;
-import useCase.ProfileRequestModel;
+import useCase.Profile.ProfileInputBoundary;
+import useCase.Profile.ProfileRequestModel;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.time.DayOfWeek;

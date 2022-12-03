@@ -1,8 +1,7 @@
 package controller;
-import repo.FPMAInputBoundary;
-import useCase.FPMARequestModel;
-import entities.Pet;
-import useCase.FPMAResponseModel;
+import useCase.FPMA.FPMAInputBoundary;
+import useCase.FPMA.FPMARequestModel;
+import useCase.FPMA.FPMAResponseModel;
 
 import java.io.IOException;
 

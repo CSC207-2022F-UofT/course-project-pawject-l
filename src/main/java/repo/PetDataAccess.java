@@ -224,7 +224,7 @@ public class PetDataAccess implements PetDataAccessInterface {
             PrintWriter writer = new PrintWriter(file);
             writer.print("");
             writer.close();
-            FileWriter fw = new FileWriter("java/data/petData.csv", true);
+            FileWriter fw = new FileWriter("src/main/java/data/petData.csv", true);
             BufferedWriter bw = new BufferedWriter(fw);
             boolean first = true;
             for (String str : totalFile) {

@@ -6,10 +6,15 @@ import controller.GeneralController;
 import controller.MatchManagerController;
 import entities.User;
 import repo.*;
-import useCase.*;
 import useCase.Account.AccountInputBoundary;
 import useCase.Account.AccountModel;
 import repo.UserDataAccessInterface;
+import useCase.Chat.ChatManager;
+import useCase.Chat.ChatManagerInputBoundary;
+import useCase.FPMA.FPMA;
+import useCase.FPMA.FPMAInputBoundary;
+import useCase.Match.MatchManager;
+import useCase.Match.MatchManagerInputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -84,7 +89,7 @@ public class LogIn_Screen extends JFrame implements ActionListener {
                 } else {
                     JOptionPane.showMessageDialog(this, "Logged in.");
 
-                    UserDataAccessInterface userDS = new UserDataAccess("src/main/java/data/user.csv");
+                    UserDataAccessInterface userDS = new UserDataAccess("./user.csv");
                     PetDataAccessInterface petDS = new PetDataAccess();
 
                     // initiate home screen
@@ -107,37 +112,35 @@ public class LogIn_Screen extends JFrame implements ActionListener {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        PetDataAccessInterface petDS = new PetDataAccess();
-        ChatDataAccessInterface chatDS = new ChatDataAccess();
-        UserDataAccessInterface userDS = new UserDataAccess("src/main/java/data/user.csv");
-        userDS.saveUser("001", "user1", "ilovemydog");
+    //public static void main(String[] args) throws IOException {
+        //PetDataAccessInterface petDS = new PetDataAccess();
+        //ChatDataAccessInterface chatDS = new ChatDataAccess();
+        //UserDataAccessInterface userDS = new UserDataAccess("./user.csv");
 
+        //FPMAInputBoundary fpma = new FPMA(petDS);
+        //GeneralController genCtrl = new GeneralController(fpma);
 
-        FPMAInputBoundary fpma = new FPMA(petDS);
-        GeneralController genCtrl = new GeneralController(fpma);
+        //ChatManagerInputBoundary chat = new ChatManager(chatDS);
+        //ChatController chatCtrl = new ChatController(chat);
 
-        ChatManagerInputBoundary chat = new ChatManager(chatDS);
-        ChatController chatCtrl = new ChatController(chat);
+        //MatchManagerInputBoundary match = new MatchManager(petDS);
+        //MatchManagerController matchCtrl = new MatchManagerController(match, chat);
 
-        MatchManagerInputBoundary match = new MatchManager(petDS);
-        MatchManagerController matchCtrl = new MatchManagerController(match, chat);
+        //AccountInputBoundary acc = new AccountModel(userDS);
+        //AccountController accCtrl = new AccountController(acc);
 
-        AccountInputBoundary acc = new AccountModel(userDS);
-        AccountController accCtrl = new AccountController(acc);
-
-        LogIn_Screen login = new LogIn_Screen(accCtrl, genCtrl, matchCtrl, chatCtrl);
-        login.setTitle("Log in Screen");
-        login.setVisible(true);
-        login.setBounds(0, 0, 370, 600);
-        login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        login.setResizable(false);
-    }
+        //LogIn_Screen login = new LogIn_Screen(accCtrl, genCtrl, matchCtrl, chatCtrl);
+        //login.setTitle("Log in Screen");
+        //login.setVisible(true);
+        //login.setBounds(0, 0, 370, 600);
+        //login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //login.setResizable(false);
+    //}
 
 //    public static void main(String[] args) {
 //        UserDataAccessInterface user;
 //        try {
-//            user = new UserDataAccess("./user1.csv");
+//            user = new UserDataAccess("./user.csv");
 //        } catch (IOException e) {
 //            throw new RuntimeException("Could not create file.");
 //        }
