@@ -1,10 +1,12 @@
 package ui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -186,6 +188,14 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
                 List<BufferedImage> petP = new ArrayList<>();
                 petP.add(petPhoto);
 
+                if (vaccineImage == null){
+                    try {
+                        vaccineImage = ImageIO.read(new File("src/main/java/data/NO VAX.jpg"));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
                 /**
                  Once all the user inputs are all converted into the data form needed to create a Pet object,
                  the UI will call the profile controller which calls the method to create new Pet and save it to the
@@ -205,12 +215,4 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
         }
     }
 
-    /**
-    public static void main(String[] args) {
-        ProfileCreationScreen4 frame = new ProfileCreationScreen4();
-        frame.setTitle("Profile Creation Screen");
-        frame.setVisible(true);
-        frame.setBounds(10, 10, 370, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }*/
 }

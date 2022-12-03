@@ -293,14 +293,5 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
         }
     }
 
-    /**public static void main(String[] args) {
-
-        ProfileCreationScreen2 frame = new ProfileCreationScreen2();
-        frame.setTitle("Profile Creation Screen");
-        frame.setVisible(true);
-        frame.setBounds(10, 10, 370, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);}*/
-
-
 
 }
