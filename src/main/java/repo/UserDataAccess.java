@@ -91,7 +91,7 @@ public class UserDataAccess implements UserDataAccessInterface{
     static String defaultUserID = "00000001";
     static String defaultPetID = "00000001";
     static String defaultReportCount = "0$0$0";
-    static String filename = "src/main/java/data/userData";
+    static String filename = "./user.csv";
     @Override
     public User getUserById(String id) throws IOException {
         FileReader fr = new FileReader(filename);
@@ -120,15 +120,17 @@ public class UserDataAccess implements UserDataAccessInterface{
         BufferedReader br = new BufferedReader(fr);
         String line;
         ArrayList<String> value = new ArrayList<String>();
+        br.readLine();
         while((line = br.readLine()) != null){
-            value.addAll(Arrays.asList(line.split(",")));
+            String[] a = line.split(",");
+            value.addAll(List.of(a));
         }
         br.close();
         fr.close();
         int i = 1;
         while (i + 4 <= value.size()){
             if (Objects.equals(value.get(i), username)){
-                return new User(value.get(i - 1), username, value.get(i + 2), value.get(i+3), value.get(i+4));
+                return new User(value.get(i - 1), username, value.get(i + 1), value.get(i+2), value.get(i+3));
             }
             i += 5;
         }

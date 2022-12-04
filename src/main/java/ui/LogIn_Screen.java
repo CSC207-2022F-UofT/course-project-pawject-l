@@ -29,14 +29,18 @@ public class LogIn_Screen extends JFrame implements ActionListener {
     public LogIn_Screen(AccountController controller) {
         this.controller = controller;
         container.setLayout(null);
+        JLabel imageL = new JLabel();
+        imageL.setIcon(new ImageIcon(new ImageIcon("images/logo.png").getImage().getScaledInstance(270, 180, Image.SCALE_DEFAULT)));
+        imageL.setBounds(50, 10, 270, 180);
+        container.add(imageL);
 
-        titleLabel.setBounds(150, 70, 100, 30);
-        usernameLabel.setBounds(60, 150, 100, 30);
-        passwordLabel.setBounds(60, 220, 100, 30);
-        usernameField.setBounds(160, 150, 150, 30);
-        passwordField.setBounds(160, 220, 150, 30);
-        loginButton.setBounds(120, 320, 100, 30);
-        signupButton.setBounds(80, 400, 200, 30);
+        titleLabel.setBounds(150, 210, 100, 30);
+        usernameLabel.setBounds(60, 250, 100, 30);
+        passwordLabel.setBounds(60, 320, 100, 30);
+        usernameField.setBounds(160, 250, 150, 30);
+        passwordField.setBounds(160, 320, 150, 30);
+        loginButton.setBounds(120, 420, 100, 30);
+        signupButton.setBounds(80, 500, 200, 30);
 
         container.add(titleLabel);
         container.add(usernameLabel);

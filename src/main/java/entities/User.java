@@ -50,8 +50,8 @@ public class User {
         return sb.toString();
     }
 
-    public User(String user_id, String username, String password, String petID, String reportCount) {
-        this.userID = user_id;
+    public User(String userID, String username, String password, String petID, String reportCount) {
+        this.userID = userID;
         this.password = password;
         this.username = username;
         this.petID = petID;

@@ -4,6 +4,7 @@ import entities.User;
 import repo.UserDataAccessInterface;
 
 import java.io.IOException;
+import java.util.Objects;
 
 // use case layer
 
@@ -50,10 +51,9 @@ public class AccountModel implements AccountInputBoundary{
      *
      * @return true if the given password matches the user's password, false otherwise.
      */
-    public boolean correctPassword(String username, String password){
+    public boolean correctPassword(String username, String password) throws IOException {
         User user = accountDsGateway.getUser(username);
-//        return user.getPassword() == password;
-        return true;
+        return Objects.equals(user.getPassword(), password);
     }
 
     public boolean userExists(AccountRequestModel requestModel) throws IOException {
