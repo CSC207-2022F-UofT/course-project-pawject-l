@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.nio.Buffer;
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pet implements Serializable {
@@ -28,7 +29,8 @@ public class Pet implements Serializable {
     private float latitude;
 
     public Pet(String name, String petID, String description, Attributes attributes, Attributes preferredAttributes,
-               List<BufferedImage> images, BufferedImage proofOfVaccination, float longitude, float latitude, float preferredProximity, List<DayOfWeek> availableDay) {
+               List<BufferedImage> images, BufferedImage proofOfVaccination, float longitude, float latitude,
+               float preferredProximity, List<DayOfWeek> availableDay) {
         this.name = name;
         this.petID = petID;
         this.description = description;
@@ -40,6 +42,9 @@ public class Pet implements Serializable {
         this.latitude = latitude;
         this.preferredProximity = preferredProximity;
         this.availableDay = availableDay;
+        this.dislikes = new ArrayList<>();
+        this.likes = new ArrayList<>();
+        this.matches = new ArrayList<>();
     }
 
     public String getName() {
