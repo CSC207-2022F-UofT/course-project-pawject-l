@@ -152,6 +152,8 @@ public class ProfileCreationScreen1 extends JFrame implements ActionListener {
         addComponentsToContainer();
         addActionEvent();
         setFonts();
+        this.setVisible(true);
+        this.setBounds(10, 10, 370, 600);
     }
 
     class ImageFilter extends FileFilter {

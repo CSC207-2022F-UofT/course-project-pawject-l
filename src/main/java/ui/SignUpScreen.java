@@ -82,6 +82,11 @@ public class SignUpScreen extends JFrame implements ActionListener {
 
         signupButton.addActionListener(this);
         loginButton.addActionListener(this);
+
+        this.setTitle("Sign Up Screen");
+        this.setVisible(true);
+        this.setBounds(0, 0, 370, 600);
+
     }
 
     @Override
@@ -101,7 +106,9 @@ public class SignUpScreen extends JFrame implements ActionListener {
                     //profile creation initialized
                     ProfileCreationScreen1 profileCreation = new ProfileCreationScreen1(profileCtrl, chatCtrl,
                             matchCtrl, accCtrl, genCtrl);
-
+                    this.setVisible(false);
+                    this.validate();
+                    this.repaint();
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -118,18 +125,12 @@ public class SignUpScreen extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
 
-        UserDataAccessInterface user;
-        try {
-            user = new UserDataAccess("src/main/java/data/user.csv");
-        } catch (IOException e) {
-            throw new RuntimeException("Could not create file.");
-        }
-
-        AccountInputBoundary interactor = new AccountModel(user);
-        AccountController control = new AccountController(interactor);
-
+        UserDataAccessInterface userDs = new UserDataAccess();
         PetDataAccessInterface petDS = new PetDataAccess();
         ChatDataAccessInterface chatDS = new ChatDataAccess();
+
+        AccountInputBoundary interactor = new AccountModel(userDs);
+        AccountController control = new AccountController(interactor);
 
         FPMAInputBoundary fpma = new FPMA(petDS);
         GeneralController genCtrl = new GeneralController(fpma);
@@ -140,14 +141,9 @@ public class SignUpScreen extends JFrame implements ActionListener {
         MatchManagerInputBoundary match = new MatchManager(petDS);
         MatchManagerController matchCtrl = new MatchManagerController(match, chat);
 
-        ProfileInputBoundary ip = new ProfileManager(petDS);
-        ProfileController profileCtrl = new ProfileController(ip);
+        ProfileInputBoundary prof = new ProfileManager(petDS);
+        ProfileController profileCtrl = new ProfileController(prof);
 
-        SignUpScreen frame = new SignUpScreen(control,profileCtrl,genCtrl,matchCtrl,chatCtrl);
-        frame.setTitle("Sign Up Screen");
-        frame.setVisible(true);
-        frame.setBounds(0, 0, 370, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        SignUpScreen s = new SignUpScreen(control, profileCtrl, genCtrl, matchCtrl, chatCtrl);
     }
 }

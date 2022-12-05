@@ -26,8 +26,8 @@ public class AccountController{
     }
 
     public boolean correctPassword(String username, String password) throws IOException {
-//        AccountRequestModel requestModel = new AccountRequestModel(username, password);
-        return userInput.correctPassword(username, password);
+        AccountRequestModel requestModel = new AccountRequestModel(username, password);
+        return userInput.correctPassword(requestModel);
     }
 
     public void create(String username, String password) throws IOException {

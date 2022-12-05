@@ -241,9 +241,10 @@ public class Homescreen extends JFrame implements ActionListener {
     public static void main(String[] args) throws IOException {
         PetDataAccessInterface petDS = new PetDataAccess();
         ChatDataAccessInterface chatDS = new ChatDataAccess();
-        UserDataAccessInterface userDS = new UserDataAccess("src/main/user.csv");
-        User user = new User("004", "nomiko", "20020626", "PET ID:1", "0");
-        userDS.save(user);
+        UserDataAccessInterface userDS = new UserDataAccess();
+        User user = new User("nomiko", "20020626");
+        user.setPets("PET ID:1");
+        userDS.saveUser(user.getUserID(), user.getUsername(), user.getPassword(), user.getPet(), "0\\$0\\$0\\$");
 
         FPMAInputBoundary fpma = new FPMA(petDS);
         GeneralController genCtrl = new GeneralController(fpma);
