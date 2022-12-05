@@ -2,11 +2,11 @@ package FPMATests;
 
 import entities.Pet;
 import org.junit.Test;
-import useCase.FPMARequestModel;
+import useCase.FPMA.FPMARequestModel;
 import repo.PetDataAccess;
 import repo.PetDataAccessInterface;
-import useCase.FPMA;
-import useCase.FPMAResponseModel;
+import useCase.FPMA.FPMA;
+import useCase.FPMA.FPMAResponseModel;
 
 import java.io.IOException;
 
