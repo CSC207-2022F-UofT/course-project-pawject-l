@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.time.DayOfWeek;
+import java.util.UUID;
+
 import controller.ProfileController;
 
 public class ProfileCreationScreen4 extends JFrame implements ActionListener {
@@ -166,7 +168,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
                 for(JCheckBox d:availableDaysChoices){
                     if (d.isSelected()){
                         if(d.isSelected()){
-                            if (Objects.equals(d.getName(), "Monday")){
+                            if (Objects.equals(d.getText(), "Monday")){
                                 availableDays.add(DayOfWeek.MONDAY);
                             } else if (Objects.equals(d.getText(), "Tuesday")) {
                                 availableDays.add(DayOfWeek.TUESDAY);
@@ -190,7 +192,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
 
                 if (vaccineImage == null){
                     try {
-                        vaccineImage = ImageIO.read(new File("src/main/java/data/NO VAX.jpg"));
+                        vaccineImage = ImageIO.read(new File("src/main/java/data/NOVAX.jpg"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
