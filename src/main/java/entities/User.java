@@ -1,7 +1,9 @@
 package entities;
 import repo.PetDataAccessInterface;
+import repo.UserDataAccessInterface;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,6 +19,7 @@ public class User {
     // changed from list to string
     private String petID;
     private int[] reportCount;
+    static UserDataAccessInterface um;
 
 
     /**
@@ -25,11 +28,11 @@ public class User {
      * @param username A String containing the User's username.
      * @param password A String containing the User's password.
      */
-    public User(String username, String password) {
+    public User(String username, String password) throws IOException {
         this.userID = idGenerator();
         this.password = password;
         this.username = username;
-        this.petID = "";
+        this.petID = petIDGenerator();
         this.reportCount = new int[]{0, 0, 0};
     }
 
@@ -49,7 +52,10 @@ public class User {
         }
         return sb.toString();
     }
-
+    private String petIDGenerator() throws IOException {
+        String id = Integer.toString(um.CountUser());
+        return id;
+    };
     public User(String user_id, String username, String password, String petID, String reportCount) {
         this.userID = user_id;
         this.password = password;
@@ -95,4 +101,3 @@ public class User {
         this.reportCount[index] += 1;
     }
 }
-
