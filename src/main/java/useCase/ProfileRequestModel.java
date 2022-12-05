@@ -14,6 +14,7 @@ public class ProfileRequestModel {
     private List<String> breed; // allow for multiple preferred breeds
     private List<Integer> age; // allow for a range of preferred ages
     private String gender;
+    boolean vaccineStatus;
 
     private List<String> preferredSpecies;
     private List<String> preferredBreed; // allow for multiple preferred breeds
@@ -32,7 +33,7 @@ public class ProfileRequestModel {
 
 
 
-    public ProfileRequestModel(String name, String description,List<String> species, List<String> breed, List<Integer> age, String gender,
+    public ProfileRequestModel(String name, String description,List<String> species, List<String> breed, List<Integer> age, String gender, boolean vaccineStatus,
                                List<String> preferredSpecies, List<String> preferredBreed, List<Integer> preferredAge, String preferredGender,
                                List<BufferedImage> images, BufferedImage proofOfVaccination, float longitude, float latitude, float preferredProximity,
                                List<DayOfWeek> availableDay, boolean preferredVaccineStatus) {
@@ -42,10 +43,11 @@ public class ProfileRequestModel {
         this.breed = breed;
         this.age = age;
         this.gender = gender;
-        this.preferredSpecies = species;
-        this.preferredBreed = breed;
-        this.preferredAge = age;
-        this.preferredGender = gender;
+        this.vaccineStatus = vaccineStatus;
+        this.preferredSpecies = preferredSpecies;
+        this.preferredBreed = preferredBreed;
+        this.preferredAge = preferredAge;
+        this.preferredGender = preferredGender;
         this.images = images;
         this.proofOfVaccination = proofOfVaccination;
         this.longitude = longitude;
@@ -94,6 +96,14 @@ public class ProfileRequestModel {
 
     public List<String> getBreed() {
         return breed;
+    }
+
+    public boolean getVaccineStatus(){
+        return vaccineStatus;
+    }
+
+    public void setVaccineStatus(boolean vaccineStatus){
+        this.vaccineStatus = vaccineStatus;
     }
 
     public void setAvailableDay(List<DayOfWeek> availableDay) {
