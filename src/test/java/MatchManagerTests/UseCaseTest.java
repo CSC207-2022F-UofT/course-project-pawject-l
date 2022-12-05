@@ -1,15 +1,12 @@
 package MatchManagerTests;
 
-import entities.Pet;
-import entities.User;
 import repo.PetDataAccess;
-import useCase.MatchManager;
-import useCase.MatchManagerRequestModel;
+import useCase.Match.MatchManager;
+import useCase.Match.MatchManagerRequestModel;
 import repo.PetDataAccessInterface;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

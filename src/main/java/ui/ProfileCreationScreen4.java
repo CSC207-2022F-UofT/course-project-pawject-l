@@ -14,10 +14,16 @@ import java.util.Objects;
 import java.time.DayOfWeek;
 import java.util.UUID;
 
-import controller.ProfileController;
+import controller.*;
+import repo.PetDataAccess;
+import repo.PetDataAccessInterface;
 
 public class ProfileCreationScreen4 extends JFrame implements ActionListener {
     ProfileController profileController;
+    AccountController accountController;
+    MatchManagerController matchController;
+    GeneralController generalController;
+    ChatController chatController;
     Font f1 = new Font("Arial", Font.PLAIN, 20);
     Font f2 = new Font("Arial", Font.PLAIN, 12);
     Font f3 = new Font("Arial", Font.PLAIN, 15);
@@ -117,11 +123,18 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
 
     }
 
-    public ProfileCreationScreen4(ProfileController profileController, boolean vaccineSta, String bio, float lo, float la, float proximity, String name,
+    public ProfileCreationScreen4(ProfileController profileController, ChatController chatController,
+                                  MatchManagerController matchController, AccountController accountController,
+                                  GeneralController generalController, boolean vaccineSta, String bio, float lo, float la, float proximity, String name,
                                   java.util.List<String> species, java.util.List<String> breed, String gender, List<Integer> age,
                                   BufferedImage petPhoto, BufferedImage vaccineImage, List<String> preferredSpec,
                                   List<String> preferredBre, String preferredGen, List<Integer> preferredAgeRange){
         this.profileController = profileController;
+        this.accountController = accountController;
+        this.matchController = matchController;
+        this.generalController = generalController;
+        this.chatController = chatController;
+
         this.vaccineSta = vaccineSta;
         this.bio = bio;
         this.lo = lo;
@@ -168,7 +181,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
                 for(JCheckBox d:availableDaysChoices){
                     if (d.isSelected()){
                         if(d.isSelected()){
-                            if (Objects.equals(d.getText(), "Monday")){
+                            if (Objects.equals(d.getName(), "Monday")){
                                 availableDays.add(DayOfWeek.MONDAY);
                             } else if (Objects.equals(d.getText(), "Tuesday")) {
                                 availableDays.add(DayOfWeek.TUESDAY);
@@ -192,7 +205,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
 
                 if (vaccineImage == null){
                     try {
-                        vaccineImage = ImageIO.read(new File("src/main/java/data/NOVAX.jpg"));
+                        vaccineImage = ImageIO.read(new File("src/main/java/data/NO VAX.jpg"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -205,14 +218,17 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
                  */
 
                 try {
+                    String petID = "Pet ID: " + UUID.randomUUID();
                     profileController.performProfileCreation(name, bio, species, breed, age, gender, vaccineSta, preferredSpec,
                             preferredBre, preferredAgeRange, preferredGen, petP, vaccineImage, lo, la, proximity,
-                            availableDays,preferredVaccineSta);
+                            availableDays,preferredVaccineSta, petID);
+                    JOptionPane.showMessageDialog(this, "Profiled created!");
+                    PetDataAccessInterface petDs = new PetDataAccess();
+                    Homescreen homescreen = new Homescreen(petID, generalController, matchController, chatController,
+                            accountController, profileController);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-
-                JOptionPane.showMessageDialog(this, "Profiled created!");
             }
         }
     }

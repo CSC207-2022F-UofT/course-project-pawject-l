@@ -3,6 +3,9 @@ import entities.User;
 import useCase.Account.AccountRequestModel;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.HashMap;
@@ -30,7 +33,6 @@ public class UserDataAccess implements UserDataAccessInterface{
             save();
         } else {
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-            reader.readLine(); // skip header
 
             String row;
             while ((row = reader.readLine()) != null) {
@@ -134,54 +136,37 @@ public class UserDataAccess implements UserDataAccessInterface{
 
     @Override
     public boolean saveUser(String userID, String username, String password, String petID, String reportCount) throws IOException {
-        FileReader fr = new FileReader(filename);
-        BufferedReader br = new BufferedReader(fr);
-        String line;
-        ArrayList<String> value = new ArrayList<String>();
-        br.readLine();//skips the header
-        while((line = br.readLine()) != null){
-            String[] a = line.split(",");
-            value.addAll(List.of(a));
-        }
-        br.close();
-        fr.close();
-        int i = 0;
+        Path path = Path.of(filename);
+        List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
         boolean flag = false;
-        while (i + 5 <= value.size() && !flag) {
-            if (Objects.equals(value.get(i), userID)) {
-                value.set(i+1, username);
-                value.set(i+2, password);
-                value.set(i+3, petID);
-                value.set(i+4, reportCount);
+        for (int i = 0; i < fileContent.size(); i++) {
+            String line = fileContent.get(i);
+            String[] value = line.split(",");
+            if (Objects.equals(value[0], userID)) {
+                String User = userID + "," + username + "," + password + "," + petID + "," + reportCount;
+                fileContent.set(i, User);
+                Files.write(path, fileContent, StandardCharsets.UTF_8);
                 flag = true;
             }
-            i += 5;
         }
         if (!flag) {
             String newUser = userID + "," + username + "," + password + "," + petID + "," + defaultReportCount;
             FileWriter fw = new FileWriter(filename, true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(newUser);
-            br.close();
-            fr.close();
+            bw.newLine();
+            bw.append(newUser);
+            bw.close();
+            fw.close();
             return true;
         }
-        else{
-            FileWriter fw = new FileWriter(filename);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(value.toString());
-            br.close();
-            fr.close();
-            return true;
-        }
-    }
+        return false;
+    };
 
     @Override
     public boolean existsUsername(String username) throws IOException {
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
-        br.readLine();//skip the header
         ArrayList<String> value = new ArrayList<String>();
         while((line = br.readLine()) != null){
             String[] a = line.split(",");
@@ -197,7 +182,6 @@ public class UserDataAccess implements UserDataAccessInterface{
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
-        br.readLine();//skip the header
         ArrayList<String> value = new ArrayList<String>();
         while((line = br.readLine()) != null){
             String[] a = line.split(",");
@@ -217,33 +201,18 @@ public class UserDataAccess implements UserDataAccessInterface{
 
     @Override
     public boolean deleteUser(String username) throws IOException {
-        FileReader fr = new FileReader(filename);
-        BufferedReader br = new BufferedReader(fr);
-        String line;
-        br.readLine();//skip the header
-        ArrayList<String> value = new ArrayList<String>();
-        while((line = br.readLine()) != null){
-            String[] a = line.split(",");
-            value.addAll(List.of(a));
-        }
-        br.close();
-        fr.close();
-        int i = 1;
+        Path path = Path.of(filename);
+        List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
         boolean flag = false;
-        while (i + 4 <= value.size() && !flag) {
-            if (Objects.equals(value.get(i), username)) {
-                value.subList(i - 1, i + 3).clear();
+        for (int i = 0; i < fileContent.size(); i++) {
+            String line = fileContent.get(i);
+            String[] value = line.split(",");
+            if (Objects.equals(value[1], username)) {
+                fileContent.remove(i);
                 flag = true;
             }
-            i += 5;
         }
-        if (flag) {
-            FileWriter fw = new FileWriter(filename);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(value.toString());
-            br.close();
-            fr.close();
-        }
+        Files.write(path, fileContent, StandardCharsets.UTF_8);
         return flag;
     }
 
@@ -251,7 +220,6 @@ public class UserDataAccess implements UserDataAccessInterface{
     public int CountUser() throws IOException {
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
-        br.readLine();//skip the header
         int count = 0;
         while(br.readLine() != null){
             count += 1;
