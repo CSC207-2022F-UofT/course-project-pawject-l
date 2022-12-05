@@ -1,7 +1,7 @@
 package controller;
 
 import entities.Chat;
-import useCase.ChatManagerInputBoundary;
+import useCase.Chat.ChatManagerInputBoundary;
 
 import java.io.IOException;
 import java.util.ArrayList;
