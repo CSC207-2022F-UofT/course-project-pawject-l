@@ -79,17 +79,11 @@ public class UserDataAccess implements UserDataAccessInterface{
     public User getUser(String username) {return accounts.get(username);}
 
 //    public AccountRequestModel getReqMod(String username) { return accounts.get(username); }
-
-
-
-
     /**
      * userID, username, password, petIDs,  reportCounts
      * "0000001","student","password","PET ID:0001$PET ID:0002","0$0$0"
      * 0,         1,         2,       3,           4
      */
-    static String defaultUserID = "00000001";
-    static String defaultPetID = "00000001";
     static String defaultReportCount = "0$0$0";
     static String filename = "src/main/java/data/userData";
     @Override
@@ -97,6 +91,7 @@ public class UserDataAccess implements UserDataAccessInterface{
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
+        br.readLine();//skip the header
         ArrayList<String> value = new ArrayList<String>();
         while ((line = br.readLine()) != null) {
             String[] a = line.split(",");
@@ -120,15 +115,17 @@ public class UserDataAccess implements UserDataAccessInterface{
         BufferedReader br = new BufferedReader(fr);
         String line;
         ArrayList<String> value = new ArrayList<String>();
+        br.readLine();//skips the header
         while((line = br.readLine()) != null){
-            value.addAll(Arrays.asList(line.split(",")));
+            String[] a = line.split(",");
+            value.addAll(List.of(a));
         }
         br.close();
         fr.close();
         int i = 1;
         while (i + 4 <= value.size()){
             if (Objects.equals(value.get(i), username)){
-                return new User(value.get(i - 1), username, value.get(i + 2), value.get(i+3), value.get(i+4));
+                return new User(value.get(i - 1), username, value.get(i + 1), value.get(i+2), value.get(i+3));
             }
             i += 5;
         }
@@ -136,37 +133,47 @@ public class UserDataAccess implements UserDataAccessInterface{
     }
 
     @Override
-    public boolean saveUser(String userID, String username, String password) throws IOException {
+    public boolean saveUser(String userID, String username, String password, String petID, String reportCount) throws IOException {
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
         ArrayList<String> value = new ArrayList<String>();
+        br.readLine();//skips the header
         while((line = br.readLine()) != null){
-            value.addAll(Arrays.asList(line.split(",")));
+            String[] a = line.split(",");
+            value.addAll(List.of(a));
         }
         br.close();
         fr.close();
-        int i = 1;
+        int i = 0;
         boolean flag = false;
-        while (i + 4 <= value.size() && !flag) {
-            if (Objects.equals(value.get(i), username)) {
-                value.add(userID);
-                value.add(username);
-                value.add(password);
-                value.add(defaultPetID);
-                value.add(defaultReportCount);
+        while (i + 5 <= value.size() && !flag) {
+            if (Objects.equals(value.get(i), userID)) {
+                value.set(i+1, username);
+                value.set(i+2, password);
+                value.set(i+3, petID);
+                value.set(i+4, reportCount);
                 flag = true;
             }
             i += 5;
         }
-        if (flag) {
+        if (!flag) {
+            String newUser = userID + "," + username + "," + password + "," + petID + "," + defaultReportCount;
+            FileWriter fw = new FileWriter(filename, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(newUser);
+            br.close();
+            fr.close();
+            return true;
+        }
+        else{
             FileWriter fw = new FileWriter(filename);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(value.toString());
             br.close();
             fr.close();
+            return true;
         }
-        return flag;
     }
 
     @Override
@@ -174,9 +181,11 @@ public class UserDataAccess implements UserDataAccessInterface{
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
+        br.readLine();//skip the header
         ArrayList<String> value = new ArrayList<String>();
         while((line = br.readLine()) != null){
-            value.addAll(Arrays.asList(line.split(",")));
+            String[] a = line.split(",");
+            value.addAll(List.of(a));
         }
         br.close();
         fr.close();
@@ -188,9 +197,11 @@ public class UserDataAccess implements UserDataAccessInterface{
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
+        br.readLine();//skip the header
         ArrayList<String> value = new ArrayList<String>();
         while((line = br.readLine()) != null){
-            value.addAll(Arrays.asList(line.split(",")));
+            String[] a = line.split(",");
+            value.addAll(List.of(a));
         }
         br.close();
         fr.close();
@@ -209,9 +220,11 @@ public class UserDataAccess implements UserDataAccessInterface{
         FileReader fr = new FileReader(filename);
         BufferedReader br = new BufferedReader(fr);
         String line;
+        br.readLine();//skip the header
         ArrayList<String> value = new ArrayList<String>();
         while((line = br.readLine()) != null){
-            value.addAll(Arrays.asList(line.split(",")));
+            String[] a = line.split(",");
+            value.addAll(List.of(a));
         }
         br.close();
         fr.close();
@@ -219,7 +232,7 @@ public class UserDataAccess implements UserDataAccessInterface{
         boolean flag = false;
         while (i + 4 <= value.size() && !flag) {
             if (Objects.equals(value.get(i), username)) {
-                value.subList(i - 1, i + 5).clear();
+                value.subList(i - 1, i + 3).clear();
                 flag = true;
             }
             i += 5;
@@ -233,5 +246,18 @@ public class UserDataAccess implements UserDataAccessInterface{
         }
         return flag;
     }
-}
 
+    @Override
+    public int CountUser() throws IOException {
+        FileReader fr = new FileReader(filename);
+        BufferedReader br = new BufferedReader(fr);
+        br.readLine();//skip the header
+        int count = 0;
+        while(br.readLine() != null){
+            count += 1;
+        }
+        br.close();
+        fr.close();
+        return count;
+    }
+}

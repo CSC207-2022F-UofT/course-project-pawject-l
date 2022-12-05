@@ -9,14 +9,9 @@ import repo.UserDataAccessInterface;
 import java.io.IOException;
 
 public class ReportInteractor {
-    private PetDataAccessInterface pm;
-    private ChatDataAccessInterface cm;
-    private UserDataAccessInterface um;
-    public ReportInteractor(PetDataAccessInterface pm, ChatDataAccessInterface cm, UserDataAccessInterface um){
-        this.pm = pm;
-        this.cm = cm;
-        this.um = um;
-    }
+    static PetDataAccessInterface pm;
+    static ChatDataAccessInterface cm;
+    static UserDataAccessInterface um;
     public void TypeAReport(String userID) throws IOException {
         Report r = new Report(userID, "TypeA", um);
         r.report();

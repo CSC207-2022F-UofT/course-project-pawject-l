@@ -25,9 +25,10 @@ public class ProfileManager implements ProfileInputBoundary {
      * Create a new pet and save all the information into the Pet database.
      */
     public void createNewProfile(ProfileRequestModel requestModel) throws IOException {
-        Attributes attributes = new Attributes(requestModel.getSpecies(), requestModel.getBreed(), requestModel.getAge(), requestModel.getGender(), true);
+        Attributes attributes = new Attributes(requestModel.getSpecies(), requestModel.getBreed(), requestModel.getAge(), requestModel.getGender(), requestModel.getVaccineStatus());
         Attributes preferredAttributes = new Attributes(requestModel.getPreferredSpecies(), requestModel.getPreferredBreed(),
                 requestModel.getPreferredAge(), requestModel.getPreferredGender(), requestModel.getPreferredVaccineStatus());
+
         Pet newPet = new Pet(requestModel.getName(), requestModel.getPetId(), requestModel.getDescription(),attributes, preferredAttributes,
                 requestModel.getImages(), requestModel.getProofOfVaccination(), requestModel.getLongitude(), requestModel.getLatitude(),
                 requestModel.getPreferredProximity(), requestModel.getAvailableDay());
@@ -73,6 +74,7 @@ public class ProfileManager implements ProfileInputBoundary {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());
         pet.getImages().remove(imageToRemove);
     }
+
 
     public void updateProofOfVaccination (ProfileRequestModel requestModel, BufferedImage proofOfVaccination) throws IOException {
         Pet pet = petDsGateway.getPetById(requestModel.getPetId());

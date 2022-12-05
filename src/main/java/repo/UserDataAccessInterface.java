@@ -25,7 +25,7 @@ public interface UserDataAccessInterface {
      * @param password
      * @return true if saved, false if not
      */
-    boolean saveUser(String userID, String username, String password) throws IOException;
+    boolean saveUser(String userID, String username, String password, String petID, String reportCount) throws IOException;
 
     public void save(User user);
 
@@ -50,6 +50,8 @@ public interface UserDataAccessInterface {
      * Delete the user.
      * @param username
      */
+    int CountUser() throws IOException;
+
     // Let me know if you would like other methods (e.g. to get a user by some other identifier).
 
 }
