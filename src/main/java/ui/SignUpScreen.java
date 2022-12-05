@@ -99,7 +99,8 @@ public class SignUpScreen extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, userText + " created.");
                     accCtrl.create(userText, pwdText);
                     //profile creation initialized
-                    ProfileCreationScreen1 profileCreation = new ProfileCreationScreen1(profileCtrl);
+                    ProfileCreationScreen1 profileCreation = new ProfileCreationScreen1(profileCtrl, chatCtrl,
+                            matchCtrl, accCtrl, genCtrl);
 
                 }
             } catch (IOException ex) {

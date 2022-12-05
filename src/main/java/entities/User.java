@@ -55,7 +55,8 @@ public class User {
     private String petIDGenerator() throws IOException {
         String id = Integer.toString(um.CountUser());
         return id;
-    };
+    }
+
     public User(String user_id, String username, String password, String petID, String reportCount) {
         this.userID = user_id;
         this.password = password;
