@@ -1,6 +1,9 @@
 package ui;
 
 import controller.AccountController;
+import controller.ProfileController;
+import useCase.Account.AccountInputBoundary;
+import useCase.Account.AccountModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,9 +13,9 @@ import java.io.IOException;
 
 public class PreferencesEditScreen extends JFrame implements ActionListener {
 
-    Font f1 = new Font("Arial", Font.PLAIN,  12);
-    Font f2 = new Font("Arial", Font.PLAIN,  10);
-    Font f3 = new Font("Rockwell", Font.PLAIN,  20);
+    Font f1 = new Font("Arial", Font.PLAIN, 12);
+    Font f2 = new Font("Arial", Font.PLAIN, 10);
+    Font f3 = new Font("Rockwell", Font.PLAIN, 20);
     Container container = getContentPane();
     JLabel titleLabel = new JLabel("Edit Preferred Attributes");
     JLabel speciesLabel = new JLabel("Species");
@@ -23,24 +26,20 @@ public class PreferencesEditScreen extends JFrame implements ActionListener {
     JTextField breedField = new JTextField();
     JButton saveButton = new JButton("Save");
     String[] speciesChoices = {"Select", "Dog", "Cat", "Rabbit", "Hamster",
-            "Bird", "Panda" };
+            "Bird", "Panda"};
     final JComboBox<String> species = new JComboBox<String>(speciesChoices);
     String[] ageChoices = {"Select", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
     final JComboBox<String> age = new JComboBox<String>(ageChoices);
-    String[] genderChoices = {"Select", "Male", "Female" };
+    String[] genderChoices = {"Select", "Male", "Female"};
     final JComboBox<String> gender = new JComboBox<String>(genderChoices);
-    String[] vaccinationChoices = {"Select", "Vaccinated", "Unvaccinated" };
+    String[] vaccinationChoices = {"Select", "Vaccinated", "Unvaccinated"};
     final JComboBox<String> vaccination = new JComboBox<String>(vaccinationChoices);
-    JButton homeButton = new JButton("Home");
-    JButton chatButton = new JButton("Chat");
-    JButton profileButton = new JButton("Profile");
-    JButton logoutButton = new JButton("Log Out");
 
-    AccountController controller;
+    ProfileController profileController;
 
 
-    public PreferencesEditScreen (AccountController controller) {
-        this.controller = controller;
+    public PreferencesEditScreen(ProfileController ctrl) {
+        this.profileController = ctrl;
         container.setLayout(null);
 
         titleLabel.setBounds(65, 50, 300, 30);
@@ -55,10 +54,6 @@ public class PreferencesEditScreen extends JFrame implements ActionListener {
         gender.setBounds(190, 260, 100, 30);
         vaccination.setBounds(190, 300, 100, 30);
         saveButton.setBounds(120, 380, 100, 30);
-        logoutButton.setBounds(120, 450, 100, 30);
-        profileButton.setBounds(0, 540, 130, 30);
-        homeButton.setBounds(122, 540, 130, 30);
-        chatButton.setBounds(244, 540, 130, 30);
 
         container.add(titleLabel);
         container.add(speciesLabel);
@@ -67,15 +62,13 @@ public class PreferencesEditScreen extends JFrame implements ActionListener {
         container.add(genderLabel);
         container.add(vaccinationLabel);
         container.add(breedField);
-        container.add(age);;
+        container.add(age);
+        ;
         container.add(saveButton);
         container.add(species);
         container.add(gender);
         container.add(vaccination);
-        container.add(homeButton);
-        container.add(profileButton);
-        container.add(chatButton);
-        container.add(logoutButton);
+
 
         titleLabel.setFont(f3);
         speciesLabel.setFont(f1);
@@ -90,39 +83,13 @@ public class PreferencesEditScreen extends JFrame implements ActionListener {
         vaccination.setFont(f2);
 
         saveButton.addActionListener(this);
-        homeButton.addActionListener(this);
-        chatButton.addActionListener(this);
-        logoutButton.addActionListener(this);
+        this.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == saveButton) {
-        }
-        if (e.getSource() == homeButton) {
-            HomeScreen hs = new HomeScreen(controller);
-            hs.setVisible(true);
-            this.setVisible(false);
-            hs.setSize(370, 600);
-        }
-        if (e.getSource() == logoutButton) {
-            LogIn_Screen lis = new LogIn_Screen(controller);
-            lis.setVisible(true);
-            this.setVisible(false);
-            lis.setSize(370, 600);
+
         }
     }
-
-//    public static void main(String[] args) {
-////        AccountInputBoundary input = new AccountModel()
-////        AccountController controller = new AccountController()
-//        PreferencesEditScreen frame = new PreferencesEditScreen();
-//
-//        frame.setTitle("Preferences Edit Screen");
-//        frame.setVisible(true);
-//        frame.setBounds(0, 0, 370, 600);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setResizable(false);
-//        System.out.println(new java.io.File("src/main/java/ui/dog.jpeg").exists());
-//    }
 }

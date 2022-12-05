@@ -1,10 +1,15 @@
 package ui;
 
 import controller.AccountController;
-import repo.UserDataAccess;
-import repo.UserDataAccessInterface;
+import controller.ChatController;
+import controller.GeneralController;
+import controller.MatchManagerController;
+import entities.User;
+import repo.*;
+import useCase.*;
 import useCase.Account.AccountInputBoundary;
 import useCase.Account.AccountModel;
+import repo.UserDataAccessInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,10 +29,17 @@ public class LogIn_Screen extends JFrame implements ActionListener {
     JButton loginButton = new JButton("Log In");
     JButton signupButton = new JButton("Don't have an account? Sign up.");
 
-    AccountController controller;
+    AccountController accCtrl;
+    GeneralController genCtrl;
+    MatchManagerController matchCtrl;
+    ChatController chatCtrl;
 
-    public LogIn_Screen(AccountController controller) {
-        this.controller = controller;
+    public LogIn_Screen(AccountController ctrl1, GeneralController ctrl2, MatchManagerController ctrl3,
+                        ChatController ctrl4) {
+        this.accCtrl = ctrl1;
+        this.genCtrl = ctrl2;
+        this.matchCtrl = ctrl3;
+        this.chatCtrl = ctrl4;
         container.setLayout(null);
 
         titleLabel.setBounds(150, 70, 100, 30);
@@ -65,33 +77,67 @@ public class LogIn_Screen extends JFrame implements ActionListener {
             String pwdText = passwordField.getText();
 
             try {
-                if (!controller.userExists(userText, pwdText)) {
+                if (!accCtrl.userExists(userText, pwdText)) {
                     JOptionPane.showMessageDialog(this, "This username doesn't exist. Please create an account.");
-                } else if (!controller.correctPassword(userText, pwdText)) {
+                } else if (!accCtrl.correctPassword(userText, pwdText)) {
                     JOptionPane.showMessageDialog(this, "Username or password is incorrect. Please try again.");
                 } else {
                     JOptionPane.showMessageDialog(this, "Logged in.");
-                    HomeScreen hs = new HomeScreen(controller);
-                    hs.setVisible(true);
-                    this.setVisible(false);
-                    hs.setSize(370, 600);
+
+                    UserDataAccessInterface userDS = new UserDataAccess("src/main/java/data/user.csv");
+                    PetDataAccessInterface petDS = new PetDataAccess();
+
+                    // initiate home screen
+                    User user = userDS.getUser(userText);
+                    String petId = petDS.getPetIdByUser(user);
+                    Homescreen hs = new Homescreen(petId, genCtrl, matchCtrl, chatCtrl, accCtrl);
+                    //hs.setVisible(true);
+                    //this.setVisible(false);
+                    //hs.setSize(370, 600);
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         }
         if (e.getSource() == signupButton) {
-            SignUpScreen signupScreen = new SignUpScreen(controller);
+            SignUpScreen signupScreen = new SignUpScreen(accCtrl);
             this.setVisible(false);
             signupScreen.setVisible(true);
             signupScreen.setSize(370, 600);
         }
     }
 
+    public static void main(String[] args) throws IOException {
+        PetDataAccessInterface petDS = new PetDataAccess();
+        ChatDataAccessInterface chatDS = new ChatDataAccess();
+        UserDataAccessInterface userDS = new UserDataAccess("src/main/java/data/user.csv");
+        userDS.saveUser("001", "user1", "ilovemydog");
+
+
+        FPMAInputBoundary fpma = new FPMA(petDS);
+        GeneralController genCtrl = new GeneralController(fpma);
+
+        ChatManagerInputBoundary chat = new ChatManager(chatDS);
+        ChatController chatCtrl = new ChatController(chat);
+
+        MatchManagerInputBoundary match = new MatchManager(petDS);
+        MatchManagerController matchCtrl = new MatchManagerController(match, chat);
+
+        AccountInputBoundary acc = new AccountModel(userDS);
+        AccountController accCtrl = new AccountController(acc);
+
+        LogIn_Screen login = new LogIn_Screen(accCtrl, genCtrl, matchCtrl, chatCtrl);
+        login.setTitle("Log in Screen");
+        login.setVisible(true);
+        login.setBounds(0, 0, 370, 600);
+        login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        login.setResizable(false);
+    }
+
 //    public static void main(String[] args) {
 //        UserDataAccessInterface user;
 //        try {
-//            user = new UserDataAccess("./user.csv");
+//            user = new UserDataAccess("./user1.csv");
 //        } catch (IOException e) {
 //            throw new RuntimeException("Could not create file.");
 //        }
