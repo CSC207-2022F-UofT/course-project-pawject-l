@@ -1,17 +1,15 @@
-package ChatTests;
-
+import entities.Chat;
 import entities.Text;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import repo.ChatDataAccess;
 import repo.ChatDataAccessInterface;
 import useCase.ChatManager;
-import entities.Chat;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
-import useCase.ChatManager;
+import java.util.Objects;
 
 class ChatManagerTest {
     ChatDataAccessInterface CDAI = new ChatDataAccess();
@@ -42,12 +40,39 @@ class ChatManagerTest {
         sampleChatList.add(chat3);
         ArrayList<Chat> expected = cm.generateSortedChatList(sampleChatList);
         ArrayList<Chat> actual = new ArrayList<>();
-        actual.add(chat1);
-        actual.add(chat3);
         actual.add(chat2);
+        actual.add(chat3);
+        actual.add(chat1);
         Assertions.assertEquals(actual, expected);
     }
 
+    @Test
+    public void testCreateChat() throws IOException {
+        int numChats = cm.getChatsByPet("testPet1").size();
+        cm.createChat("testPet1", "testPet2");
+        int updatedNumChats = cm.getChatsByPet("testPet1").size();
+        System.out.print(updatedNumChats);
+        boolean actual = (numChats + 1 == updatedNumChats);
+        Assertions.assertTrue(actual);
 
+    }
 
+    @Test
+    public void testGetTextsList() throws IOException {
+        cm.sendText("testChat", "testPet1", "First Text");
+        cm.sendText("testChat", "testPet2", "Second Text");
+        String [][] textsList = cm.getTextsList("testChat");
+        boolean actual = ((Objects.equals(textsList[textsList.length - 2][0], "First Text")
+                && (Objects.equals(textsList[textsList.length - 1][0], "Second Text"))));
+        Assertions.assertTrue(actual);
+    }
+
+    @Test
+    public void testSaveText() throws IOException {
+        int numTexts = cm.getTextsList("testChat").length;
+        cm.sendText("testChat","testPet1", "Hello there");
+        int updatedNumTexts = cm.getTextsList("testChat").length;
+        boolean actual = (numTexts + 1 == updatedNumTexts);
+        Assertions.assertTrue(actual);
+    }
 }

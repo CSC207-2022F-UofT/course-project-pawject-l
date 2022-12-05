@@ -14,14 +14,13 @@ public class ChatManager implements ChatManagerInputBoundary {
     public ChatManager(ChatDataAccessInterface CDAI){
         ChatManager.CDAI = CDAI;
     }
-    private static long idCounter = 0;
 
     /**
      * A method that generates a unique Chat ID
      * @return unique chatID
      */
     public String generateUniqueChatID() {
-        return "ChatID" + idCounter++;
+        return "ChatID" + CDAI.generateUniqueNumber();
     }
 
     /**

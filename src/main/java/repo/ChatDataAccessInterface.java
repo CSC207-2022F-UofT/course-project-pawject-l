@@ -38,4 +38,6 @@ public interface ChatDataAccessInterface {
      */
     void saveText(String chatID, Text text) throws IOException;
 
+    int generateUniqueNumber();
+
 }
