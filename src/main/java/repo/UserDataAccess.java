@@ -1,12 +1,9 @@
 package repo;
 import entities.User;
-import useCase.Account.AccountRequestModel;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -87,7 +84,7 @@ public class UserDataAccess implements UserDataAccessInterface{
      * 0,         1,         2,       3,           4
      */
     static String defaultReportCount = "0$0$0";
-    static String filename = "src/main/java/data/userData";
+    static String filename = "src/main/java/data/user.csv";
     @Override
     public User getUserById(String id) throws IOException {
         FileReader fr = new FileReader(filename);

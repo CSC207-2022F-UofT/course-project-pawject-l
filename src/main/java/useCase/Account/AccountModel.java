@@ -50,8 +50,8 @@ public class AccountModel implements AccountInputBoundary{
      *
      * @return true if the given password matches the user's password, false otherwise.
      */
-    public boolean correctPassword(String username, String password){
-        User user = accountDsGateway.getUser(username);
+    public boolean correctPassword(String username, String password) throws IOException {
+        User user = accountDsGateway.getUserByUsername(username);
 //        return user.getPassword() == password;
         return true;
     }

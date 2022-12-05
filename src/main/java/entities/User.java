@@ -18,7 +18,7 @@ public class User {
 
     // changed from list to string
     private String petID;
-    private int[] reportCount;
+    private String reportCount;
     static UserDataAccessInterface um;
 
 
@@ -33,7 +33,7 @@ public class User {
         this.password = password;
         this.username = username;
         this.petID = petIDGenerator();
-        this.reportCount = new int[]{0, 0, 0};
+        this.reportCount = "0$0$0";
     }
 
 
@@ -61,8 +61,7 @@ public class User {
         this.password = password;
         this.username = username;
         this.petID = petID;
-        String[] a = reportCount.split("\\$");
-        this.reportCount = new int[]{Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt((a[2]))};
+        this.reportCount = reportCount;
     }
     public String getUserID() {
         return userID;
@@ -76,28 +75,33 @@ public class User {
         return username;
     }
 
-    public int[] getReportCount() {
+    public String getReportCount() {
         return reportCount;
     }
 
     public String getPet() {return petID;}
 
-    public void setName(String name) {
+    public void setName(String name) throws IOException {
         this.username = name;
+        um.saveUser(userID, name, password, petID, reportCount);
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(String userID) throws IOException {
         this.userID = userID;
+        um.saveUser(userID, username, password, petID, reportCount);
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password) throws IOException {
         this.password = password;
+        um.saveUser(userID, username, password, petID, reportCount);
     }
 
-    public void setPets(String petID) {
+    public void setPets(String petID) throws IOException {
         this.petID = petID;
+        um.saveUser(userID, username, password, petID, reportCount);
     };
-    public void setReportCount(int index) {
-        this.reportCount[index] += 1;
+    public void setReportCount(String str) throws IOException {
+        this.reportCount = str;
+        um.saveUser(userID, username, password, petID, str);
     }
 }
