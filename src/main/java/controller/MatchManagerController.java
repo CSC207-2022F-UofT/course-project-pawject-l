@@ -1,8 +1,8 @@
 package controller;
 
-import useCase.MatchManagerInputBoundary;
-import useCase.ChatManagerInputBoundary;
-import useCase.MatchManagerRequestModel;
+import useCase.Match.MatchManagerInputBoundary;
+import useCase.Chat.ChatManagerInputBoundary;
+import useCase.Match.MatchManagerRequestModel;
 
 import java.io.IOException;
 
