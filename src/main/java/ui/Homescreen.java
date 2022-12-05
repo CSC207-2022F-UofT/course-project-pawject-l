@@ -1,9 +1,6 @@
 package ui;
 
-import controller.ChatController;
-import controller.GeneralController;
-import controller.MatchManagerController;
-import controller.AccountController;
+import controller.*;
 
 import entities.Pet;
 import repo.*;
@@ -17,6 +14,8 @@ import useCase.FPMA.FPMAInputBoundary;
 import useCase.FPMA.FPMAResponseModel;
 import useCase.Match.MatchManager;
 import useCase.Match.MatchManagerInputBoundary;
+import useCase.Profile.ProfileInputBoundary;
+import useCase.Profile.ProfileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +30,7 @@ public class Homescreen extends JFrame implements ActionListener {
     MatchManagerController matchCtrl;
     ChatController chatCtrl;
     AccountController accCtrl;
+    ProfileController profileCtrl;
 
     JButton likeButton = new JButton("Like");
     JButton dislikeButton = new JButton("Dislike");
@@ -42,7 +42,7 @@ public class Homescreen extends JFrame implements ActionListener {
     String petId;
 
     public Homescreen(String id, GeneralController ctrl1, MatchManagerController ctrl2,
-                      ChatController ctrl3, AccountController ctrl4) throws IOException {
+                      ChatController ctrl3, AccountController ctrl4, ProfileController ctrl5) throws IOException {
 
         Container container = getContentPane();
         container.setLayout(null);
@@ -51,7 +51,9 @@ public class Homescreen extends JFrame implements ActionListener {
         this.matchCtrl = ctrl2;
         this.chatCtrl = ctrl3;
         this.accCtrl = ctrl4;
+        this.profileCtrl = ctrl5;
         this.petId = id;
+
 
 
         FPMAResponseModel listOfPotentialMatches = generalCtrl.getPotentialCandidates(petId);
@@ -224,7 +226,7 @@ public class Homescreen extends JFrame implements ActionListener {
             ChatsScreen CU = new ChatsScreen();
             CU.loadChatUI(chatCtrl, petId);
         } else if (e.getSource() == logoutButton) {
-            LogIn_Screen LS = new LogIn_Screen(accCtrl, generalCtrl, matchCtrl, chatCtrl);
+            LogIn_Screen LS = new LogIn_Screen(accCtrl, generalCtrl, matchCtrl, chatCtrl, profileCtrl);
             LS.setTitle("Log in Screen");
             LS.setVisible(true);
             LS.setBounds(0, 0, 370, 600);
@@ -253,7 +255,10 @@ public class Homescreen extends JFrame implements ActionListener {
         AccountInputBoundary acc = new AccountModel(userDS);
         AccountController accCtrl = new AccountController(acc);
 
-        Homescreen h = new Homescreen("PET ID:3", genCtrl, matchCtrl, chatCtrl, accCtrl);
+        ProfileInputBoundary prof = new ProfileManager(petDS);
+        ProfileController profCtrl = new ProfileController(prof);
+
+        Homescreen h = new Homescreen("PET ID:3", genCtrl, matchCtrl, chatCtrl, accCtrl, profCtrl);
     }
 }
 

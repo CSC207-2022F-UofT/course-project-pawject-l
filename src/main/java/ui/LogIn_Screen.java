@@ -1,9 +1,6 @@
 package ui;
 
-import controller.AccountController;
-import controller.ChatController;
-import controller.GeneralController;
-import controller.MatchManagerController;
+import controller.*;
 import entities.User;
 import repo.*;
 import useCase.Account.AccountInputBoundary;
@@ -38,13 +35,15 @@ public class LogIn_Screen extends JFrame implements ActionListener {
     GeneralController genCtrl;
     MatchManagerController matchCtrl;
     ChatController chatCtrl;
+    ProfileController profileCtrl;
 
     public LogIn_Screen(AccountController ctrl1, GeneralController ctrl2, MatchManagerController ctrl3,
-                        ChatController ctrl4) {
+                        ChatController ctrl4, ProfileController ctrl5) {
         this.accCtrl = ctrl1;
         this.genCtrl = ctrl2;
         this.matchCtrl = ctrl3;
         this.chatCtrl = ctrl4;
+        this.profileCtrl = ctrl5;
         container.setLayout(null);
 
         titleLabel.setBounds(150, 70, 100, 30);
@@ -95,7 +94,7 @@ public class LogIn_Screen extends JFrame implements ActionListener {
                     // initiate home screen
                     User user = userDS.getUser(userText);
                     String petId = petDS.getPetIdByUser(user);
-                    Homescreen hs = new Homescreen(petId, genCtrl, matchCtrl, chatCtrl, accCtrl);
+                    Homescreen hs = new Homescreen(petId, genCtrl, matchCtrl, chatCtrl, accCtrl, profileCtrl);
                     //hs.setVisible(true);
                     //this.setVisible(false);
                     //hs.setSize(370, 600);
@@ -105,7 +104,7 @@ public class LogIn_Screen extends JFrame implements ActionListener {
             }
         }
         if (e.getSource() == signupButton) {
-            SignUpScreen signupScreen = new SignUpScreen(accCtrl);
+            SignUpScreen signupScreen = new SignUpScreen(accCtrl, profileCtrl, genCtrl, matchCtrl, chatCtrl);
             this.setVisible(false);
             signupScreen.setVisible(true);
             signupScreen.setSize(370, 600);

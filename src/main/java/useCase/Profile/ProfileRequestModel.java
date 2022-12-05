@@ -36,7 +36,7 @@ public class ProfileRequestModel {
     public ProfileRequestModel(String name, String description,List<String> species, List<String> breed, List<Integer> age, String gender, boolean vaccineStatus,
                                List<String> preferredSpecies, List<String> preferredBreed, List<Integer> preferredAge, String preferredGender,
                                List<BufferedImage> images, BufferedImage proofOfVaccination, float longitude, float latitude, float preferredProximity,
-                               List<DayOfWeek> availableDay, boolean preferredVaccineStatus) {
+                               List<DayOfWeek> availableDay, boolean preferredVaccineStatus, String petId) {
         this.name = name;
         this.description = description;
         this.species = species;
@@ -55,7 +55,7 @@ public class ProfileRequestModel {
         this.preferredProximity = preferredProximity;
         this.availableDay = availableDay;
         this.preferredVaccineStatus = preferredVaccineStatus;
-        this.petId = "Pet ID: " + UUID.randomUUID();
+        this.petId = petId;
     }
 
 

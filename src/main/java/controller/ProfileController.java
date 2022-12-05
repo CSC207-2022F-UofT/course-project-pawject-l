@@ -19,10 +19,10 @@ public class ProfileController {
     public void performProfileCreation(String name, String description,List<String> species, List<String> breed, List<Integer> age, String gender, boolean vaccineStatus,
                                        List<String> preferredSpecies, List<String> preferredBreed, List<Integer> preferredAge, String preferredGender,
                                        List<BufferedImage> images, BufferedImage proofOfVaccination, float longitude, float latitude, float preferredProximity,
-                                       List<DayOfWeek> availableDay, boolean preferredVaccineStatus) throws IOException {
+                                       List<DayOfWeek> availableDay, boolean preferredVaccineStatus, String petID) throws IOException {
         ProfileRequestModel requestModel = new ProfileRequestModel(name, description,species, breed, age, gender,vaccineStatus,
                 preferredSpecies, preferredBreed, preferredAge, preferredGender, images, proofOfVaccination,longitude,
-                latitude, preferredProximity, availableDay, preferredVaccineStatus);
+                latitude, preferredProximity, availableDay, preferredVaccineStatus, petID);
         this.profileInput.createNewProfile(requestModel);
     }
 

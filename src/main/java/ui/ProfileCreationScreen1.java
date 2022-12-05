@@ -13,11 +13,11 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Objects;
 import controller.ProfileController;
-import useCase.ProfileInputBoundary;
+import useCase.Profile.ProfileInputBoundary;
 
 import repo.PetDataAccessInterface;
 import repo.PetDataAccess;
-import useCase.ProfileManager;
+import useCase.Profile.ProfileManager;
 
 
 public class ProfileCreationScreen1 extends JFrame implements ActionListener {
