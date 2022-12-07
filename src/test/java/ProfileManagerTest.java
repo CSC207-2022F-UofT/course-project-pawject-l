@@ -6,9 +6,10 @@ import repo.PetDataAccess;
 import entities.Pet;
 
 import org.junit.jupiter.api.Test;
-import useCase.ProfileManager;
+import useCase.Profile.ProfileInputBoundary;
+import useCase.Profile.ProfileManager;
 import controller.ProfileController;
-import useCase.ProfileInputBoundary;
+
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -52,7 +53,7 @@ public class ProfileManagerTest {
 
         pc.performProfileCreation(name, bio, species, breeds, ages, gender, vaccineStatus, species,
                 breeds, ages, gender, petPhotos, vaccineImage, longitude, latitude, proximity,
-                availableDays,vaccineStatus);
+                availableDays,vaccineStatus, petID);
 
         Pet petA = ds.getPetById(petID);
 
@@ -77,9 +78,5 @@ public class ProfileManagerTest {
         Assertions.assertEquals(petA.getAttributes().isVaccinated(), vaccineStatus);
 
     }
-
-
-
-
 
 }
