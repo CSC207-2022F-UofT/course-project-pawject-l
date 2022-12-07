@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -75,7 +76,8 @@ public class UserDataAccess implements UserDataAccessInterface{
             if (Objects.equals(value[0], userID)) {
                 String User = userID + "," + username + "," + password + "," + petID + "," + reportCount;
                 fileContent.set(i, User);
-                Files.write(path, fileContent, StandardCharsets.UTF_8);
+                Files.write(path, fileContent.subList(0,fileContent.size()-1), StandardCharsets.UTF_8);
+                Files.write(path, fileContent.get(fileContent.size()-1).getBytes("UTF-8"), StandardOpenOption.APPEND);
                 flag = true;
             }
         }

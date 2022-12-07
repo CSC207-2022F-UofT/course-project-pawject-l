@@ -1,5 +1,4 @@
 package entities;
-
 import repo.UserDataAccessInterface;
 
 import java.io.IOException;
@@ -12,7 +11,7 @@ public class User {
 
     // changed from list to string
     private String petID;
-    private String reportCount;
+    private int[] reportCount;
     static UserDataAccessInterface um;
 
 
@@ -26,8 +25,8 @@ public class User {
         this.userID = idGenerator();
         this.password = password;
         this.username = username;
-        this.petID = petIDGenerator();
-        this.reportCount = "0$0$0";
+        this.petID = null;
+        this.reportCount = new int[]{0, 0, 0};
     }
 
 
@@ -49,13 +48,15 @@ public class User {
     private String petIDGenerator() throws IOException {
         String id = "PetID: " + (um.CountUser() + 1);
         return id;
-    };
+    }
+
     public User(String user_id, String username, String password, String petID, String reportCount) {
         this.userID = user_id;
         this.password = password;
         this.username = username;
         this.petID = petID;
-        this.reportCount = reportCount;
+        String[] a = reportCount.split("\\$");
+        this.reportCount = new int[]{Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt((a[2]))};
     }
     public String getUserID() {
         return userID;
@@ -69,33 +70,28 @@ public class User {
         return username;
     }
 
-    public String getReportCount() {
+    public int[] getReportCount() {
         return reportCount;
     }
 
     public String getPet() {return petID;}
 
-    public void setName(String name) throws IOException {
+    public void setName(String name) {
         this.username = name;
-        um.saveUser(userID, name, password, petID, reportCount);
     }
 
-    public void setUserID(String userID) throws IOException {
+    public void setUserID(String userID) {
         this.userID = userID;
-        um.saveUser(userID, username, password, petID, reportCount);
     }
 
-    public void setPassword(String password) throws IOException {
+    public void setPassword(String password) {
         this.password = password;
-        um.saveUser(userID, username, password, petID, reportCount);
     }
 
-    public void setPets(String petID) throws IOException {
+    public void setPets(String petID) {
         this.petID = petID;
-        um.saveUser(userID, username, password, petID, reportCount);
     };
-    public void setReportCount(String str) throws IOException {
-        this.reportCount = str;
-        um.saveUser(userID, username, password, petID, str);
+    public void setReportCount(int index) {
+        this.reportCount[index] += 1;
     }
 }
