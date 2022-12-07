@@ -20,7 +20,9 @@ other users, and once a threshold is reached, the reported user will be dealt wi
 -  Data Storage
 -  Report System. Help us prevent inappropriate contents in the public.
 
-## How to Run
+## How to Start
+- Go to src\main\java\ui\Homescreen.java, compile and run the program.
+- Type your username and password to sign in. Don't have an account？Sign up button is ready at the bottom of the interface!
 
 ## Checklist For Your Project
 - [ ] Verify the correct settings for your project repository
