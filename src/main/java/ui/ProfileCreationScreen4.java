@@ -181,7 +181,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
                 for(JCheckBox d:availableDaysChoices){
                     if (d.isSelected()){
                         if(d.isSelected()){
-                            if (Objects.equals(d.getName(), "Monday")){
+                            if (Objects.equals(d.getText(), "Monday")){
                                 availableDays.add(DayOfWeek.MONDAY);
                             } else if (Objects.equals(d.getText(), "Tuesday")) {
                                 availableDays.add(DayOfWeek.TUESDAY);
