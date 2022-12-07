@@ -1,8 +1,26 @@
 Pawject L
 
-This is a template repository for CSC 207 projects. 
-This repository contains starter code for a gradle project.
-It also contains workflow documents that give instructions on how to manage your Github repository and how to use Github Projects for efficient collaboration.
+This is a repository for a group project for CSC207 at UofT. 
+
+Pawject L is a pet matching app that allows pet owners to find compatible pets for meetups. Users can
+create profiles with both their pets’ information and their own information, and log in and log out
+as needed. They will be able to view and edit their profiles, as well as other users’ profiles.
+Users are given pet matches based on inputted preferences (e.g. location, availability, species,
+owner immunization status). They can swipe on matches, and if both users match with each
+other, they can chat using text to set up a meetup. Once the user is given a match, the user will
+not see the match again no matter the match status (if they swiped or not). Users can report
+other users, and once a threshold is reached, the reported user will be dealt with appropriately.
+
+## Features
+-  Account Creation (Sign up system)
+-  Pet Profile Creation 
+-  Find Potential Matches Algorithm(FPMA). Looks for compatible pets for your pet.
+-  Match Manager
+-  Chat Management System. Chat with you and your pet's best friends!
+-  Data Storage
+-  Report System. Help us prevent inappropriate contents in the public.
+
+## How to Run
 
 ## Checklist For Your Project
 - [ ] Verify the correct settings for your project repository
