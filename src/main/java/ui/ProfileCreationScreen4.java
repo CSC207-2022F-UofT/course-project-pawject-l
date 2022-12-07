@@ -224,6 +224,9 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
                             availableDays,preferredVaccineSta, petID);
                     JOptionPane.showMessageDialog(this, "Profiled created!");
                     PetDataAccessInterface petDs = new PetDataAccess();
+                    this.setVisible(false);
+                    this.validate();
+                    this.repaint();
                     Homescreen homescreen = new Homescreen(petID, generalController, matchController, chatController,
                             accountController, profileController);
                 } catch (IOException e) {
