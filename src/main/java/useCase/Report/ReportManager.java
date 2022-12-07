@@ -1,14 +1,13 @@
-package useCase;
-import entities.User;
+package useCase.Report;
+
 import entities.Report;
-import entities.Pet;
 import repo.ChatDataAccessInterface;
 import repo.PetDataAccessInterface;
 import repo.UserDataAccessInterface;
 
 import java.io.IOException;
 
-public class ReportInteractor {
+public class ReportManager implements ReportInputBoundary{
     static PetDataAccessInterface pm;
     static ChatDataAccessInterface cm;
     static UserDataAccessInterface um;

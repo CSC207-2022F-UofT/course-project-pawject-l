@@ -58,13 +58,12 @@ public class Report implements Serializable {
     private void punish() throws IOException {
         /** Need to work with UI to fully implement this method */
 //        if (type == 0) {
-//            user.setPassword("NoNoNo");}
+//            The user is blocked from logging in.
 //        else if (type == 1) {
-//           pet.setName("NoNoNo");*/
-//           pet.setImage(Image);*/}
+//            The image of the pet got hidden
 //        else if (type == 2){
-//            chat.setFlag(false)*/
-//        }
+//            The user got muted.
+//        };
         return;
     }
 
@@ -76,8 +75,7 @@ public class Report implements Serializable {
         }
     public void report() throws IOException {
         reportCount[type] += 1;
-        String str = String.valueOf(reportCount[0]) + "$" + String.valueOf(reportCount[1]) + "$";
-        str += String.valueOf(reportCount[2]);
+        String str = reportCount[0] + "$" + reportCount[1] + "$" + reportCount[2];
         user.setReportCount(str);
         checkCounts();
         return;
