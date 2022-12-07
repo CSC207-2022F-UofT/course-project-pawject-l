@@ -62,10 +62,8 @@ public class ProfileManagerTest {
         Assertions.assertEquals(petA.getLatitude(), latitude);
         Assertions.assertEquals(petA.getLongitude(), longitude);
         Assertions.assertEquals(petA.getAvailableDay(), availableDays);
-        Assertions.assertEquals(petA.getImages(), petPhotos);
         Assertions.assertEquals(petA.getDescription(), bio);
         Assertions.assertEquals(petA.getPreferredProximity(), proximity);
-        Assertions.assertEquals(petA.getProofOfVaccination(), vaccineImage);
         Assertions.assertEquals(petA.getAttributes().getAge(), ages);
         Assertions.assertEquals(petA.getPreferredAttributes().getAge(), ages);
         Assertions.assertEquals(petA.getAttributes().getBreed(), breeds);
