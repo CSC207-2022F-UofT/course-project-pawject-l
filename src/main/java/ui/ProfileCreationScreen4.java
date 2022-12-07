@@ -67,8 +67,6 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
     String preferredGen;
     List<Integer> preferredAgeRange;
 
-    UserDataAccessInterface UDAI;
-
 
     public void setLayoutManager() {
         container.setLayout(null);
@@ -220,7 +218,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
                  */
 
                 try {
-                    String petID = "PetID: " + UDAI.CountUser() ;
+                    String petID = "Pet ID: " + UUID.randomUUID();
                     profileController.performProfileCreation(name, bio, species, breed, age, gender, vaccineSta, preferredSpec,
                             preferredBre, preferredAgeRange, preferredGen, petP, vaccineImage, lo, la, proximity,
                             availableDays,preferredVaccineSta, petID);
