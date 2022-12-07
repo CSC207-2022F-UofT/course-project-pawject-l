@@ -8,10 +8,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
-import controller.ProfileController;
+
+import controller.*;
 
 public class ProfileCreationScreen3 extends JFrame implements ActionListener {
     ProfileController profileController;
+    ChatController chatController;
+    MatchManagerController matchController;
+    AccountController accountController;
+    GeneralController generalController;
     Font f1 = new Font("Arial", Font.PLAIN, 20);
     Font f2 = new Font("Arial", Font.PLAIN, 12);
     Font f3 = new Font("Arial", Font.PLAIN, 15);
@@ -167,10 +172,16 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
 
     }
 
-    public ProfileCreationScreen3(ProfileController profileController, boolean vaccineSta, String bio, float lo, float la, float proximity, String name,
+    public ProfileCreationScreen3(ProfileController profileController, GeneralController generalController, MatchManagerController
+                                  matchController, AccountController accountController, ChatController chatController,
+                                  boolean vaccineSta, String bio, float lo, float la, float proximity, String name,
                                   List<String> species, List<String> breed, String gender, List<Integer> age,
                                   BufferedImage petPhoto, BufferedImage vaccineImage){
         this.profileController = profileController;
+        this.accountController = accountController;
+        this.chatController = chatController;
+        this.matchController = matchController;
+        this.generalController = generalController;
         this.vaccineSta = vaccineSta;
         this.bio = bio;
         this.lo = lo;
@@ -262,7 +273,8 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
                 for(int i = min; i <= max; i ++){
                     preferredAgeRange.add(i);
                 }
-                ProfileCreationScreen4 PCS4 = new ProfileCreationScreen4(profileController, vaccineSta, bio, lo, la, proximity, name, species,
+                ProfileCreationScreen4 PCS4 = new ProfileCreationScreen4(profileController, chatController, matchController,
+                        accountController, generalController, vaccineSta, bio, lo, la, proximity, name, species,
                         breed, gender, age, petPhoto, vaccineImage, preferredSpec, preferredBre, preferredGen, preferredAgeRange);
                 this.setVisible(false);
                 PCS4.setVisible(true);
