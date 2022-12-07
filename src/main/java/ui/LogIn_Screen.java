@@ -38,16 +38,14 @@ public class LogIn_Screen extends JFrame implements ActionListener {
     MatchManagerController matchCtrl;
     ChatController chatCtrl;
     ProfileController profileCtrl;
-    String PetId;
 
-    public LogIn_Screen(String petId, AccountController ctrl1, GeneralController ctrl2, MatchManagerController ctrl3,
+    public LogIn_Screen(AccountController ctrl1, GeneralController ctrl2, MatchManagerController ctrl3,
                         ChatController ctrl4, ProfileController ctrl5) {
         this.accCtrl = ctrl1;
         this.genCtrl = ctrl2;
         this.matchCtrl = ctrl3;
         this.chatCtrl = ctrl4;
         this.profileCtrl = ctrl5;
-        this.PetId = petId;
         container.setLayout(null);
 
         titleLabel.setBounds(150, 70, 100, 30);
@@ -88,9 +86,9 @@ public class LogIn_Screen extends JFrame implements ActionListener {
             String pwdText = passwordField.getText();
 
             try {
-                if (!accCtrl.userExists(userText, pwdText, PetId)) {
+                if (!accCtrl.userExists(userText, pwdText)) {
                     JOptionPane.showMessageDialog(this, "This username doesn't exist. Please create an account.");
-                } else if (!accCtrl.correctPassword(userText, pwdText, PetId)) {
+                } else if (!accCtrl.correctPassword(userText, pwdText)) {
                     JOptionPane.showMessageDialog(this, "Username or password is incorrect. Please try again.");
                 } else {
                     JOptionPane.showMessageDialog(this, "Logged in.");
@@ -138,6 +136,6 @@ public class LogIn_Screen extends JFrame implements ActionListener {
         ProfileInputBoundary prof = new ProfileManager(petDS);
         ProfileController profileCtrl = new ProfileController(prof);
 
-        LogIn_Screen login = new LogIn_Screen("PET ID:1", accCtrl, genCtrl, matchCtrl, chatCtrl, profileCtrl);
+        LogIn_Screen login = new LogIn_Screen(accCtrl, genCtrl, matchCtrl, chatCtrl, profileCtrl);
     }
 }

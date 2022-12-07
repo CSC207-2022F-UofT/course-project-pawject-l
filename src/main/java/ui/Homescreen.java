@@ -219,7 +219,7 @@ public class Homescreen extends JFrame implements ActionListener {
             ChatsScreen CU = new ChatsScreen();
             CU.loadChatUI(chatCtrl, petId);
         } else if (e.getSource() == logoutButton) {
-            LogIn_Screen LS = new LogIn_Screen(petId, accCtrl, generalCtrl, matchCtrl, chatCtrl, profileCtrl);
+            LogIn_Screen LS = new LogIn_Screen(accCtrl, generalCtrl, matchCtrl, chatCtrl, profileCtrl);
             LS.setTitle("Log in Screen");
             LS.setVisible(true);
             LS.setBounds(0, 0, 370, 600);
