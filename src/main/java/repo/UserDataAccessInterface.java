@@ -27,11 +27,6 @@ public interface UserDataAccessInterface {
      */
     boolean saveUser(String userID, String username, String password, String petID, String reportCount) throws IOException;
 
-    public void save(User user);
-
-    public boolean existsUser(String username);
-    public User getUser(String username);
-//    public AccountRequestModel getReqMod(String username);
 
     /**
      * Checks if a given username already exists in the database. Returns true if it exists, false if it does not.
@@ -48,7 +43,6 @@ public interface UserDataAccessInterface {
     boolean deleteUser(String username) throws IOException;
     /**
      * Delete the user.
-     * @param username
      */
     int CountUser() throws IOException;
 

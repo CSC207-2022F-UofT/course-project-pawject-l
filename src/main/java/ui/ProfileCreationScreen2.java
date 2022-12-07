@@ -11,11 +11,16 @@ import java.io.File;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
-import controller.ProfileController;
+
+import controller.*;
 
 
 public class ProfileCreationScreen2 extends JFrame implements ActionListener {
     ProfileController profileController;
+    ChatController chatController;
+    MatchManagerController matchController;
+    AccountController accountController;
+    GeneralController generalController;
     Font f1 = new Font("Arial", Font.PLAIN,  20);
     Font f2 = new Font("Arial", Font.PLAIN,  12);
     Font f3 = new Font("Arial", Font.PLAIN,  15);
@@ -199,8 +204,16 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
 
     }
 
-    public ProfileCreationScreen2(ProfileController profileController, String name, List<String> species, List<String> breed, String gender, List<Integer> age, BufferedImage petPhoto){
+    public ProfileCreationScreen2(ProfileController profileController, ChatController chatController,
+                                  MatchManagerController matchController, AccountController accountController,
+                                  GeneralController generalController, String name, List<String> species, List<String> breed, String gender, List<Integer> age, BufferedImage petPhoto){
+
         this.profileController = profileController;
+        this.accountController = accountController;
+        this.matchController = matchController;
+        this.generalController = generalController;
+        this.chatController = chatController;
+
         this.name = name;
         this.species = species;
         this.breed = breed;
@@ -283,7 +296,8 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
                 Float proximity = Float.valueOf(this.preferredProximity.getText());
 
 
-                ProfileCreationScreen3 PCS3 = new ProfileCreationScreen3(profileController, vaccineSta, bio, lo, la,
+                ProfileCreationScreen3 PCS3 = new ProfileCreationScreen3(profileController, generalController, matchController,
+                        accountController, chatController,vaccineSta, bio, lo, la,
                         proximity, name, species, breed, gender, age, petPhoto, vaccineImage);
                 this.setVisible(false);
                 PCS3.setVisible(true);

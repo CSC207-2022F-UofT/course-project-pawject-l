@@ -3,6 +3,7 @@ package ui;
 import controller.*;
 
 import entities.Pet;
+import entities.User;
 import repo.*;
 import useCase.Account.AccountInputBoundary;
 import useCase.Account.AccountModel;
@@ -240,8 +241,10 @@ public class Homescreen extends JFrame implements ActionListener {
     public static void main(String[] args) throws IOException {
         PetDataAccessInterface petDS = new PetDataAccess();
         ChatDataAccessInterface chatDS = new ChatDataAccess();
-        UserDataAccessInterface userDS = new UserDataAccess("./user.csv");
-        // userDS.saveUser("001", "user1", "ilovemydog");
+        UserDataAccessInterface userDS = new UserDataAccess();
+        User user = new User("nomiko", "20020626");
+        user.setPets("PET ID:1");
+        userDS.saveUser(user.getUserID(), user.getUsername(), user.getPassword(), user.getPet(), "0\\$0\\$0\\$");
 
         FPMAInputBoundary fpma = new FPMA(petDS);
         GeneralController genCtrl = new GeneralController(fpma);
