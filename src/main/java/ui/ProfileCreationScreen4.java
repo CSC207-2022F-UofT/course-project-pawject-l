@@ -17,6 +17,8 @@ import java.util.UUID;
 import controller.*;
 import repo.PetDataAccess;
 import repo.PetDataAccessInterface;
+import repo.UserDataAccess;
+import repo.UserDataAccessInterface;
 
 public class ProfileCreationScreen4 extends JFrame implements ActionListener {
     ProfileController profileController;
@@ -65,7 +67,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
     String preferredGen;
     List<Integer> preferredAgeRange;
 
-
+    UserDataAccessInterface UDAI;
 
 
     public void setLayoutManager() {
@@ -218,7 +220,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
                  */
 
                 try {
-                    String petID = "Pet ID: " + UUID.randomUUID();
+                    String petID = "PetID: " + UDAI.CountUser() ;
                     profileController.performProfileCreation(name, bio, species, breed, age, gender, vaccineSta, preferredSpec,
                             preferredBre, preferredAgeRange, preferredGen, petP, vaccineImage, lo, la, proximity,
                             availableDays,preferredVaccineSta, petID);
