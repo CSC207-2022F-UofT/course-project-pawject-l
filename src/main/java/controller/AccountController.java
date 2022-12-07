@@ -15,23 +15,23 @@ public class AccountController{
         this.userInput = userInput;
     }
 
-    public boolean userExists(String username, String password) throws IOException {
-        AccountRequestModel requestModel = new AccountRequestModel(username, password);
+    public boolean userExists(String username, String password, String petId) throws IOException {
+        AccountRequestModel requestModel = new AccountRequestModel(username, password, petId);
         return userInput.userExists(requestModel);
     }
 
-    public boolean checkPasswordValid(String username, String password){
-        AccountRequestModel requestModel = new AccountRequestModel(username, password);
+    public boolean checkPasswordValid(String username, String password, String petId){
+        AccountRequestModel requestModel = new AccountRequestModel(username, password, petId);
         return userInput.checkPasswordValid(requestModel);
     }
 
-    public boolean correctPassword(String username, String password) throws IOException {
-        AccountRequestModel requestModel = new AccountRequestModel(username, password);
+    public boolean correctPassword(String username, String password, String petId) throws IOException {
+        AccountRequestModel requestModel = new AccountRequestModel(username, password, petId);
         return userInput.correctPassword(requestModel);
     }
 
-    public void create(String username, String password) throws IOException {
-        AccountRequestModel requestModel = new AccountRequestModel(username, password);
+    public void create(String username, String password, String petId) throws IOException {
+        AccountRequestModel requestModel = new AccountRequestModel(username, password, petId);
         userInput.create(requestModel);
     }
 }

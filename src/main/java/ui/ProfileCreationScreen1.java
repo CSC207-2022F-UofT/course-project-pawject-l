@@ -27,6 +27,7 @@ public class ProfileCreationScreen1 extends JFrame implements ActionListener {
     MatchManagerController matchController;
     AccountController accountController;
     GeneralController generalController;
+    String PetId;
 
     Font f1 = new Font("Arial", Font.PLAIN, 20);
     Font f2 = new Font("Arial", Font.PLAIN, 12);
@@ -139,9 +140,10 @@ public class ProfileCreationScreen1 extends JFrame implements ActionListener {
 
     }
 
-    public ProfileCreationScreen1(ProfileController profileController, ChatController chatController,
+    public ProfileCreationScreen1(String PetId, ProfileController profileController, ChatController chatController,
                                   MatchManagerController matchController, AccountController accountController,
                                   GeneralController generalController) {
+        this.PetId = PetId;
         this.profileController = profileController;
         this.accountController = accountController;
         this.matchController = matchController;
@@ -257,7 +259,7 @@ public class ProfileCreationScreen1 extends JFrame implements ActionListener {
                 List<Integer> ageInput = new ArrayList<>();
                 ageInput.add(Integer.valueOf(this.age.getText()));
 
-                ProfileCreationScreen2 PCS2 = new ProfileCreationScreen2(profileController, chatController, matchController,
+                ProfileCreationScreen2 PCS2 = new ProfileCreationScreen2(PetId, profileController, chatController, matchController,
                         accountController, generalController, name, speciesInput,
                         breedInput, gender, ageInput, petPhoto);
                 this.setVisible(false);
