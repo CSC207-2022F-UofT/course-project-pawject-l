@@ -55,8 +55,6 @@ public class Homescreen extends JFrame implements ActionListener {
         this.profileCtrl = ctrl5;
         this.petId = id;
 
-
-
         FPMAResponseModel listOfPotentialMatches = generalCtrl.getPotentialCandidates(petId);
         PreviewProfileScreen currPet = new PreviewProfileScreen(listOfPotentialMatches.getPetNameAt(curr),
                 new ImageIcon(listOfPotentialMatches.getPetImageAt(curr)),
@@ -90,19 +88,16 @@ public class Homescreen extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    if (!(curr >= listOfPotentialMatches.getListOfPotentialMatches().length)) {
                     matchCtrl.manageMatch(petId, listOfPotentialMatches.getPetIdAt(curr), true);
+                    }
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
                 curr++;
-                if (listOfPotentialMatches.getPetAt(curr) == null) {
-                    JLabel msg = new JLabel("You have no matches yet.");
-                    container.remove(currPet);
-                    msg.setBounds(170, 10, 500, 450);
-                    container.add(msg);
-                    container.validate();
-                    container.repaint();
-                } else {
+                if (curr >= listOfPotentialMatches.getListOfPotentialMatches().length) {
+                    JOptionPane.showMessageDialog(null, "You have no matches yet!");
+                } else if (curr < listOfPotentialMatches.getListOfPotentialMatches().length) {
                     PreviewProfileScreen newCurrPet = new PreviewProfileScreen(
                             listOfPotentialMatches.getPetNameAt(curr),
                             new ImageIcon(listOfPotentialMatches.getPetImageAt(curr)),
@@ -135,20 +130,17 @@ public class Homescreen extends JFrame implements ActionListener {
         dislikeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
+                try { if(!(curr >= listOfPotentialMatches.getListOfPotentialMatches().length)) {
                     matchCtrl.manageMatch(petId, listOfPotentialMatches.getPetIdAt(curr), false);
+                }
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
                 curr++;
-                if (listOfPotentialMatches.getPetAt(curr) == null) {
-                    JLabel msg = new JLabel("You have no matches yet.");
-                    container.remove(currPet);
-                    msg.setBounds(170, 10, 500, 450);
-                    container.add(msg);
-                    container.validate();
-                    container.repaint();
-                } else {
+                if (curr >= listOfPotentialMatches.getListOfPotentialMatches().length) {
+                   JOptionPane.showMessageDialog(null, "You have no matches yet!");
+                }
+                else {
                     PreviewProfileScreen newCurrPet = new PreviewProfileScreen(
                             listOfPotentialMatches.getPetNameAt(curr),
                             new ImageIcon(listOfPotentialMatches.getPetImageAt(curr)),
@@ -227,22 +219,29 @@ public class Homescreen extends JFrame implements ActionListener {
             ChatsScreen CU = new ChatsScreen();
             CU.loadChatUI(chatCtrl, petId);
         } else if (e.getSource() == logoutButton) {
-            LogIn_Screen LS = new LogIn_Screen(accCtrl, generalCtrl, matchCtrl, chatCtrl, profileCtrl);
+            LogIn_Screen LS = new LogIn_Screen(petId, accCtrl, generalCtrl, matchCtrl, chatCtrl, profileCtrl);
             LS.setTitle("Log in Screen");
             LS.setVisible(true);
             LS.setBounds(0, 0, 370, 600);
             LS.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             LS.setResizable(false);
             this.setVisible(false);
-        }
+        } else if (e.getSource() == homeButton) {
+            this.setVisible(false);
+            try {
+                Homescreen new_homescreen = new Homescreen(petId, generalCtrl, matchCtrl, chatCtrl, accCtrl, profileCtrl);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
 
+        }
     }
 
     public static void main(String[] args) throws IOException {
         PetDataAccessInterface petDS = new PetDataAccess();
         ChatDataAccessInterface chatDS = new ChatDataAccess();
         UserDataAccessInterface userDS = new UserDataAccess();
-        User user = new User("nomiko", "20020626");
+        User user = new User("nomiko4", "20020626");
         user.setPets("PET ID:1");
         userDS.saveUser(user.getUserID(), user.getUsername(), user.getPassword(), user.getPet(), "0\\$0\\$0\\$");
 
@@ -261,7 +260,7 @@ public class Homescreen extends JFrame implements ActionListener {
         ProfileInputBoundary prof = new ProfileManager(petDS);
         ProfileController profCtrl = new ProfileController(prof);
 
-        Homescreen h = new Homescreen("PET ID:3", genCtrl, matchCtrl, chatCtrl, accCtrl, profCtrl);
+        Homescreen h = new Homescreen("PET ID:1", genCtrl, matchCtrl, chatCtrl, accCtrl, profCtrl);
     }
 }
 

@@ -67,7 +67,11 @@ public class AccountModel implements AccountInputBoundary{
 
     public void create(AccountRequestModel requestModel) throws IOException {
         User user = new User(requestModel.getUsername(), requestModel.getPassword());
-        String reportCount = user.getReportCount();
+        user.setPets(requestModel.getPetId());
+        String reportCount = "";
+        for (int i: user.getReportCount()) {
+            reportCount = reportCount + String.valueOf(i);
+        }
         accountDsGateway.saveUser(user.getUserID(), user.getUsername(), user.getPassword(), user.getPet(),
                 reportCount);
     }

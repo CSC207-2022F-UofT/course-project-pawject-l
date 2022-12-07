@@ -11,6 +11,10 @@ public class FPMAResponseModel {
         this.listOfPotentialMatches = pets;
     }
 
+    public Pet[] getListOfPotentialMatches() {
+        return listOfPotentialMatches;
+    }
+
     public Pet getPetAt(int index) {
         return ((Pet) Array.get(this.listOfPotentialMatches, index));
     }
