@@ -17,6 +17,8 @@ import java.util.UUID;
 import controller.*;
 import repo.PetDataAccess;
 import repo.PetDataAccessInterface;
+import repo.UserDataAccess;
+import repo.UserDataAccessInterface;
 
 public class ProfileCreationScreen4 extends JFrame implements ActionListener {
     ProfileController profileController;
@@ -24,6 +26,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
     MatchManagerController matchController;
     GeneralController generalController;
     ChatController chatController;
+    String PetId;
     Font f1 = new Font("Arial", Font.PLAIN, 20);
     Font f2 = new Font("Arial", Font.PLAIN, 12);
     Font f3 = new Font("Arial", Font.PLAIN, 15);
@@ -64,8 +67,6 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
     List<String> preferredBre;
     String preferredGen;
     List<Integer> preferredAgeRange;
-
-
 
 
     public void setLayoutManager() {
@@ -123,7 +124,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
 
     }
 
-    public ProfileCreationScreen4(ProfileController profileController, ChatController chatController,
+    public ProfileCreationScreen4(String PetId, ProfileController profileController, ChatController chatController,
                                   MatchManagerController matchController, AccountController accountController,
                                   GeneralController generalController, boolean vaccineSta, String bio, float lo, float la, float proximity, String name,
                                   java.util.List<String> species, java.util.List<String> breed, String gender, List<Integer> age,
@@ -134,6 +135,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
         this.matchController = matchController;
         this.generalController = generalController;
         this.chatController = chatController;
+        this.PetId = PetId;
 
         this.vaccineSta = vaccineSta;
         this.bio = bio;
@@ -181,7 +183,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
                 for(JCheckBox d:availableDaysChoices){
                     if (d.isSelected()){
                         if(d.isSelected()){
-                            if (Objects.equals(d.getName(), "Monday")){
+                            if (Objects.equals(d.getText(), "Monday")){
                                 availableDays.add(DayOfWeek.MONDAY);
                             } else if (Objects.equals(d.getText(), "Tuesday")) {
                                 availableDays.add(DayOfWeek.TUESDAY);
@@ -205,7 +207,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
 
                 if (vaccineImage == null){
                     try {
-                        vaccineImage = ImageIO.read(new File("src/main/java/data/NO VAX.jpg"));
+                        vaccineImage = ImageIO.read(new File("src/main/java/data/NOVAX.JPG"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -218,13 +220,14 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
                  */
 
                 try {
-                    String petID = "Pet ID: " + UUID.randomUUID();
                     profileController.performProfileCreation(name, bio, species, breed, age, gender, vaccineSta, preferredSpec,
                             preferredBre, preferredAgeRange, preferredGen, petP, vaccineImage, lo, la, proximity,
-                            availableDays,preferredVaccineSta, petID);
+                            availableDays,preferredVaccineSta, PetId);
                     JOptionPane.showMessageDialog(this, "Profiled created!");
-                    PetDataAccessInterface petDs = new PetDataAccess();
-                    Homescreen homescreen = new Homescreen(petID, generalController, matchController, chatController,
+                    this.setVisible(false);
+                    this.validate();
+                    this.repaint();
+                    Homescreen homescreen = new Homescreen(PetId, generalController, matchController, chatController,
                             accountController, profileController);
                 } catch (IOException e) {
                     throw new RuntimeException(e);

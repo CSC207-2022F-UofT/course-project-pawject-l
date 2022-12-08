@@ -3,6 +3,7 @@ package ui;
 import controller.*;
 
 import entities.Pet;
+import entities.User;
 import repo.*;
 import useCase.Account.AccountInputBoundary;
 import useCase.Account.AccountModel;
@@ -24,7 +25,12 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.time.DayOfWeek;
 
+
 public class Homescreen extends JFrame implements ActionListener {
+
+    /**
+     * A homescreen corresponding to a pet with pet id <petId>.
+     */
 
     GeneralController generalCtrl;
     MatchManagerController matchCtrl;
@@ -34,7 +40,7 @@ public class Homescreen extends JFrame implements ActionListener {
 
     JButton likeButton = new JButton("Like");
     JButton dislikeButton = new JButton("Dislike");
-    JButton homeButton = new JButton("Home");
+    JButton homeButton = new JButton("Refresh");
     JButton chatButton = new JButton("Chat");
     JButton profileButton = new JButton("Profile");
     JButton logoutButton = new JButton("Logout");
@@ -53,8 +59,6 @@ public class Homescreen extends JFrame implements ActionListener {
         this.accCtrl = ctrl4;
         this.profileCtrl = ctrl5;
         this.petId = id;
-
-
 
         FPMAResponseModel listOfPotentialMatches = generalCtrl.getPotentialCandidates(petId);
         PreviewProfileScreen currPet = new PreviewProfileScreen(listOfPotentialMatches.getPetNameAt(curr),
@@ -89,19 +93,16 @@ public class Homescreen extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    if (!(curr >= listOfPotentialMatches.getListOfPotentialMatches().length)) {
                     matchCtrl.manageMatch(petId, listOfPotentialMatches.getPetIdAt(curr), true);
+                    }
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
                 curr++;
-                if (listOfPotentialMatches.getPetAt(curr) == null) {
-                    JLabel msg = new JLabel("You have no matches yet.");
-                    container.remove(currPet);
-                    msg.setBounds(170, 10, 500, 450);
-                    container.add(msg);
-                    container.validate();
-                    container.repaint();
-                } else {
+                if (curr >= listOfPotentialMatches.getListOfPotentialMatches().length) {
+                    JOptionPane.showMessageDialog(null, "You have no matches yet! Press the Refresh Button to refresh the screen.");
+                } else if (curr < listOfPotentialMatches.getListOfPotentialMatches().length) {
                     PreviewProfileScreen newCurrPet = new PreviewProfileScreen(
                             listOfPotentialMatches.getPetNameAt(curr),
                             new ImageIcon(listOfPotentialMatches.getPetImageAt(curr)),
@@ -134,20 +135,17 @@ public class Homescreen extends JFrame implements ActionListener {
         dislikeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
+                try { if(!(curr >= listOfPotentialMatches.getListOfPotentialMatches().length)) {
                     matchCtrl.manageMatch(petId, listOfPotentialMatches.getPetIdAt(curr), false);
+                }
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
                 curr++;
-                if (listOfPotentialMatches.getPetAt(curr) == null) {
-                    JLabel msg = new JLabel("You have no matches yet.");
-                    container.remove(currPet);
-                    msg.setBounds(170, 10, 500, 450);
-                    container.add(msg);
-                    container.validate();
-                    container.repaint();
-                } else {
+                if (curr >= listOfPotentialMatches.getListOfPotentialMatches().length) {
+                   JOptionPane.showMessageDialog(null, "You have no matches yet! Press the Refresh Button to refresh the screen.");
+                }
+                else {
                     PreviewProfileScreen newCurrPet = new PreviewProfileScreen(
                             listOfPotentialMatches.getPetNameAt(curr),
                             new ImageIcon(listOfPotentialMatches.getPetImageAt(curr)),
@@ -178,7 +176,7 @@ public class Homescreen extends JFrame implements ActionListener {
             }
         });
         this.setVisible(true);
-        this.setBounds(500, 700, 500, 700);
+        this.setBounds(0, 0, 500, 700);
         this.setTitle("Home screen");
     }
     @Override
@@ -233,32 +231,15 @@ public class Homescreen extends JFrame implements ActionListener {
             LS.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             LS.setResizable(false);
             this.setVisible(false);
+        } else if (e.getSource() == homeButton) {
+            this.setVisible(false);
+            try {
+                Homescreen new_homescreen = new Homescreen(petId, generalCtrl, matchCtrl, chatCtrl, accCtrl, profileCtrl);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
         }
-
-    }
-
-    public static void main(String[] args) throws IOException {
-        PetDataAccessInterface petDS = new PetDataAccess();
-        ChatDataAccessInterface chatDS = new ChatDataAccess();
-        UserDataAccessInterface userDS = new UserDataAccess("./user.csv");
-        // userDS.saveUser("001", "user1", "ilovemydog");
-
-        FPMAInputBoundary fpma = new FPMA(petDS);
-        GeneralController genCtrl = new GeneralController(fpma);
-
-        ChatManagerInputBoundary chat = new ChatManager(chatDS);
-        ChatController chatCtrl = new ChatController(chat);
-
-        MatchManagerInputBoundary match = new MatchManager(petDS);
-        MatchManagerController matchCtrl = new MatchManagerController(match, chat);
-
-        AccountInputBoundary acc = new AccountModel(userDS);
-        AccountController accCtrl = new AccountController(acc);
-
-        ProfileInputBoundary prof = new ProfileManager(petDS);
-        ProfileController profCtrl = new ProfileController(prof);
-
-        Homescreen h = new Homescreen("PET ID:3", genCtrl, matchCtrl, chatCtrl, accCtrl, profCtrl);
     }
 }
 

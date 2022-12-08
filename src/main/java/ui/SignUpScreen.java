@@ -18,6 +18,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.UUID;
 
 public class SignUpScreen extends JFrame implements ActionListener {
     Font f1 = new Font("Arial", Font.PLAIN,  12);
@@ -40,6 +41,7 @@ public class SignUpScreen extends JFrame implements ActionListener {
     GeneralController genCtrl;
     MatchManagerController matchCtrl;
     ChatController chatCtrl;
+    String PetId;
 
     public SignUpScreen (AccountController ctrl1, ProfileController ctrl2, GeneralController ctrl3,
                          MatchManagerController ctrl4, ChatController ctrl5) {
@@ -48,10 +50,11 @@ public class SignUpScreen extends JFrame implements ActionListener {
         this.genCtrl = ctrl3;
         this.matchCtrl = ctrl4;
         this.chatCtrl = ctrl5;
+        this.PetId = String.valueOf(UUID.randomUUID());
 
         container.setLayout(null);
         JLabel imageL = new JLabel();
-        imageL.setIcon(new ImageIcon(new ImageIcon("images/logo.png").getImage().getScaledInstance(270, 180, Image.SCALE_DEFAULT)));
+        imageL.setIcon(new ImageIcon(new ImageIcon("src/main/java/data/logo.jpg.png").getImage().getScaledInstance(270, 180, Image.SCALE_DEFAULT)));
         imageL.setBounds(50, 10, 270, 180);
         container.add(imageL);
 
@@ -82,6 +85,11 @@ public class SignUpScreen extends JFrame implements ActionListener {
 
         signupButton.addActionListener(this);
         loginButton.addActionListener(this);
+
+        this.setTitle("Sign Up Screen");
+        this.setVisible(true);
+        this.setBounds(0, 0, 370, 600);
+
     }
 
     @Override
@@ -97,10 +105,13 @@ public class SignUpScreen extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "Password requirements unmet.");
                 } else {
                     JOptionPane.showMessageDialog(this, userText + " created.");
-                    accCtrl.create(userText, pwdText);
+                    accCtrl.create(userText, pwdText, PetId);
                     //profile creation initialized
-                    ProfileCreationScreen1 profileCreation = new ProfileCreationScreen1(profileCtrl);
-
+                    ProfileCreationScreen1 profileCreation = new ProfileCreationScreen1(PetId, profileCtrl, chatCtrl,
+                            matchCtrl, accCtrl, genCtrl);
+                    this.setVisible(false);
+                    this.validate();
+                    this.repaint();
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -117,18 +128,12 @@ public class SignUpScreen extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
 
-        UserDataAccessInterface user;
-        try {
-            user = new UserDataAccess("src/main/java/data/user.csv");
-        } catch (IOException e) {
-            throw new RuntimeException("Could not create file.");
-        }
-
-        AccountInputBoundary interactor = new AccountModel(user);
-        AccountController control = new AccountController(interactor);
-
+        UserDataAccessInterface userDs = new UserDataAccess();
         PetDataAccessInterface petDS = new PetDataAccess();
         ChatDataAccessInterface chatDS = new ChatDataAccess();
+
+        AccountInputBoundary interactor = new AccountModel(userDs);
+        AccountController control = new AccountController(interactor);
 
         FPMAInputBoundary fpma = new FPMA(petDS);
         GeneralController genCtrl = new GeneralController(fpma);
@@ -139,14 +144,9 @@ public class SignUpScreen extends JFrame implements ActionListener {
         MatchManagerInputBoundary match = new MatchManager(petDS);
         MatchManagerController matchCtrl = new MatchManagerController(match, chat);
 
-        ProfileInputBoundary ip = new ProfileManager(petDS);
-        ProfileController profileCtrl = new ProfileController(ip);
+        ProfileInputBoundary prof = new ProfileManager(petDS);
+        ProfileController profileCtrl = new ProfileController(prof);
 
-        SignUpScreen frame = new SignUpScreen(control,profileCtrl,genCtrl,matchCtrl,chatCtrl);
-        frame.setTitle("Sign Up Screen");
-        frame.setVisible(true);
-        frame.setBounds(0, 0, 370, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        SignUpScreen s = new SignUpScreen(control, profileCtrl, genCtrl, matchCtrl, chatCtrl);
     }
 }

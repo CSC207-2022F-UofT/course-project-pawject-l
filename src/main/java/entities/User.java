@@ -1,14 +1,7 @@
 package entities;
-import repo.PetDataAccessInterface;
 import repo.UserDataAccessInterface;
 
 import java.io.IOException;
-import java.net.Inet4Address;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Stream;
 
 public class User {
 
@@ -18,8 +11,7 @@ public class User {
 
     // changed from list to string
     private String petID;
-    private int[] reportCount;
-    static UserDataAccessInterface um;
+    private String reportCount;
 
 
     /**
@@ -32,8 +24,8 @@ public class User {
         this.userID = idGenerator();
         this.password = password;
         this.username = username;
-        this.petID = petIDGenerator();
-        this.reportCount = new int[]{0, 0, 0};
+        this.petID = null;
+        this.reportCount = "0$0$0";
     }
 
 
@@ -52,17 +44,13 @@ public class User {
         }
         return sb.toString();
     }
-    private String petIDGenerator() throws IOException {
-        String id = Integer.toString(um.CountUser());
-        return id;
-    };
+
     public User(String user_id, String username, String password, String petID, String reportCount) {
         this.userID = user_id;
         this.password = password;
         this.username = username;
         this.petID = petID;
-        String[] a = reportCount.split("\\$");
-        this.reportCount = new int[]{Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt((a[2]))};
+        this.reportCount = reportCount;
     }
     public String getUserID() {
         return userID;
@@ -76,7 +64,7 @@ public class User {
         return username;
     }
 
-    public int[] getReportCount() {
+    public String getReportCount() {
         return reportCount;
     }
 
@@ -97,7 +85,7 @@ public class User {
     public void setPets(String petID) {
         this.petID = petID;
     };
-    public void setReportCount(int index) {
-        this.reportCount[index] += 1;
+    public void setReportCount(String reportCount) {
+        this.reportCount = reportCount;
     }
 }

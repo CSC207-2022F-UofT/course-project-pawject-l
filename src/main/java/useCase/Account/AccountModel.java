@@ -18,9 +18,11 @@ public class AccountModel implements AccountInputBoundary{
      * Checks if the password is valid. A password is valid if it has at least 6 characters, has at least one lowercase
      * and one uppercase character, has at least one number, and has no spaces.
      *
+     * @param requestModel the user information to save.
+     *
      * @return true if the password is valid, false otherwise.
      */
-    public boolean checkPasswordValid(AccountRequestModel requestModel) {
+    public boolean checkPasswordValid(AccountRequestModel1 requestModel) {
         String password = requestModel.getPassword();
         if (password.length() < 6) {
             return false;
@@ -44,28 +46,44 @@ public class AccountModel implements AccountInputBoundary{
     }
 
     /**
-     * Checks if the given password matches the user's password.
-     * <p>
-     * //     * @param password the inputted password
+     * Checks if the given password matches the user's password in the database.
+     *
+     * @param requestModel the user information to save.
      *
      * @return true if the given password matches the user's password, false otherwise.
      */
-    public boolean correctPassword(String username, String password){
-        User user = accountDsGateway.getUser(username);
-//        return user.getPassword() == password;
+    public boolean correctPassword(AccountRequestModel1 requestModel) throws IOException {
+        User user = accountDsGateway.getUserByUsername(requestModel.getUsername());
+        if (user.getPassword().equals(requestModel.getPassword())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the username exists in the database.
+     *
+     * @param requestModel the user information to save.
+     *
+     * @return true if the user exists in the database, false otherwise.
+     */
+    public boolean userExists(AccountRequestModel1 requestModel) throws IOException {
+        if (!accountDsGateway.existsUsername(requestModel.getUsername())) {
+            return false;
+        }
         return true;
     }
 
-    public boolean userExists(AccountRequestModel requestModel) throws IOException {
-        if (accountDsGateway.existsUser(requestModel.getUsername()) == true) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+    /**
+     * Created a user in the database given the requestModel
+     *
+     * @param requestModel the user information to save.
+     */
     public void create(AccountRequestModel requestModel) throws IOException {
         User user = new User(requestModel.getUsername(), requestModel.getPassword());
-        accountDsGateway.save(user);
+        user.setPets(requestModel.getPetId());
+        String reportCount = user.getReportCount();
+        accountDsGateway.saveUser(user.getUserID(), user.getUsername(), user.getPassword(), user.getPet(),
+                reportCount);
     }
 }

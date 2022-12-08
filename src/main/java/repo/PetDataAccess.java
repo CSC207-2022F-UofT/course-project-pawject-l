@@ -95,7 +95,7 @@ public class PetDataAccess implements PetDataAccessInterface {
     public String getPetIdByUser(User user) {
         String petId = null;
         try {
-            File file = new File("src/main/java/data/userData.csv");
+            File file = new File("src/main/java/data/userData");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             String line;
@@ -125,7 +125,7 @@ public class PetDataAccess implements PetDataAccessInterface {
         int randIndex = 0;
         String petid = "";
         while (randIndex == 0) {
-            randIndex = (int) (Math.random() * (size) + 1);
+            randIndex = (int) (Math.random() * (size));
         }
         int count = 0;
         try {
