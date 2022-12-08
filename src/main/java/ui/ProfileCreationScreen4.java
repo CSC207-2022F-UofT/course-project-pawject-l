@@ -207,7 +207,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
 
                 if (vaccineImage == null){
                     try {
-                        vaccineImage = ImageIO.read(new File("src/main/java/data/NO VAX.jpg"));
+                        vaccineImage = ImageIO.read(new File("src/main/java/data/NOVAX.JPG"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
