@@ -20,7 +20,7 @@ public class AccountModel implements AccountInputBoundary{
      *
      * @return true if the password is valid, false otherwise.
      */
-    public boolean checkPasswordValid(AccountRequestModel requestModel) {
+    public boolean checkPasswordValid(AccountRequestModel1 requestModel) {
         String password = requestModel.getPassword();
         if (password.length() < 6) {
             return false;
@@ -50,22 +50,29 @@ public class AccountModel implements AccountInputBoundary{
      *
      * @return true if the given password matches the user's password, false otherwise.
      */
-    public boolean correctPassword(String username, String password){
-        User user = accountDsGateway.getUser(username);
-//        return user.getPassword() == password;
-        return true;
+    public boolean correctPassword(AccountRequestModel1 requestModel) throws IOException {
+        User user = accountDsGateway.getUserByUsername(requestModel.getUsername());
+        if (user.getPassword().equals(requestModel.getPassword())) {
+            return true;
+        }
+        return false;
     }
 
-    public boolean userExists(AccountRequestModel requestModel) throws IOException {
-        if (accountDsGateway.existsUser(requestModel.getUsername()) == true) {
-            return true;
-        } else {
+    public boolean userExists(AccountRequestModel1 requestModel) throws IOException {
+        if (!accountDsGateway.existsUsername(requestModel.getUsername())) {
             return false;
         }
+        return true;
     }
 
     public void create(AccountRequestModel requestModel) throws IOException {
         User user = new User(requestModel.getUsername(), requestModel.getPassword());
-        accountDsGateway.save(user);
+        user.setPets(requestModel.getPetId());
+        String reportCount = "";
+        for (int i: user.getReportCount()) {
+            reportCount = reportCount + String.valueOf(i);
+        }
+        accountDsGateway.saveUser(user.getUserID(), user.getUsername(), user.getPassword(), user.getPet(),
+                reportCount);
     }
 }

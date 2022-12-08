@@ -12,16 +12,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Objects;
-import controller.ProfileController;
-import useCase.ProfileInputBoundary;
+
+import controller.*;
+import useCase.Profile.ProfileInputBoundary;
 
 import repo.PetDataAccessInterface;
 import repo.PetDataAccess;
-import useCase.ProfileManager;
+import useCase.Profile.ProfileManager;
 
 
 public class ProfileCreationScreen1 extends JFrame implements ActionListener {
     ProfileController profileController;
+    ChatController chatController;
+    MatchManagerController matchController;
+    AccountController accountController;
+    GeneralController generalController;
+    String PetId;
 
     Font f1 = new Font("Arial", Font.PLAIN, 20);
     Font f2 = new Font("Arial", Font.PLAIN, 12);
@@ -134,13 +140,22 @@ public class ProfileCreationScreen1 extends JFrame implements ActionListener {
 
     }
 
-    public ProfileCreationScreen1(ProfileController profileController) {
+    public ProfileCreationScreen1(String PetId, ProfileController profileController, ChatController chatController,
+                                  MatchManagerController matchController, AccountController accountController,
+                                  GeneralController generalController) {
+        this.PetId = PetId;
         this.profileController = profileController;
+        this.accountController = accountController;
+        this.matchController = matchController;
+        this.generalController = generalController;
+        this.chatController = chatController;
         container.setLayout(null);
         setPositionAndSize();
         addComponentsToContainer();
         addActionEvent();
         setFonts();
+        this.setVisible(true);
+        this.setBounds(10, 10, 370, 600);
     }
 
     class ImageFilter extends FileFilter {
@@ -244,7 +259,8 @@ public class ProfileCreationScreen1 extends JFrame implements ActionListener {
                 List<Integer> ageInput = new ArrayList<>();
                 ageInput.add(Integer.valueOf(this.age.getText()));
 
-                ProfileCreationScreen2 PCS2 = new ProfileCreationScreen2(profileController, name, speciesInput,
+                ProfileCreationScreen2 PCS2 = new ProfileCreationScreen2(PetId, profileController, chatController, matchController,
+                        accountController, generalController, name, speciesInput,
                         breedInput, gender, ageInput, petPhoto);
                 this.setVisible(false);
                 PCS2.setVisible(true);
@@ -255,17 +271,16 @@ public class ProfileCreationScreen1 extends JFrame implements ActionListener {
     }
 
 
-    public static void main(String[] args) {
-        PetDataAccessInterface pet;
-        pet = new PetDataAccess();
-        ProfileInputBoundary PIB = new ProfileManager(pet);
-        ProfileController profileController = new ProfileController(PIB);
-        ProfileCreationScreen1 frame = new ProfileCreationScreen1(profileController);
-        frame.setTitle("Profile Creation Screen");
-        frame.setVisible(true);
-        frame.setBounds(10, 10, 370, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //public static void main(String[] args) {
+        //PetDataAccessInterface pet;
+        //pet = new PetDataAccess();
+        //ProfileInputBoundary PIB = new ProfileManager(pet);
+        //ProfileController profileController = new ProfileController(PIB);
+        //ProfileCreationScreen1 frame = new ProfileCreationScreen1(profileController);
+        //frame.setTitle("Profile Creation Screen");
+        //frame.setVisible(true);
+        //frame.setBounds(10, 10, 370, 600);
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    }
-
+    //}
 }

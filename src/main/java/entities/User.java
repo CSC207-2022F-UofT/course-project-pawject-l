@@ -1,14 +1,7 @@
 package entities;
-import repo.PetDataAccessInterface;
 import repo.UserDataAccessInterface;
 
 import java.io.IOException;
-import java.net.Inet4Address;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Stream;
 
 public class User {
 
@@ -32,7 +25,7 @@ public class User {
         this.userID = idGenerator();
         this.password = password;
         this.username = username;
-        this.petID = petIDGenerator();
+        this.petID = null;
         this.reportCount = new int[]{0, 0, 0};
     }
 
@@ -53,9 +46,10 @@ public class User {
         return sb.toString();
     }
     private String petIDGenerator() throws IOException {
-        String id = Integer.toString(um.CountUser());
+        String id = "PetID: " + (um.CountUser() + 1);
         return id;
-    };
+    }
+
     public User(String user_id, String username, String password, String petID, String reportCount) {
         this.userID = user_id;
         this.password = password;

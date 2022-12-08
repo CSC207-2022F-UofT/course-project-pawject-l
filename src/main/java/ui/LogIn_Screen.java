@@ -1,15 +1,19 @@
 package ui;
 
-import controller.AccountController;
-import controller.ChatController;
-import controller.GeneralController;
-import controller.MatchManagerController;
+import controller.*;
 import entities.User;
 import repo.*;
-import useCase.*;
 import useCase.Account.AccountInputBoundary;
 import useCase.Account.AccountModel;
 import repo.UserDataAccessInterface;
+import useCase.Chat.ChatManager;
+import useCase.Chat.ChatManagerInputBoundary;
+import useCase.FPMA.FPMA;
+import useCase.FPMA.FPMAInputBoundary;
+import useCase.Match.MatchManager;
+import useCase.Match.MatchManagerInputBoundary;
+import useCase.Profile.ProfileInputBoundary;
+import useCase.Profile.ProfileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,13 +37,15 @@ public class LogIn_Screen extends JFrame implements ActionListener {
     GeneralController genCtrl;
     MatchManagerController matchCtrl;
     ChatController chatCtrl;
+    ProfileController profileCtrl;
 
     public LogIn_Screen(AccountController ctrl1, GeneralController ctrl2, MatchManagerController ctrl3,
-                        ChatController ctrl4) {
+                        ChatController ctrl4, ProfileController ctrl5) {
         this.accCtrl = ctrl1;
         this.genCtrl = ctrl2;
         this.matchCtrl = ctrl3;
         this.chatCtrl = ctrl4;
+        this.profileCtrl = ctrl5;
         container.setLayout(null);
 
         titleLabel.setBounds(150, 70, 100, 30);
@@ -67,6 +73,9 @@ public class LogIn_Screen extends JFrame implements ActionListener {
         loginButton.addActionListener(this);
         signupButton.addActionListener(this);
 
+        this.setVisible(true);
+        this.setBounds(0,0,370, 600);
+        this.setTitle("Log in Screen");
     }
 
     @Override
@@ -84,23 +93,23 @@ public class LogIn_Screen extends JFrame implements ActionListener {
                 } else {
                     JOptionPane.showMessageDialog(this, "Logged in.");
 
-                    UserDataAccessInterface userDS = new UserDataAccess("src/main/java/data/user.csv");
+                    UserDataAccessInterface userDS = new UserDataAccess();
                     PetDataAccessInterface petDS = new PetDataAccess();
 
-                    // initiate home screen
-                    User user = userDS.getUser(userText);
+                    //initiate home screen
+                    User user = userDS.getUserByUsername(userText);
                     String petId = petDS.getPetIdByUser(user);
-                    Homescreen hs = new Homescreen(petId, genCtrl, matchCtrl, chatCtrl, accCtrl);
-                    //hs.setVisible(true);
-                    //this.setVisible(false);
-                    //hs.setSize(370, 600);
+                    this.setVisible(false);
+                    Homescreen hs = new Homescreen(petId, genCtrl, matchCtrl, chatCtrl, accCtrl, profileCtrl);
+                    this.validate();
+                    this.repaint();
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         }
         if (e.getSource() == signupButton) {
-            SignUpScreen signupScreen = new SignUpScreen(accCtrl);
+            SignUpScreen signupScreen = new SignUpScreen(accCtrl, profileCtrl, genCtrl, matchCtrl, chatCtrl);
             this.setVisible(false);
             signupScreen.setVisible(true);
             signupScreen.setSize(370, 600);
@@ -110,9 +119,7 @@ public class LogIn_Screen extends JFrame implements ActionListener {
     public static void main(String[] args) throws IOException {
         PetDataAccessInterface petDS = new PetDataAccess();
         ChatDataAccessInterface chatDS = new ChatDataAccess();
-        UserDataAccessInterface userDS = new UserDataAccess("src/main/java/data/user.csv");
-        //userDS.saveUser("001", "user1", "ilovemydog");
-
+        UserDataAccessInterface userDS = new UserDataAccess();
 
         FPMAInputBoundary fpma = new FPMA(petDS);
         GeneralController genCtrl = new GeneralController(fpma);
@@ -126,31 +133,9 @@ public class LogIn_Screen extends JFrame implements ActionListener {
         AccountInputBoundary acc = new AccountModel(userDS);
         AccountController accCtrl = new AccountController(acc);
 
-        LogIn_Screen login = new LogIn_Screen(accCtrl, genCtrl, matchCtrl, chatCtrl);
-        login.setTitle("Log in Screen");
-        login.setVisible(true);
-        login.setBounds(0, 0, 370, 600);
-        login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        login.setResizable(false);
-    }
+        ProfileInputBoundary prof = new ProfileManager(petDS);
+        ProfileController profileCtrl = new ProfileController(prof);
 
-//    public static void main(String[] args) {
-//        UserDataAccessInterface user;
-//        try {
-//            user = new UserDataAccess("./user1.csv");
-//        } catch (IOException e) {
-//            throw new RuntimeException("Could not create file.");
-//        }
-//
-//        AccountInputBoundary interactor = new AccountModel(user);
-//
-//        AccountController control = new AccountController(interactor);
-//        LogIn_Screen frame = new LogIn_Screen(control);
-//
-//        frame.setTitle("Log in Screen");
-//        frame.setVisible(true);
-//        frame.setBounds(0, 0, 370, 600);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setResizable(false);
-//    }
+        LogIn_Screen login = new LogIn_Screen(accCtrl, genCtrl, matchCtrl, chatCtrl, profileCtrl);
+    }
 }

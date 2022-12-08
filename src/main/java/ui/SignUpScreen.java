@@ -1,16 +1,24 @@
 package ui;
 
-import controller.AccountController;
-import repo.UserDataAccess;
-import repo.UserDataAccessInterface;
+import controller.*;
+import repo.*;
 import useCase.Account.AccountInputBoundary;
 import useCase.Account.AccountModel;
+import useCase.Chat.ChatManager;
+import useCase.Chat.ChatManagerInputBoundary;
+import useCase.FPMA.FPMA;
+import useCase.FPMA.FPMAInputBoundary;
+import useCase.Match.MatchManager;
+import useCase.Match.MatchManagerInputBoundary;
+import useCase.Profile.ProfileInputBoundary;
+import useCase.Profile.ProfileManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.UUID;
 
 public class SignUpScreen extends JFrame implements ActionListener {
     Font f1 = new Font("Arial", Font.PLAIN,  12);
@@ -28,10 +36,22 @@ public class SignUpScreen extends JFrame implements ActionListener {
 
 
 
-    AccountController controller;
+    AccountController accCtrl;
+    ProfileController profileCtrl;
+    GeneralController genCtrl;
+    MatchManagerController matchCtrl;
+    ChatController chatCtrl;
+    String PetId;
 
-    public SignUpScreen (AccountController controller) {
-        this.controller = controller;
+    public SignUpScreen (AccountController ctrl1, ProfileController ctrl2, GeneralController ctrl3,
+                         MatchManagerController ctrl4, ChatController ctrl5) {
+        this.accCtrl = ctrl1;
+        this.profileCtrl = ctrl2;
+        this.genCtrl = ctrl3;
+        this.matchCtrl = ctrl4;
+        this.chatCtrl = ctrl5;
+        this.PetId = String.valueOf(UUID.randomUUID());
+
         container.setLayout(null);
         JLabel imageL = new JLabel();
         imageL.setIcon(new ImageIcon(new ImageIcon("images/logo.png").getImage().getScaledInstance(270, 180, Image.SCALE_DEFAULT)));
@@ -65,6 +85,11 @@ public class SignUpScreen extends JFrame implements ActionListener {
 
         signupButton.addActionListener(this);
         loginButton.addActionListener(this);
+
+        this.setTitle("Sign Up Screen");
+        this.setVisible(true);
+        this.setBounds(0, 0, 370, 600);
+
     }
 
     @Override
@@ -74,18 +99,19 @@ public class SignUpScreen extends JFrame implements ActionListener {
             String userText = usernameField.getText();
             String pwdText = passwordField.getText();
             try {
-                if (controller.userExists(userText, pwdText)) {
+                if (accCtrl.userExists(userText, pwdText)) {
                     JOptionPane.showMessageDialog(this, "Username already associated to an account. Please log in.");
-                } else if (!controller.checkPasswordValid(userText, pwdText)) {
+                } else if (!accCtrl.checkPasswordValid(userText, pwdText)) {
                     JOptionPane.showMessageDialog(this, "Password requirements unmet.");
                 } else {
                     JOptionPane.showMessageDialog(this, userText + " created.");
-                    //profile creation
-                    controller.create(userText, pwdText);
-                    //Homescreen hs = new Homescreen(controller);
-                    //hs.setVisible(true);
-                    //this.setVisible(false);
-                    //hs.setSize(370, 600);
+                    accCtrl.create(userText, pwdText, PetId);
+                    //profile creation initialized
+                    ProfileCreationScreen1 profileCreation = new ProfileCreationScreen1(PetId, profileCtrl, chatCtrl,
+                            matchCtrl, accCtrl, genCtrl);
+                    this.setVisible(false);
+                    this.validate();
+                    this.repaint();
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -93,31 +119,34 @@ public class SignUpScreen extends JFrame implements ActionListener {
 
         }
         if (e.getSource() == loginButton) {
-            //LogIn_Screen loginScreen = new LogIn_Screen(controller);
-            //this.setVisible(false);
-            //loginScreen.setVisible(true);
-            //loginScreen.setSize(370, 600);
+            LogIn_Screen loginScreen = new LogIn_Screen(accCtrl, genCtrl, matchCtrl, chatCtrl, profileCtrl);
+            this.setVisible(false);
+            loginScreen.setVisible(true);
+            loginScreen.setSize(370, 600);
         }
     }
 
     public static void main(String[] args) {
 
-        UserDataAccessInterface user;
-        try {
-            user = new UserDataAccess("data/user.csv");
-        } catch (IOException e) {
-            throw new RuntimeException("Could not create file.");
-        }
+        UserDataAccessInterface userDs = new UserDataAccess();
+        PetDataAccessInterface petDS = new PetDataAccess();
+        ChatDataAccessInterface chatDS = new ChatDataAccess();
 
-        AccountInputBoundary interactor = new AccountModel(user);
-
+        AccountInputBoundary interactor = new AccountModel(userDs);
         AccountController control = new AccountController(interactor);
 
-        SignUpScreen frame = new SignUpScreen(control);
-        frame.setTitle("Sign Up Screen");
-        frame.setVisible(true);
-        frame.setBounds(0, 0, 370, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        FPMAInputBoundary fpma = new FPMA(petDS);
+        GeneralController genCtrl = new GeneralController(fpma);
+
+        ChatManagerInputBoundary chat = new ChatManager(chatDS);
+        ChatController chatCtrl = new ChatController(chat);
+
+        MatchManagerInputBoundary match = new MatchManager(petDS);
+        MatchManagerController matchCtrl = new MatchManagerController(match, chat);
+
+        ProfileInputBoundary prof = new ProfileManager(petDS);
+        ProfileController profileCtrl = new ProfileController(prof);
+
+        SignUpScreen s = new SignUpScreen(control, profileCtrl, genCtrl, matchCtrl, chatCtrl);
     }
 }

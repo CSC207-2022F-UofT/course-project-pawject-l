@@ -9,11 +9,17 @@ import java.io.IOException;
 public class AccountRequestModel {
     private String username;
     private String password;
+    private String petId;
 
 
-    public AccountRequestModel(String username, String password) {
+    public AccountRequestModel(String username, String password, String petId) {
         this.username = username;
         this.password = password;
+        this.petId = petId;
+    }
+
+    public String getPetId() {
+        return petId;
     }
 
     public String getUsername() {
