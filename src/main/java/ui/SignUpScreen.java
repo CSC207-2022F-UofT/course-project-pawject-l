@@ -54,7 +54,7 @@ public class SignUpScreen extends JFrame implements ActionListener {
 
         container.setLayout(null);
         JLabel imageL = new JLabel();
-        imageL.setIcon(new ImageIcon(new ImageIcon("images/logo.png").getImage().getScaledInstance(270, 180, Image.SCALE_DEFAULT)));
+        imageL.setIcon(new ImageIcon(new ImageIcon("src/main/java/data/logo.jpg.png").getImage().getScaledInstance(270, 180, Image.SCALE_DEFAULT)));
         imageL.setBounds(50, 10, 270, 180);
         container.add(imageL);
 
