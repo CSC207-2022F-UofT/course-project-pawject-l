@@ -11,7 +11,7 @@ public class User {
 
     // changed from list to string
     private String petID;
-    private int[] reportCount;
+    private String reportCount;
     static UserDataAccessInterface um;
 
 
@@ -26,7 +26,7 @@ public class User {
         this.password = password;
         this.username = username;
         this.petID = null;
-        this.reportCount = new int[]{0, 0, 0};
+        this.reportCount = "0$0$0";
     }
 
 
@@ -55,8 +55,7 @@ public class User {
         this.password = password;
         this.username = username;
         this.petID = petID;
-        String[] a = reportCount.split("\\$");
-        this.reportCount = new int[]{Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt((a[2]))};
+
     }
     public String getUserID() {
         return userID;
@@ -70,7 +69,7 @@ public class User {
         return username;
     }
 
-    public int[] getReportCount() {
+    public String getReportCount() {
         return reportCount;
     }
 
@@ -91,7 +90,7 @@ public class User {
     public void setPets(String petID) {
         this.petID = petID;
     };
-    public void setReportCount(int index) {
-        this.reportCount[index] += 1;
+    public void setReportCount(String reportCount) {
+        this.reportCount = reportCount;
     }
 }
