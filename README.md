@@ -1,6 +1,6 @@
 ## Pawject L
 
-This is a repository for a group project for CSC207 at UofT. 
+This is a repository for a group project for CSC207 at UofT - Fall 2022. 
 
 Pawject L is a pet matching app that allows pet owners to find compatible pets for meetups. Users can
 create profiles with both their pets’ information and their own information, and log in and log out
