@@ -187,6 +187,7 @@ public class ChatDataAccess implements ChatDataAccessInterface {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
+
                 if(((values[1].equals(petID1))||(values[1].equals(petID2))) &&
                         ((values[2].equals(petID1))||(values[2].equals(petID2))))
                         {

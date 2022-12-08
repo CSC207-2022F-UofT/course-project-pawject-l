@@ -42,7 +42,8 @@ public class ChatsScreen extends JFrame {
                 if (e.getClickCount() == 1) {
                     final JTable jTable = (JTable) e.getSource();
                     final int row = jTable.getSelectedRow();
-                    ChatScreen CSU = new ChatScreen(CC.getChatIDByPets(petID, chatList.get(row).getChatID()));
+                    System.out.print(CC.getChatIDByPets(petID, chatList.get(row).getChatID()));
+                    ChatScreen CSU = new ChatScreen(CC.getChatIDByPets(petID, table.getValueAt(row,0).toString()));
                     CSU.generateChatScreen(CC, petID);
                 }
             }
