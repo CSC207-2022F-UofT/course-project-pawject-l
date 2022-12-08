@@ -15,6 +15,8 @@ public class UserTest {
     AccountInputBoundary acc = new AccountModel(userDS);
     AccountController accCtrl = new AccountController(acc);
 
+    // Have to ensure each user created is not in userData before running tests.
+
     @Test
     public void UserCreationTest() throws IOException {
         String username = "User1";
