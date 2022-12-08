@@ -125,7 +125,7 @@ public class PetDataAccess implements PetDataAccessInterface {
         int randIndex = 0;
         String petid = "";
         while (randIndex == 0) {
-            randIndex = (int) (Math.random() * (size) + 1);
+            randIndex = (int) (Math.random() * (size));
         }
         int count = 0;
         try {

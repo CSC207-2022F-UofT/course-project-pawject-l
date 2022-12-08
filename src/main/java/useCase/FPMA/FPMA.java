@@ -58,7 +58,7 @@ public class FPMA implements FPMAInputBoundary {
                 if (!isWithin(candidate, possibleCandidates, count)) { //Checks to see if random Pet was inserted
                     if (!userPet.getDislikes().contains(candidate.getPetID())) { //Checks if user has already disliked candidate
                         if (!userPet.getLikes().contains(candidate.getPetID())) { //Checks if user has already liked candidate
-                            if (!userPet.getMatches().contains(userPet.getPetID())) { //Checks if candidate already disliked user
+                            if (!userPet.getMatches().contains(candidate.getPetID())) { //Checks if candidate already disliked user
                                 if (getDistance(getLocation(candidate.getLatitude(), candidate.getLongitude()), location) < preferredDistance) { //Checks if candidates location satisfies users preferred proximity
                                     if (userPetPreferredAttributes.isVaccinated()) { //Checks if user prefers vaccinated pets
                                         if (userPetPreferredAttributes.isVaccinated() == candidatePetAttributes.isVaccinated()) { //Checks if candidate is vaccinated
