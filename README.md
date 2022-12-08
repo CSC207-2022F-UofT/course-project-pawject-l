@@ -23,7 +23,7 @@ other users, and once a threshold is reached, the reported user will be dealt wi
 ## How to Start
 - Go to src\main\java\ui\SignUpScreen.java, compile and run the program.
 - Create an account by entering your username and password and pressing the "Sign Up" button. Already have an account？ Press the "Log In" button and log in with your existing username and password.
-- After creating your account, you will be taken to the pet profile creation screen. Follow the instructions on it and tell us everything about you sweat heart! Don't forget to upload a picture in jpg format.
+- After creating your account, you will be taken to the pet profile creation screen. Follow the instructions on it and tell us everything about you sweet heart! Don't forget to upload a picture in jpg format.
 - You will see a queue of pets that might be a perfect match for your pet after profile creation. Decide by yourself whether you like them or not.
 - Then you're done! Chat freely with your favourite pet matches (don't forget to manually update your chat log by closing and reopening the chat screen to display the chats), check your pet's profile at your wish, and refresh the app by clicking the "Refresh" button.
 - Enjoy your journey with Pawject L!

@@ -7,6 +7,10 @@ import java.awt.event.ActionListener;
 
 public class FullProfileScreen extends JFrame implements ActionListener {
 
+    /**
+     * A screen that shows all information of a pet with pet id <petId>.
+     */
+
     JLabel petName;
     JLabel petImage;
     JLabel petBio;
@@ -109,12 +113,5 @@ public class FullProfileScreen extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(null, null, "My vaccination records",
                 JOptionPane.INFORMATION_MESSAGE, this.petVaccinationRecords.getIcon());
-    }
-
-    public static void main(String[] args) {
-        FullProfileScreen p1 = new FullProfileScreen("Ben", new ImageIcon("images/dog.jpeg"),
-                "A cute lil puppy looking for a friend!", "1", "unknown", "Dog",
-                new ImageIcon("images/vaccine.png"), "female", "any", "any", "10-12",
-                "5 km", "vaccinated", "Monday, Friday", "5.0.6, 12.4.5");
     }
 }
