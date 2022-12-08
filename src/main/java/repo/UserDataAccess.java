@@ -144,7 +144,8 @@ public class UserDataAccess implements UserDataAccessInterface{
                 flag = true;
             }
         }
-        Files.write(path, fileContent, StandardCharsets.UTF_8);
+        Files.write(path, fileContent.subList(0,fileContent.size()-1), StandardCharsets.UTF_8);
+        Files.write(path, fileContent.get(fileContent.size()-1).getBytes("UTF-8"), StandardOpenOption.APPEND);
         return flag;
     }
 
