@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import repo.ChatDataAccess;
 import repo.ChatDataAccessInterface;
-import useCase.ChatManager;
+import useCase.Chat.ChatManager;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
