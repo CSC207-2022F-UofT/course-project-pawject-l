@@ -14,14 +14,17 @@ import java.io.IOException;
 import java.util.Objects;
 
 import controller.*;
-import useCase.Profile.ProfileInputBoundary;
 
-import repo.PetDataAccessInterface;
-import repo.PetDataAccess;
-import useCase.Profile.ProfileManager;
 
 
 public class ProfileCreationScreen1 extends JFrame implements ActionListener {
+    /**
+     This is the 2/4 page of the profile creation UI which is displayed after the signUpScreen.
+     It asks the user to input information about their pet and checks if the user's inputs are acceptable.
+     The information gathered will be passed to the next profileCreation screen to accomplish the creation at the end
+     of the profileCreationScreen4.
+     */
+
     ProfileController profileController;
     ChatController chatController;
     MatchManagerController matchController;

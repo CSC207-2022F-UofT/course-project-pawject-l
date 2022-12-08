@@ -21,6 +21,11 @@ import repo.UserDataAccess;
 import repo.UserDataAccessInterface;
 
 public class ProfileCreationScreen4 extends JFrame implements ActionListener {
+    /**
+     This is the final page of the profile creation UI which is displayed after the signUpScreen.
+     It asks the user to input information about their pet and checks if the user's inputs are acceptable.
+     A method to create a pet object will be called when user submits the profile creation.
+     */
     ProfileController profileController;
     AccountController accountController;
     MatchManagerController matchController;

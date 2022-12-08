@@ -12,6 +12,13 @@ import java.util.Objects;
 import controller.*;
 
 public class ProfileCreationScreen3 extends JFrame implements ActionListener {
+    /**
+     This is the 3/4 page of the profile creation UI which is displayed after the signUpScreen.
+     It asks the user to input information about their pet and checks if the user's inputs are acceptable.
+     The information gathered will be passed to the next profileCreation screen to accomplish the creation at the end
+     of the profileCreationScreen4.
+     */
+
     ProfileController profileController;
     ChatController chatController;
     MatchManagerController matchController;
