@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.Assertions;
 import repo.PetDataAccessInterface;
 import repo.PetDataAccess;
 import entities.Pet;
@@ -45,7 +46,6 @@ public class ProfileManagerTest {
         availableDays.add(DayOfWeek.SUNDAY);
         availableDays.add(DayOfWeek.FRIDAY);
         String petID = "Pet ID: " + UUID.randomUUID();
-    }
 
         pc.performProfileCreation(name, bio, species, breeds, ages, gender, vaccineStatus, species,
                 breeds, ages, gender, petPhotos, vaccineImage, longitude, latitude, proximity,

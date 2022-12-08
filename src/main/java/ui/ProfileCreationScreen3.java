@@ -29,9 +29,9 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
     JCheckBox cat = new JCheckBox("Cat");
     JCheckBox bird = new JCheckBox("Bird");
     JCheckBox hamster = new JCheckBox("Hamster");
-    JCheckBox rabbit = new JCheckBox("Rabbit");
+    JCheckBox turtle = new JCheckBox("Turtle");
 
-    JCheckBox[] preferredSpeciesChoices = {dog, cat, bird, hamster, rabbit};
+    JCheckBox[] preferredSpeciesChoices = {dog, cat, bird, hamster, turtle};
     JLabel preferredGenderLabel = new JLabel("Preferred Gender of your pet's potential matches");
     String[] preferredGenderChoices = {"Select","Female", "Male", "No preference"};
     JComboBox<String> preferredGender = new JComboBox<>(preferredGenderChoices);
