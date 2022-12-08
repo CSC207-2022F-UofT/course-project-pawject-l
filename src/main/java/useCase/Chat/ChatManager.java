@@ -89,6 +89,15 @@ public class ChatManager implements ChatManagerInputBoundary {
         CDAI.saveText(chatID, text);
     }
 
+    public String getOtherPetInChat(String petID, String chatID){
+        return CDAI.getOtherPetInChat(petID, chatID);
+    }
+
+    public String getChatIDByPets(String petID1, String petID2) {
+        return CDAI.getChatIDByPets(petID1, petID2);
+    }
+
+
 
 
 

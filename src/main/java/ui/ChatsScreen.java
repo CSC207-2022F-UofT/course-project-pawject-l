@@ -23,7 +23,7 @@ public class ChatsScreen extends JFrame {
         Object[][] DataBase = new Object[chatList.size()][chatList.size()];
 
         for (int i =0;i<chatList.size();i++) {
-            DataBase[i][0] =chatList.get(i).getChatID();
+            DataBase[i][0] = CC.getOtherPetInChat(petID,chatList.get(i).getChatID());
         }
 
         String[] headers ={"Chat List"};
@@ -42,7 +42,8 @@ public class ChatsScreen extends JFrame {
                 if (e.getClickCount() == 1) {
                     final JTable jTable = (JTable) e.getSource();
                     final int row = jTable.getSelectedRow();
-                    ChatScreen CSU = new ChatScreen(chatList.get(row).getChatID());
+                    System.out.print(CC.getChatIDByPets(petID, chatList.get(row).getChatID()));
+                    ChatScreen CSU = new ChatScreen(CC.getChatIDByPets(petID, table.getValueAt(row,0).toString()));
                     CSU.generateChatScreen(CC, petID);
                 }
             }

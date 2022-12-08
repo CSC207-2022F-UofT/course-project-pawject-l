@@ -75,4 +75,18 @@ class ChatManagerTest {
         boolean actual = (numTexts + 1 == updatedNumTexts);
         Assertions.assertTrue(actual);
     }
+
+    @Test
+    public void testGetOtherPetInChat() {
+        String actual = cm.getOtherPetInChat("testPet1","testChat");
+        Assertions.assertEquals(actual, "testPet2");
+    }
+
+    @Test
+    public void testGetChatIDByPets() {
+        String actual = cm.getChatIDByPets("testPet1", "testPet2");
+        Assertions.assertEquals(actual, "testChat");
+    }
+
+
 }
