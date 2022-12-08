@@ -28,6 +28,10 @@ import java.time.DayOfWeek;
 
 public class Homescreen extends JFrame implements ActionListener {
 
+    /**
+     * A homescreen corresponding to a pet with pet id <petId>.
+     */
+
     GeneralController generalCtrl;
     MatchManagerController matchCtrl;
     ChatController chatCtrl;
@@ -236,32 +240,6 @@ public class Homescreen extends JFrame implements ActionListener {
             }
 
         }
-    }
-
-    public static void main(String[] args) throws IOException {
-        PetDataAccessInterface petDS = new PetDataAccess();
-        ChatDataAccessInterface chatDS = new ChatDataAccess();
-        UserDataAccessInterface userDS = new UserDataAccess();
-        User user = new User("nomiko4", "20020626");
-        user.setPets("PET ID:1");
-        userDS.saveUser(user.getUserID(), user.getUsername(), user.getPassword(), user.getPet(), "0\\$0\\$0\\$");
-
-        FPMAInputBoundary fpma = new FPMA(petDS);
-        GeneralController genCtrl = new GeneralController(fpma);
-
-        ChatManagerInputBoundary chat = new ChatManager(chatDS);
-        ChatController chatCtrl = new ChatController(chat);
-
-        MatchManagerInputBoundary match = new MatchManager(petDS);
-        MatchManagerController matchCtrl = new MatchManagerController(match, chat);
-
-        AccountInputBoundary acc = new AccountModel(userDS);
-        AccountController accCtrl = new AccountController(acc);
-
-        ProfileInputBoundary prof = new ProfileManager(petDS);
-        ProfileController profCtrl = new ProfileController(prof);
-
-        Homescreen h = new Homescreen("PET ID:1", genCtrl, matchCtrl, chatCtrl, accCtrl, profCtrl);
     }
 }
 
