@@ -12,7 +12,7 @@ public class Chat implements Serializable {
      */
     public Chat(String chatID){
         this.chatID = chatID;
-        this.conversation = new ArrayList<Text>();
+        this.conversation = new ArrayList<>();
     }
 
     /**

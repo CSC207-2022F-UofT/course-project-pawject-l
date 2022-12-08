@@ -99,9 +99,9 @@ public class SignUpScreen extends JFrame implements ActionListener {
             String userText = usernameField.getText();
             String pwdText = passwordField.getText();
             try {
-                if (accCtrl.userExists(userText, pwdText, PetId)) {
+                if (accCtrl.userExists(userText, pwdText)) {
                     JOptionPane.showMessageDialog(this, "Username already associated to an account. Please log in.");
-                } else if (!accCtrl.checkPasswordValid(userText, pwdText, PetId)) {
+                } else if (!accCtrl.checkPasswordValid(userText, pwdText)) {
                     JOptionPane.showMessageDialog(this, "Password requirements unmet.");
                 } else {
                     JOptionPane.showMessageDialog(this, userText + " created.");
@@ -119,7 +119,7 @@ public class SignUpScreen extends JFrame implements ActionListener {
 
         }
         if (e.getSource() == loginButton) {
-            LogIn_Screen loginScreen = new LogIn_Screen(PetId,accCtrl, genCtrl, matchCtrl, chatCtrl, profileCtrl);
+            LogIn_Screen loginScreen = new LogIn_Screen(accCtrl, genCtrl, matchCtrl, chatCtrl, profileCtrl);
             this.setVisible(false);
             loginScreen.setVisible(true);
             loginScreen.setSize(370, 600);
