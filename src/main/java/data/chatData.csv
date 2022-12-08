@@ -5,3 +5,7 @@ ChatID3,694d4438-f59b-4651-8278-e182a7b3b0e6,PET ID:18,system&2022-12-07 21:15&T
 ChatID4,694d4438-f59b-4651-8278-e182a7b3b0e6,PET ID:15,system&2022-12-07 21:16&This is the start of a new Chat. Say hi!#
 ChatID5,694d4438-f59b-4651-8278-e182a7b3b0e6,PET ID:13,system&2022-12-07 21:16&This is the start of a new Chat. Say hi!#
 ChatID6,694d4438-f59b-4651-8278-e182a7b3b0e6,PET ID:11,system&2022-12-07 21:16&This is the start of a new Chat. Say hi!#
+testChat,testPet1,testPet2,system&2022-12-08 14:10&This is the start of a new Chat. Say hi!#testPet1&2022-12-08 14:11&Hello there#testPet1&2022-12-08 14:11&First Text#testPet2&2022-12-08 14:11&Second Text#testPet1&2022-12-08 14:11&Hello there#testPet1&2022-12-08 14:11&First Text#testPet2&2022-12-08 14:11&Second Text#testPet1&2022-12-08 14:38&Hello there#testPet1&2022-12-08 14:38&First Text#testPet2&2022-12-08 14:38&Second Text#testPet1&2022-12-08 14:38&Hello there#testPet1&2022-12-08 14:38&First Text#testPet2&2022-12-08 14:38&Second Text#
+ChatID8,testPet1,testPet2,system&2022-12-08 14:38&This is the start of a new Chat. Say hi!#
+ChatID9,testPet1,testPet2,system&2022-12-08 14:38&This is the start of a new Chat. Say hi!#
+ChatID10,PET ID:15,PET ID:12,system&2022-12-08 14:38&This is the start of a new Chat. Say hi!#PET ID:15&2022-12-08 15:10&hi#

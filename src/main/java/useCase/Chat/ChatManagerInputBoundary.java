@@ -49,6 +49,17 @@ public interface ChatManagerInputBoundary {
      */
     void sendText(String chatID, String petID, String message) throws IOException;
 
+    /**
+     * Method that gets the petID of the other pet in chat
+     * @param petID the petID
+     * @param chatID the chatID
+     * @return the petID of the other pet in chat
+     */
+    String getOtherPetInChat(String petID, String chatID);
+
+    String getChatIDByPets(String petID1, String petID2);
+
+
 
 
 }
