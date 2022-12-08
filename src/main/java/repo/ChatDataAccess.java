@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ChatDataAccess implements ChatDataAccessInterface {
+    String filepath = "src/main/java/data/chatData.csv";
 
     public ArrayList<Text> getTextsArrayFromString(String texts) {
         ArrayList<Text> textsArray = new ArrayList<>(); // list of text objects
@@ -41,7 +42,7 @@ public class ChatDataAccess implements ChatDataAccessInterface {
     @Override
     public ArrayList<Chat> getChatsByPet(String petID) {
         ArrayList<Chat> chats = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("src/chatData.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
@@ -72,15 +73,13 @@ public class ChatDataAccess implements ChatDataAccessInterface {
      */
     @Override
     public Chat getChatByID(String chatID) {
-        try (BufferedReader br = new BufferedReader(new FileReader("src/chatData.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 if(Objects.equals(values[0], chatID)){
                     String texts = values[3];
                     ArrayList<Text> textsArray = getTextsArrayFromString(texts);
-
-                    // create a chat object
                     Chat chat = new Chat(values[0]);
                     for(Text text : textsArray) {
                         chat.addText(text);
@@ -106,7 +105,7 @@ public class ChatDataAccess implements ChatDataAccessInterface {
     @Override
     public boolean saveChat(String pet1ID, String pet2ID, Chat chat) throws IOException {
         try {
-            FileWriter writer = new FileWriter("src/chatData.csv", true);
+            FileWriter writer = new FileWriter(filepath, true);
             BufferedWriter bwr = new BufferedWriter(writer);
             LocalDateTime currTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -135,7 +134,7 @@ public class ChatDataAccess implements ChatDataAccessInterface {
         String timeSent = dtTimeSent.format(dateTimeFormatter);
         String message = text.getMessageText();
         String csvFormattedText = sender + "&" + timeSent + "&" + message + "#";
-        Path path = Path.of("src/chatData.csv");
+        Path path = Path.of(filepath);
         List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
 
         for (int i = 0; i < fileContent.size(); i++) {
@@ -149,45 +148,22 @@ public class ChatDataAccess implements ChatDataAccessInterface {
         Files.write(path, fileContent, StandardCharsets.UTF_8);
     }
 
-    public String getSecondPetInChat(String chatID, String firstPet) {
-        try (BufferedReader br = new BufferedReader(new FileReader("src/chatData.csv"))) {
+    public int generateUniqueNumber (){
+        int num = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
             String line;
-            String pet1 = null;
-            String pet2 = null;
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                if(Objects.equals(chatID, values[0])){
-                    pet1 = values[1];
-                    pet2 = values[2];
-                }
+                num += 1;
             }
             br.close();
-            if(firstPet.equals(pet1)){
-                return pet2;
-            }
-            return pet1;
+            return num;
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    @Override
-    public String getChatByPets(String petID1, String petID2) {
-        ArrayList<Chat> chats = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("src/chatData.csv"))) {
-            String line;
-            String chatID = null;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                if(((petID1.equals(values[1]))||(petID1.equals(values[2]))) &&
-                        ((petID2.equals(values[1]))||petID2.equals(values[2]))){
-                    chatID = values[3];
-                }
-            }
-            br.close();
-            return chatID;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
+
+
 
 }

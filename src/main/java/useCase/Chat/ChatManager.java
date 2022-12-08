@@ -13,14 +13,13 @@ public class ChatManager implements ChatManagerInputBoundary {
     public ChatManager(ChatDataAccessInterface CDAI){
         ChatManager.CDAI = CDAI;
     }
-    private static long idCounter = 0;
 
     /**
      * A method that generates a unique Chat ID
      * @return unique chatID
      */
     public String generateUniqueChatID() {
-        return "ChatID" + idCounter++;
+        return "ChatID" + CDAI.generateUniqueNumber();
     }
 
     /**
@@ -78,6 +77,13 @@ public class ChatManager implements ChatManagerInputBoundary {
         return textList;
     }
 
+    /**
+     * Save text to csv
+     * @param chatID the chat id
+     * @param petID the pet id who sent the message
+     * @param message the message
+     * @throws IOException
+     */
     public void sendText(String chatID, String petID, String message) throws IOException {
         Text text = new Text(petID, LocalDateTime.now(), message);
         CDAI.saveText(chatID, text);

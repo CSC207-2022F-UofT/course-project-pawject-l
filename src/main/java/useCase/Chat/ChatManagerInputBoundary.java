@@ -34,13 +34,6 @@ public interface ChatManagerInputBoundary {
     HashMap<String, Chat> getChatsByPet (String petID);
 
     /**
-     * returns a chat object by ID
-     * @param ChatID
-     * @return chat entity
-     */
-    Chat getChatByID(String ChatID);
-
-    /**
      * Method that gets a list of texts from a chat using its chatID
      * @param chatID the chatID
      * @return a 2d string array of the texts
