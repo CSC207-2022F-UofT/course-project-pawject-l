@@ -40,4 +40,8 @@ public interface ChatDataAccessInterface {
 
     int generateUniqueNumber();
 
+    String getOtherPetInChat(String petID, String chatID);
+
+    String getChatIDByPets(String petID1, String petID2);
+
 }

@@ -163,6 +163,45 @@ public class ChatDataAccess implements ChatDataAccessInterface {
         }
     }
 
+    public String getOtherPetInChat(String petID, String chatID){
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if(Objects.equals(values[0], chatID)){
+                    if(values[1].equals(petID)){
+                        return values[2];
+                    }
+                    return values[1];
+                }
+            }
+            br.close();
+            return null;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getChatIDByPets(String petID1, String petID2){
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if(((values[1].equals(petID1))||(values[1].equals(petID2))) &&
+                        ((values[2].equals(petID1))||(values[2].equals(petID2))))
+                        {
+                    return values[0];
+                }
+            }
+            br.close();
+            return null;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
 
 
 

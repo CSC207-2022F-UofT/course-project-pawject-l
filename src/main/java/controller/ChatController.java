@@ -27,7 +27,13 @@ public class ChatController {
         CMIB.sendText(chatID, petID, message);
     }
 
+    public String getOtherPetInChat(String petID, String chatID){
+        return CMIB.getOtherPetInChat(petID, chatID);
+    }
 
+    public String getChatIDByPets(String petID1, String petID2){
+        return CMIB.getChatIDByPets(petID1, petID2);
+    }
 
 
 }

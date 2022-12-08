@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import repo.ChatDataAccess;
 import repo.ChatDataAccessInterface;
-import useCase.ChatManager;
+import useCase.Chat.ChatManager;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -75,4 +75,18 @@ class ChatManagerTest {
         boolean actual = (numTexts + 1 == updatedNumTexts);
         Assertions.assertTrue(actual);
     }
+
+    @Test
+    public void testGetOtherPetInChat() {
+        String actual = cm.getOtherPetInChat("testPet1","testChat");
+        Assertions.assertEquals(actual, "testPet2");
+    }
+
+    @Test
+    public void testGetChatIDByPets() {
+        String actual = cm.getChatIDByPets("testPet1", "testPet2");
+        Assertions.assertEquals(actual, "testChat");
+    }
+
+
 }
