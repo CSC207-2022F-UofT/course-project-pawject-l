@@ -17,6 +17,7 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
     MatchManagerController matchController;
     AccountController accountController;
     GeneralController generalController;
+    String PetId;
     Font f1 = new Font("Arial", Font.PLAIN, 20);
     Font f2 = new Font("Arial", Font.PLAIN, 12);
     Font f3 = new Font("Arial", Font.PLAIN, 15);
@@ -172,7 +173,7 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
 
     }
 
-    public ProfileCreationScreen3(ProfileController profileController, GeneralController generalController, MatchManagerController
+    public ProfileCreationScreen3(String PetId, ProfileController profileController, GeneralController generalController, MatchManagerController
                                   matchController, AccountController accountController, ChatController chatController,
                                   boolean vaccineSta, String bio, float lo, float la, float proximity, String name,
                                   List<String> species, List<String> breed, String gender, List<Integer> age,
@@ -182,6 +183,7 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
         this.chatController = chatController;
         this.matchController = matchController;
         this.generalController = generalController;
+        this.PetId = PetId;
         this.vaccineSta = vaccineSta;
         this.bio = bio;
         this.lo = lo;
@@ -273,7 +275,7 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
                 for(int i = min; i <= max; i ++){
                     preferredAgeRange.add(i);
                 }
-                ProfileCreationScreen4 PCS4 = new ProfileCreationScreen4(profileController, chatController, matchController,
+                ProfileCreationScreen4 PCS4 = new ProfileCreationScreen4(PetId, profileController, chatController, matchController,
                         accountController, generalController, vaccineSta, bio, lo, la, proximity, name, species,
                         breed, gender, age, petPhoto, vaccineImage, preferredSpec, preferredBre, preferredGen, preferredAgeRange);
                 this.setVisible(false);

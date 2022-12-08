@@ -18,6 +18,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.UUID;
 
 public class SignUpScreen extends JFrame implements ActionListener {
     Font f1 = new Font("Arial", Font.PLAIN,  12);
@@ -40,6 +41,7 @@ public class SignUpScreen extends JFrame implements ActionListener {
     GeneralController genCtrl;
     MatchManagerController matchCtrl;
     ChatController chatCtrl;
+    String PetId;
 
     public SignUpScreen (AccountController ctrl1, ProfileController ctrl2, GeneralController ctrl3,
                          MatchManagerController ctrl4, ChatController ctrl5) {
@@ -48,6 +50,7 @@ public class SignUpScreen extends JFrame implements ActionListener {
         this.genCtrl = ctrl3;
         this.matchCtrl = ctrl4;
         this.chatCtrl = ctrl5;
+        this.PetId = String.valueOf(UUID.randomUUID());
 
         container.setLayout(null);
         JLabel imageL = new JLabel();
@@ -102,9 +105,9 @@ public class SignUpScreen extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "Password requirements unmet.");
                 } else {
                     JOptionPane.showMessageDialog(this, userText + " created.");
-                    accCtrl.create(userText, pwdText);
+                    accCtrl.create(userText, pwdText, PetId);
                     //profile creation initialized
-                    ProfileCreationScreen1 profileCreation = new ProfileCreationScreen1(profileCtrl, chatCtrl,
+                    ProfileCreationScreen1 profileCreation = new ProfileCreationScreen1(PetId, profileCtrl, chatCtrl,
                             matchCtrl, accCtrl, genCtrl);
                     this.setVisible(false);
                     this.validate();
