@@ -7,6 +7,10 @@ import java.awt.event.ActionListener;
 
 public class PreviewProfileScreen extends JPanel implements ActionListener {
 
+    /**
+     * A screen that shows up on home screen that shows partial information of a pet with pet id <petId>.
+     */
+
     JLabel petName;
     JLabel petImage;
     JLabel petBio;
@@ -66,10 +70,5 @@ public class PreviewProfileScreen extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(null, null, "My vaccination records",
                 JOptionPane.INFORMATION_MESSAGE, this.petVaccinationRecords.getIcon());
-    }
-
-    public static void main(String[] args) {
-        PreviewProfileScreen p1 = new PreviewProfileScreen("Ben", new ImageIcon("images/cute-dog-headshot.jpeg"),
-                "A cute lil puppy looking for a friend!", "1", "unknown", "Dog", new ImageIcon("images/vaccine.png"));
     }
 }

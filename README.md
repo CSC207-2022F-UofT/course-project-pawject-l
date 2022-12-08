@@ -1,6 +1,6 @@
 ## Pawject L
 
-This is a repository for a group project for CSC207 at UofT. 
+This is a repository for a group project for CSC207 at UofT - Fall 2022. 
 
 Pawject L is a pet matching app that allows pet owners to find compatible pets for meetups. Users can
 create profiles with both their pets’ information and their own information, and log in and log out
@@ -18,12 +18,12 @@ other users, and once a threshold is reached, the reported user will be dealt wi
 -  Match Manager
 -  Chat Management System. Chat with you and your pet's best friends!
 -  Data Storage
--  Report System. Help us prevent inappropriate contents in the public.
+-  Report System. Help us prevent inappropriate contents in the public. (Not fully implemented)
 
 ## How to Start
-- Go to src\main\java\ui\Homescreen.java, compile and run the program.
-- Type your username and password to sign in. Don't have an account？Sign up button is ready at the bottom of the interface.
-- Then you will be taken to the pet profile creation screen. Follow the instructions on it and tell us everything about you sweat heart! Don't forget to upload a picture in jpg format. 
-- You will see a queue of pets that might be a perfect match for your pet after profile creation. Decide by yourself whether you like them or not. 
-- Then you're done! Chat freely with your favourite pet matches (don't forget to manually update your chat log by closing and reopening the chat screen to), check your pet's profile at your wish, and refresh the app by clicking the "Refresh" button. 
+- Go to src\main\java\ui\SignUpScreen.java, compile and run the program.
+- Create an account by entering your username and password and pressing the "Sign Up" button. Already have an account？ Press the "Log In" button and log in with your existing username and password.
+- After creating your account, you will be taken to the pet profile creation screen. Follow the instructions on it and tell us everything about you sweet heart! Don't forget to upload a picture in jpg format.
+- You will see a queue of pets that might be a perfect match for your pet after profile creation. Decide by yourself whether you like them or not.
+- Then you're done! Chat freely with your favourite pet matches (don't forget to manually update your chat log by closing and reopening the chat screen to display the chats), check your pet's profile at your wish, and refresh the app by clicking the "Refresh" button.
 - Enjoy your journey with Pawject L!

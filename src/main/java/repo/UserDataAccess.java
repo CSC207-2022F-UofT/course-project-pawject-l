@@ -34,7 +34,7 @@ public class UserDataAccess implements UserDataAccessInterface{
         fr.close();
         int i = 0;
         while (i + 5 <= value.size()) {
-            if (Objects.equals(value.get(i), id)) {
+            if (id.equals(value.get(i))) {
                 return new User(id, value.get(i + 1), value.get(i + 2), value.get(i + 3), value.get(i + 4));
             }
             i += 5;
@@ -57,7 +57,7 @@ public class UserDataAccess implements UserDataAccessInterface{
         fr.close();
         int i = 1;
         while (i + 4 <= value.size()){
-            if (Objects.equals(value.get(i), username)){
+            if (username.equals(value.get(i))){
                 return new User(value.get(i - 1), username, value.get(i + 1), value.get(i+2), value.get(i+3));
             }
             i += 5;
