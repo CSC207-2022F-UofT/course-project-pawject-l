@@ -20,7 +20,7 @@ public class AccountModel implements AccountInputBoundary{
      *
      * @return true if the password is valid, false otherwise.
      */
-    public boolean checkPasswordValid(AccountRequestModel requestModel) {
+    public boolean checkPasswordValid(AccountRequestModel1 requestModel) {
         String password = requestModel.getPassword();
         if (password.length() < 6) {
             return false;
@@ -50,7 +50,7 @@ public class AccountModel implements AccountInputBoundary{
      *
      * @return true if the given password matches the user's password, false otherwise.
      */
-    public boolean correctPassword(AccountRequestModel requestModel) throws IOException {
+    public boolean correctPassword(AccountRequestModel1 requestModel) throws IOException {
         User user = accountDsGateway.getUserByUsername(requestModel.getUsername());
         if (user.getPassword().equals(requestModel.getPassword())) {
             return true;
@@ -58,7 +58,7 @@ public class AccountModel implements AccountInputBoundary{
         return false;
     }
 
-    public boolean userExists(AccountRequestModel requestModel) throws IOException {
+    public boolean userExists(AccountRequestModel1 requestModel) throws IOException {
         if (!accountDsGateway.existsUsername(requestModel.getUsername())) {
             return false;
         }
