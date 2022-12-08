@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.time.DayOfWeek;
 
+
 public class Homescreen extends JFrame implements ActionListener {
 
     GeneralController generalCtrl;
@@ -35,7 +36,7 @@ public class Homescreen extends JFrame implements ActionListener {
 
     JButton likeButton = new JButton("Like");
     JButton dislikeButton = new JButton("Dislike");
-    JButton homeButton = new JButton("Home");
+    JButton homeButton = new JButton("Refresh");
     JButton chatButton = new JButton("Chat");
     JButton profileButton = new JButton("Profile");
     JButton logoutButton = new JButton("Logout");
@@ -96,7 +97,7 @@ public class Homescreen extends JFrame implements ActionListener {
                 }
                 curr++;
                 if (curr >= listOfPotentialMatches.getListOfPotentialMatches().length) {
-                    JOptionPane.showMessageDialog(null, "You have no matches yet!");
+                    JOptionPane.showMessageDialog(null, "You have no matches yet! Press the Refresh Button to refresh the screen.");
                 } else if (curr < listOfPotentialMatches.getListOfPotentialMatches().length) {
                     PreviewProfileScreen newCurrPet = new PreviewProfileScreen(
                             listOfPotentialMatches.getPetNameAt(curr),
@@ -138,7 +139,7 @@ public class Homescreen extends JFrame implements ActionListener {
                 }
                 curr++;
                 if (curr >= listOfPotentialMatches.getListOfPotentialMatches().length) {
-                   JOptionPane.showMessageDialog(null, "You have no matches yet!");
+                   JOptionPane.showMessageDialog(null, "You have no matches yet! Press the Refresh Button to refresh the screen.");
                 }
                 else {
                     PreviewProfileScreen newCurrPet = new PreviewProfileScreen(
@@ -171,7 +172,7 @@ public class Homescreen extends JFrame implements ActionListener {
             }
         });
         this.setVisible(true);
-        this.setBounds(500, 700, 500, 700);
+        this.setBounds(0, 0, 500, 700);
         this.setTitle("Home screen");
     }
     @Override

@@ -18,7 +18,7 @@ public class UserDataAccess implements UserDataAccessInterface{
      * 0,         1,         2,       3,           4
      */
     static String defaultReportCount = "0$0$0";
-    static String filename = "src/main/java/data/user.csv";
+    static String filename = "src/main/java/data/userData";
     @Override
     public User getUserById(String id) throws IOException {
         FileReader fr = new FileReader(filename);

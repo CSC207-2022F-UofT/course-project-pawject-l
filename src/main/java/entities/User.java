@@ -12,7 +12,6 @@ public class User {
     // changed from list to string
     private String petID;
     private String reportCount;
-    static UserDataAccessInterface um;
 
 
     /**
@@ -45,17 +44,13 @@ public class User {
         }
         return sb.toString();
     }
-    private String petIDGenerator() throws IOException {
-        String id = "PetID: " + (um.CountUser() + 1);
-        return id;
-    }
 
     public User(String user_id, String username, String password, String petID, String reportCount) {
         this.userID = user_id;
         this.password = password;
         this.username = username;
         this.petID = petID;
-
+        this.reportCount = reportCount;
     }
     public String getUserID() {
         return userID;
