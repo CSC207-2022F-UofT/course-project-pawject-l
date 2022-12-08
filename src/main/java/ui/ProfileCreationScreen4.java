@@ -17,6 +17,8 @@ import java.util.UUID;
 import controller.*;
 import repo.PetDataAccess;
 import repo.PetDataAccessInterface;
+import repo.UserDataAccess;
+import repo.UserDataAccessInterface;
 
 public class ProfileCreationScreen4 extends JFrame implements ActionListener {
     ProfileController profileController;
@@ -65,8 +67,6 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
     List<String> preferredBre;
     String preferredGen;
     List<Integer> preferredAgeRange;
-
-
 
 
     public void setLayoutManager() {

@@ -46,7 +46,7 @@ public class User {
         return sb.toString();
     }
     private String petIDGenerator() throws IOException {
-        String id = Integer.toString(um.CountUser());
+        String id = "PetID: " + (um.CountUser() + 1);
         return id;
     }
 
