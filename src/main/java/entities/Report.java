@@ -26,6 +26,17 @@ public class Report implements Serializable {
         types.put("TypeC", 2);
         }
     };
+
+    /**
+     * Default initializer for a report entity.
+     * @param a
+     * @param n
+     * @param petId
+     * @param chatID
+     * @param pm
+     * @param cm
+     * @throws IOException
+     */
     public Report(User a, String n, String petId, String chatID, PetDataAccessInterface pm, ChatDataAccessInterface cm) throws IOException {
         this.type = types.get(n);
         this.user = a;
@@ -34,12 +45,29 @@ public class Report implements Serializable {
         String[] str = user.getReportCount().split("\\$");
         this.reportCount = new int[]{Integer.parseInt(str[0]), Integer.parseInt(str[1]), Integer.parseInt((str[2]))};
     }
+
+    /**
+     * Type A report initializer.
+     * @param userID
+     * @param a
+     * @param um
+     * @throws IOException
+     */
     public Report(String userID, String a, UserDataAccessInterface um) throws IOException {
         this.type = types.get(a);
         this.user = um.getUserById(userID);
         String[] str = user.getReportCount().split("\\$");
         this.reportCount = new int[]{Integer.parseInt(str[0]), Integer.parseInt(str[1]), Integer.parseInt((str[2]))};
     }
+
+    /**
+     * Type B report initializer.
+     * @param petID
+     * @param b
+     * @param pm
+     * @param um
+     * @throws IOException
+     */
     public Report(String petID, String b, PetDataAccessInterface pm, UserDataAccessInterface um) throws IOException {
         this.type = types.get(b);
         this.pet = pm.getPetById(petID);
@@ -47,6 +75,16 @@ public class Report implements Serializable {
         String[] str = user.getReportCount().split("\\$");
         this.reportCount = new int[]{Integer.parseInt(str[0]), Integer.parseInt(str[1]), Integer.parseInt((str[2]))};
     }
+
+    /**
+     * Type C report Initializer.
+     * @param petID
+     * @param chatId
+     * @param c
+     * @param pm
+     * @param cm
+     * @throws IOException
+     */
     public Report(String petID, String chatId, String c, PetDataAccessInterface pm, ChatDataAccessInterface cm) throws IOException {
         this.pet = pm.getPetById(petID);
         this.type = types.get(c);
@@ -55,6 +93,10 @@ public class Report implements Serializable {
         this.reportCount = new int[]{Integer.parseInt(str[0]), Integer.parseInt(str[1]), Integer.parseInt((str[2]))};
     }
 
+    /**
+     * Punishes the target user according to the punishment type.
+     * @throws IOException
+     */
     private void punish() throws IOException {
         /** Need to work with UI to fully implement this method */
 //        if (type == 0) {
@@ -67,12 +109,21 @@ public class Report implements Serializable {
         return;
     }
 
+    /**
+     * Checks the report counts in the database. If the user is being reported for over three times then punish.
+     * @throws IOException
+     */
     private void checkCounts() throws IOException {
         if (this.reportCount[type] == 3){
             punish();
         };
         return;
         }
+
+    /**
+     * Accumulates the report count of the user. Calls checkCounts after each accumulation.
+     * @throws IOException
+     */
     public void report() throws IOException {
         reportCount[type] += 1;
         String str = reportCount[0] + "$" + reportCount[1] + "$" + reportCount[2];

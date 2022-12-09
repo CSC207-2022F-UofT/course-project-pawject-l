@@ -7,7 +7,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface UserDataAccessInterface {
-
+    /**
+     * Get User given a unique userID
+     * @param id
+     * @return user
+     * @throws IOException
+     */
     User getUserById(String id) throws IOException;
 
     /**
@@ -15,7 +20,7 @@ public interface UserDataAccessInterface {
      * Note: if we don't want a unique username, please comment out/delete this method
      * and the last method (existsUsername).
      * @param username
-     * @return
+     * @return user
      */
     User getUserByUsername(String username) throws IOException;
 
@@ -34,17 +39,27 @@ public interface UserDataAccessInterface {
      * @return true if username is already in use, false if not
      */
     boolean existsUsername(String username) throws IOException;
-    User getUserByPetID(String petID) throws IOException;
     /**
      * Get User given a unique petID.
-     * @param username
+     * @param petID
      * @return the user
      */
-    boolean deleteUser(String username) throws IOException;
+    User getUserByPetID(String petID) throws IOException;
+
     /**
-     * Delete the user.
+     * Deletes the user.
+     * @return true if the deletion is successful.
+     * @throws IOException
+     */
+    boolean deleteUser(String username) throws IOException;
+
+    /**
+     * Counts the number of the users in the database.
+     * @return the number of the users in the database
+     * @throws IOException
      */
     int CountUser() throws IOException;
+
 
     // Let me know if you would like other methods (e.g. to get a user by some other identifier).
 
