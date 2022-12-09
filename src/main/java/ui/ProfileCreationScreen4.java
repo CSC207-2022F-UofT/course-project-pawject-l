@@ -180,6 +180,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         if(evt.getSource() == submitProfileButton){
+            //checks if all sections are filled and show message asking for change if needed
             if (!checkFilled()){
                 JOptionPane.showMessageDialog(this, "Incomplete, please select at least one choice from all sections.");
             }
@@ -219,7 +220,7 @@ public class ProfileCreationScreen4 extends JFrame implements ActionListener {
                 }
 
                 /**
-                 Once all the user inputs are all converted into the data form needed to create a Pet object,
+                 Once all the user inputs are all converted into the data type needed to create a Pet object,
                  the UI will call the profile controller which calls the method to create new Pet and save it to the
                  database.
                  */

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+//This ProfileManager gets inputted data from user to create a new pet object and edit pet profile information
 public class ProfileManager implements ProfileInputBoundary {
 
     PetDataAccessInterface petDsGateway;
@@ -22,7 +23,7 @@ public class ProfileManager implements ProfileInputBoundary {
 
 
     /**
-     * Create a new pet and save all the information into the Pet database.
+     * Create a new Pet object and calls the savePet method to save all the information into the Pet database.
      */
     public void createNewProfile(ProfileRequestModel requestModel) throws IOException {
         Attributes attributes = new Attributes(requestModel.getSpecies(), requestModel.getBreed(), requestModel.getAge(), requestModel.getGender(), requestModel.getVaccineStatus());
@@ -153,21 +154,4 @@ public class ProfileManager implements ProfileInputBoundary {
         return petInfo;
     }
 
-    public HashMap<Object, List<Object>> getPetFullProfileData(String petID) throws IOException {
-        Pet userPet = petDsGateway.getPetById(petID);
-
-        HashMap<Object, List<Object>> petProfile = new HashMap<>();
-        petProfile.put(userPet, getProfileAllInfo(petID));
-
-        return petProfile;
-    }
-
-    public HashMap<Object, List<Object>> getPetProfilePreviewData(String petID) throws IOException {
-        Pet userPet = petDsGateway.getPetById(petID);
-
-        HashMap<Object, List<Object>> petProfile = new HashMap<>();
-        petProfile.put(userPet, getProfileAllInfo(petID).subList(0, 6));
-
-        return petProfile;
-    }
 }

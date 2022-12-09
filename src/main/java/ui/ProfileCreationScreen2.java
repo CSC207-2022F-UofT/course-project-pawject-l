@@ -19,8 +19,8 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
     /**
      This is the 2/4 page of the profile creation UI which is displayed after the signUpScreen.
      It asks the user to input information about their pet and checks if the user's inputs are acceptable.
-     The information gathered will be passed to the next profileCreation screen to accomplish the creation at the end
-     of the profileCreationScreen4.
+     The information gathered will be coverted to the appropriate type and passed to the next profileCreation screens
+     to accomplish the creation at the end of the profileCreationScreen4.
      */
 
     ProfileController profileController;
@@ -269,6 +269,7 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
+        //Allowing user to upload a proof of vaccine image using fileChooser, if they selected that the pet is vaccinated
         if (evt.getSource() == uploadVaccineImageButton) {
             if (Objects.equals(vaccineStatus.getSelectedItem().toString(),"Vaccinated")){
                 JFileChooser fileChooser = new JFileChooser();
@@ -291,6 +292,7 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
         }
 
         if(evt.getSource() == saveAndContinueButton){
+            //checks if all sections are filled and if the inputs are appropriate and show message asking  for changes if needed
             if (!checkFilled()){
                 JOptionPane.showMessageDialog(this, "Incomplete, please fill out all sections");
             }else if(!checkInputCorrect()){
@@ -303,7 +305,7 @@ public class ProfileCreationScreen2 extends JFrame implements ActionListener {
                 Float la = Float.valueOf(this.latitude.getText());
                 Float proximity = Float.valueOf(this.preferredProximity.getText());
 
-
+                //Creates the next screen and pass the inputted values along
                 ProfileCreationScreen3 PCS3 = new ProfileCreationScreen3(PetId,profileController, generalController, matchController,
                         accountController, chatController,vaccineSta, bio, lo, la,
                         proximity, name, species, breed, gender, age, petPhoto, vaccineImage);
