@@ -12,6 +12,13 @@ import java.util.Objects;
 import controller.*;
 
 public class ProfileCreationScreen3 extends JFrame implements ActionListener {
+    /**
+     This is the 3/4 page of the profile creation UI which is displayed after the signUpScreen.
+     It asks the user to input information about their pet and checks if the user's inputs are acceptable.
+     The information gathered will be coverted to the appropriate type and passed to the next profileCreation screen to
+     accomplish the creation at the end of the profileCreationScreen4.
+     */
+
     ProfileController profileController;
     ChatController chatController;
     MatchManagerController matchController;
@@ -245,6 +252,7 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         if(evt.getSource() == saveAndContinueButton){
+            //checks if all sections are filled and if the inputs are appropriate and show message asking  for changes if needed
             if (!checkFilled()){
                 JOptionPane.showMessageDialog(this, "Incomplete, please fill out all sections");
             }
@@ -252,6 +260,7 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this,"Ages must be numbers and the maximum age should be greater than or equal to the minimum age");
             }
             else{
+                //Convert input data into appropriate type
                 List<String> preferredSpec = new ArrayList<>();
                 for(JCheckBox p:preferredSpeciesChoices){
                     if (p.isSelected()){
@@ -275,6 +284,7 @@ public class ProfileCreationScreen3 extends JFrame implements ActionListener {
                 for(int i = min; i <= max; i ++){
                     preferredAgeRange.add(i);
                 }
+                //Creates the next screen and pass the inputted values along
                 ProfileCreationScreen4 PCS4 = new ProfileCreationScreen4(PetId, profileController, chatController, matchController,
                         accountController, generalController, vaccineSta, bio, lo, la, proximity, name, species,
                         breed, gender, age, petPhoto, vaccineImage, preferredSpec, preferredBre, preferredGen, preferredAgeRange);
